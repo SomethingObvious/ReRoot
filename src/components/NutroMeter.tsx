@@ -37,8 +37,8 @@ function Ring({ value, max, color, size = 72, stroke = 6 }: { value: number; max
 
 export default function NutroMeter() {
   return (
-    <div className="aero-card rounded-3xl p-4">
-      <div className="relative z-10">
+    <div className="aero-card rounded-3xl p-4 h-full flex flex-col">
+      <div className="relative z-10 flex-1 flex flex-col">
         <h3 className="text-sm font-outfit font-semibold text-foreground mb-4">Nutro-Meter</h3>
 
         {/* Macro rings */}

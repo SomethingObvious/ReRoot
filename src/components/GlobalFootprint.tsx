@@ -10,8 +10,8 @@ const origins = [
 
 export default function GlobalFootprint() {
   return (
-    <div className="aero-card rounded-3xl p-4">
-      <div className="relative z-10">
+    <div className="aero-card rounded-3xl p-4 h-full flex flex-col">
+      <div className="relative z-10 flex-1 flex flex-col">
         <div className="flex items-center gap-2 mb-1">
           <MapPin className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(139,92,246,0.3))" }} />
           <h3 className="text-sm font-outfit font-semibold text-foreground">Global Footprint</h3>
