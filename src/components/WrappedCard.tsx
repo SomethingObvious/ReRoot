@@ -22,7 +22,8 @@ export default function WrappedCard({ onClick }: Props) {
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.35) 45%, rgba(255,200,255,0.2) 50%, rgba(255,255,255,0.35) 55%, transparent 70%)",
+          background:
+            "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.35) 45%, rgba(255,200,255,0.2) 50%, rgba(255,255,255,0.35) 55%, transparent 70%)",
           backgroundSize: "200% 100%",
         }}
         animate={{ backgroundPosition: ["-100% 0%", "200% 0%"] }}
@@ -33,7 +34,8 @@ export default function WrappedCard({ onClick }: Props) {
       <motion.div
         className="absolute inset-0 pointer-events-none opacity-30"
         style={{
-          background: "linear-gradient(135deg, hsl(0 80% 70%), hsl(60 80% 70%), hsl(120 80% 70%), hsl(200 80% 70%), hsl(280 80% 70%))",
+          background:
+            "linear-gradient(135deg, hsl(0 80% 70%), hsl(60 80% 70%), hsl(120 80% 70%), hsl(200 80% 70%), hsl(280 80% 70%))",
           backgroundSize: "300% 300%",
           mixBlendMode: "overlay",
         }}
@@ -49,12 +51,8 @@ export default function WrappedCard({ onClick }: Props) {
               February Wrapped
             </span>
           </div>
-          <h3 className="text-lg font-outfit font-bold text-white leading-tight">
-            Your Month in Roots
-          </h3>
-          <p className="text-xs font-outfit text-white/70 mt-1">
-            See your stats, savings & surprises ✨
-          </p>
+          <h3 className="text-lg font-outfit font-bold text-white leading-tight">Your Month takes Root!</h3>
+          <p className="text-xs font-outfit text-white/70 mt-1">See your stats, savings & surprises ✨</p>
         </div>
         <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
           <ChevronRight className="w-5 h-5 text-white" />
