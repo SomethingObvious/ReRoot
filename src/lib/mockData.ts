@@ -84,14 +84,35 @@ export const REDEMPTION_OPTIONS = [
   { id: "r4", name: "Tree Planting", type: "charity", cost: 50, icon: "trees", description: "Plant a tree in your name" },
 ];
 
-export const FRIDGE_ITEMS = [
-  { name: "Baby Spinach", daysLeft: 2, category: "Produce", icon: "🥬" },
-  { name: "Chicken Breast", daysLeft: 3, category: "Meat", icon: "🍗" },
-  { name: "2% Milk", daysLeft: 5, category: "Dairy", icon: "🥛" },
-  { name: "Greek Yogurt", daysLeft: 7, category: "Dairy", icon: "🥛" },
-  { name: "Red Peppers", daysLeft: 4, category: "Produce", icon: "🫑" },
-  { name: "Cheddar Cheese", daysLeft: 14, category: "Dairy", icon: "🧀" },
-  { name: "Bananas", daysLeft: 2, category: "Produce", icon: "🍌" },
+export interface FridgeItem {
+  id: string;
+  name: string;
+  daysLeft: number;
+  totalDays: number;
+  category: string;
+  icon: string;
+  weight: string;
+  store: string;
+  purchaseDate: string;
+  price: number;
+  bestStart: string;
+  bestEnd: string;
+  useSoonStart: string;
+  useSoonEnd: string;
+  riskStart: string;
+  recipe: { title: string; description: string; prepTime: string };
+  storageTip: string;
+  remaining: number; // 0-100
+}
+
+export const FRIDGE_ITEMS: FridgeItem[] = [
+  { id: "f1", name: "Baby Spinach", daysLeft: 2, totalDays: 7, category: "Produce", icon: "🥬", weight: "312g", store: "Metro", purchaseDate: "Feb 20", price: 4.99, bestStart: "Feb 20", bestEnd: "Feb 24", useSoonStart: "Feb 25", useSoonEnd: "Feb 26", riskStart: "Feb 27", recipe: { title: "Spinach & Feta Omelette", description: "Whisk eggs, fold in spinach and crumbled feta. Season with nutmeg.", prepTime: "10 mins" }, storageTip: "Keep in original container. Place a dry paper towel inside to absorb moisture.", remaining: 75 },
+  { id: "f2", name: "Chicken Breast", daysLeft: 3, totalDays: 5, category: "Meat", icon: "🍗", weight: "500g", store: "Metro", purchaseDate: "Feb 21", price: 9.99, bestStart: "Feb 21", bestEnd: "Feb 24", useSoonStart: "Feb 25", useSoonEnd: "Feb 26", riskStart: "Feb 27", recipe: { title: "Honey Garlic Glaze", description: "Pan-sear chicken, then coat with honey, garlic & soy reduction.", prepTime: "20 mins" }, storageTip: "Store on the bottom shelf to prevent drips. Keep tightly sealed.", remaining: 100 },
+  { id: "f3", name: "2% Milk", daysLeft: 5, totalDays: 10, category: "Dairy", icon: "🥛", weight: "2L", store: "Loblaws", purchaseDate: "Feb 19", price: 5.29, bestStart: "Feb 19", bestEnd: "Feb 26", useSoonStart: "Feb 27", useSoonEnd: "Feb 28", riskStart: "Mar 1", recipe: { title: "Creamy Mushroom Soup", description: "Sauté mushrooms, add flour roux, then milk for a velvety soup.", prepTime: "25 mins" }, storageTip: "Always store at the back of the fridge where it's coldest, not in the door.", remaining: 60 },
+  { id: "f4", name: "Greek Yogurt", daysLeft: 7, totalDays: 14, category: "Dairy", icon: "🥛", weight: "750g", store: "Metro", purchaseDate: "Feb 18", price: 6.49, bestStart: "Feb 18", bestEnd: "Feb 28", useSoonStart: "Mar 1", useSoonEnd: "Mar 2", riskStart: "Mar 3", recipe: { title: "Berry Parfait Bowl", description: "Layer yogurt with granola, honey, and mixed berries.", prepTime: "5 mins" }, storageTip: "Keep sealed tightly. Stir if liquid separates on top—that's just whey.", remaining: 50 },
+  { id: "f5", name: "Red Peppers", daysLeft: 4, totalDays: 8, category: "Produce", icon: "🫑", weight: "2 pcs", store: "No Frills", purchaseDate: "Feb 20", price: 3.29, bestStart: "Feb 20", bestEnd: "Feb 26", useSoonStart: "Feb 27", useSoonEnd: "Feb 28", riskStart: "Mar 1", recipe: { title: "Stuffed Bell Peppers", description: "Fill halved peppers with rice, ground meat & cheese. Bake 25 mins.", prepTime: "35 mins" }, storageTip: "Store whole in the crisper drawer. Cut peppers spoil faster.", remaining: 100 },
+  { id: "f6", name: "Cheddar Cheese", daysLeft: 14, totalDays: 30, category: "Dairy", icon: "🧀", weight: "400g", store: "Metro", purchaseDate: "Feb 15", price: 7.99, bestStart: "Feb 15", bestEnd: "Mar 10", useSoonStart: "Mar 11", useSoonEnd: "Mar 14", riskStart: "Mar 15", recipe: { title: "Grilled Cheese Deluxe", description: "Sourdough, sharp cheddar, caramelized onions. Grill until golden.", prepTime: "15 mins" }, storageTip: "Wrap in wax paper, then plastic wrap. Never freeze if possible.", remaining: 80 },
+  { id: "f7", name: "Bananas", daysLeft: 2, totalDays: 5, category: "Produce", icon: "🍌", weight: "650g", store: "No Frills", purchaseDate: "Feb 21", price: 2.49, bestStart: "Feb 21", bestEnd: "Feb 24", useSoonStart: "Feb 25", useSoonEnd: "Feb 26", riskStart: "Feb 27", recipe: { title: "Banana Bread Classic", description: "Mash overripe bananas into batter with walnuts and cinnamon.", prepTime: "60 mins" }, storageTip: "Separate from other fruits. Wrap stems in plastic to slow ripening.", remaining: 100 },
 ];
 
 export const STATS_DATA = {
