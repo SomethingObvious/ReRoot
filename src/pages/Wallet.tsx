@@ -64,6 +64,7 @@ export default function Wallet() {
             <motion.button
               key={option.id}
               whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03, boxShadow: "0 14px 40px rgba(139,92,246,0.15)" }}
               onClick={() => handleRedeem(option)}
               className="glass-strong rounded-3xl p-4 text-left relative overflow-hidden"
               disabled={isDonating}

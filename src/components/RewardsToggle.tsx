@@ -11,22 +11,23 @@ export default function RewardsToggle() {
       className="glass-strong rounded-3xl p-5 overflow-hidden"
       animate={{
         background: isPublic
-          ? "linear-gradient(135deg, rgba(225,29,72,0.06) 0%, rgba(255,255,255,0.9) 100%)"
-          : "linear-gradient(135deg, rgba(100,116,139,0.06) 0%, rgba(255,255,255,0.9) 100%)",
+          ? "linear-gradient(135deg, rgba(139,92,246,0.08) 0%, rgba(217,70,239,0.05) 50%, rgba(245,240,255,0.55) 100%)"
+          : "linear-gradient(135deg, rgba(100,116,139,0.05) 0%, rgba(245,240,255,0.55) 100%)",
       }}
       transition={{ duration: 0.5 }}
     >
-      {/* Toggle track */}
       <div
         className="relative h-14 rounded-full bg-muted/60 cursor-pointer p-1"
         onClick={() => setIsPublic(!isPublic)}
       >
-        {/* Sliding thumb */}
         <motion.div
           layout
-          className={`absolute top-1 h-12 w-[calc(50%-4px)] rounded-full flex items-center justify-center gap-2 shadow-soft ${
-            isPublic ? "bg-primary" : "bg-white"
-          }`}
+          className="absolute top-1 h-12 w-[calc(50%-4px)] rounded-full flex items-center justify-center gap-2 shadow-soft"
+          style={isPublic ? {
+            background: "linear-gradient(180deg, hsl(258 80% 72%) 0%, hsl(258 90% 58%) 100%)",
+          } : {
+            background: "rgba(255,255,255,0.9)",
+          }}
           animate={{ x: isPublic ? "calc(100% + 8px)" : 0 }}
           transition={{ type: "spring", stiffness: 500, damping: 35 }}
         >
@@ -49,7 +50,6 @@ export default function RewardsToggle() {
           </span>
         </motion.div>
 
-        {/* Labels */}
         <div className="relative h-full flex">
           <div className="flex-1 flex items-center justify-center">
             <span className={`text-xs font-outfit ${isPublic ? "text-muted-foreground" : "opacity-0"}`}>
@@ -64,7 +64,6 @@ export default function RewardsToggle() {
         </div>
       </div>
 
-      {/* Info text */}
       <motion.div layout className="mt-3 flex items-center justify-between">
         <div>
           <p className="text-sm font-outfit font-semibold text-foreground">
@@ -79,7 +78,7 @@ export default function RewardsToggle() {
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           className={`px-3 py-1 rounded-full text-xs font-outfit font-medium ${
             isPublic
-              ? "bg-primary/10 text-primary"
+              ? "bg-primary/15 text-primary"
               : "bg-muted text-muted-foreground"
           }`}
         >

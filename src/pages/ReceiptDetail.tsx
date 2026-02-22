@@ -25,7 +25,6 @@ export default function ReceiptDetail() {
       transition={{ type: "spring", stiffness: 300, damping: 30 }}
       className="px-5 pt-14 pb-32 max-w-lg mx-auto"
     >
-      {/* Back button */}
       <motion.button
         whileTap={{ scale: 0.9 }}
         onClick={() => navigate(-1)}
@@ -34,7 +33,6 @@ export default function ReceiptDetail() {
         <ArrowLeft className="w-5 h-5 text-muted-foreground" />
       </motion.button>
 
-      {/* Receipt with paper texture feel */}
       <div className="relative">
         <div
           className="absolute inset-0 rounded-t-3xl opacity-[0.03] pointer-events-none"
@@ -45,7 +43,6 @@ export default function ReceiptDetail() {
         <ReceiptTicket receipt={receipt} full />
       </div>
 
-      {/* Report button */}
       <motion.button
         whileTap={{ scale: 0.95 }}
         onClick={() =>
@@ -53,7 +50,7 @@ export default function ReceiptDetail() {
             description: "We'll review this receipt within 24 hours.",
           })
         }
-        className="mt-6 w-full py-3.5 glass-strong rounded-3xl flex items-center justify-center gap-2 text-sm font-outfit font-medium text-muted-foreground"
+        className="mt-6 w-full py-3.5 btn-gel rounded-full flex items-center justify-center gap-2 text-sm font-outfit font-medium"
       >
         <Flag className="w-4 h-4" />
         Report Issue

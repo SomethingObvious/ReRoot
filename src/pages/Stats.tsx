@@ -41,7 +41,8 @@ export default function Stats() {
           {STATS_DATA.weeklySpend.map((val, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
               <motion.div
-                className="w-full rounded-xl bg-primary/80"
+                className="w-full rounded-xl"
+                style={{ background: "linear-gradient(180deg, hsl(258 80% 72%), hsl(258 90% 58%))" }}
                 initial={{ height: 0 }}
                 animate={{ height: `${(val / max) * 100}%` }}
                 transition={{ duration: 0.6, delay: 0.1 * i, ease: "easeOut" }}
@@ -63,7 +64,8 @@ export default function Stats() {
               </div>
               <div className="h-2 rounded-full bg-muted overflow-hidden">
                 <motion.div
-                  className="h-full rounded-full bg-primary"
+                  className="h-full rounded-full"
+                  style={{ background: "linear-gradient(90deg, hsl(258 80% 72%), hsl(292 84% 61%))" }}
                   initial={{ width: 0 }}
                   animate={{ width: `${cat.pct}%` }}
                   transition={{ duration: 0.8, ease: "easeOut" }}

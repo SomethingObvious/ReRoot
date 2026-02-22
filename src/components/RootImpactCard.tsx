@@ -9,6 +9,8 @@ export default function RootImpactCard() {
     <motion.div
       layout
       className="glass-strong rounded-3xl p-5 relative overflow-hidden"
+      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(139,92,246,0.18)" }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
       onHoverStart={() => setShowTooltip(true)}
       onHoverEnd={() => setShowTooltip(false)}
       onTap={() => setShowTooltip((v) => !v)}
@@ -50,8 +52,8 @@ export default function RootImpactCard() {
             <p className="text-[10px] font-outfit text-muted-foreground">CO₂e Reduced</p>
           </div>
         </div>
-        <div className="flex-1 bg-accent/30 rounded-2xl px-3 py-2.5 flex items-center gap-2">
-          <Droplets className="w-4 h-4 text-accent" />
+        <div className="flex-1 bg-primary/8 rounded-2xl px-3 py-2.5 flex items-center gap-2">
+          <Droplets className="w-4 h-4 text-primary" />
           <div>
             <p className="text-xs font-outfit font-semibold text-foreground">450 L</p>
             <p className="text-[10px] font-outfit text-muted-foreground">Water Saved</p>
@@ -65,7 +67,8 @@ export default function RootImpactCard() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
-            className="absolute top-2 right-2 bg-earth text-earth-foreground text-[11px] font-outfit px-3 py-2 rounded-2xl shadow-deep max-w-[200px]"
+            className="absolute top-2 right-2 text-primary-foreground text-[11px] font-outfit px-3 py-2 rounded-2xl shadow-deep max-w-[200px]"
+            style={{ background: "linear-gradient(135deg, hsl(258 90% 55%), hsl(292 84% 50%))" }}
           >
             Based on your average consumption vs. spoil rate.
           </motion.div>

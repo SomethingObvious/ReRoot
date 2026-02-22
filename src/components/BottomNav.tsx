@@ -34,11 +34,15 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
             return (
               <div key="scan" className="relative -mt-8 mx-1">
                 <motion.button
-                  whileTap={{ scale: 0.9 }}
+                  whileTap={{ scale: 0.85 }}
                   onClick={onScanClick}
-                  className="relative w-16 h-16 rounded-full bg-primary flex items-center justify-center shadow-deep animate-pulse-glow"
+                  className="relative w-16 h-16 rounded-full flex items-center justify-center animate-pulse-glow"
+                  style={{
+                    background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9) 0%, hsl(258 90% 66%) 40%, hsl(270 90% 40%) 100%)",
+                    boxShadow: "inset 0 2px 6px rgba(255,255,255,0.5), 0 0 25px rgba(139,92,246,0.4)",
+                  }}
                 >
-                  <ScanLine className="w-7 h-7 text-primary-foreground" />
+                  <ScanLine className="w-7 h-7 text-primary-foreground drop-shadow-sm" />
                 </motion.button>
                 <span className="text-[10px] font-medium text-muted-foreground text-center block mt-1">
                   Scan
@@ -59,12 +63,14 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
                   layoutId="nav-indicator"
                   className="absolute inset-0 bg-primary/10 rounded-2xl"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  style={{ boxShadow: "0 0 12px rgba(139,92,246,0.15)" }}
                 />
               )}
               <tab.icon
                 className={`w-5 h-5 transition-colors ${
-                  isActive ? "text-primary" : "text-muted-foreground"
+                  isActive ? "text-primary drop-shadow-sm" : "text-muted-foreground"
                 }`}
+                style={isActive ? { filter: "drop-shadow(0 0 4px rgba(139,92,246,0.4))" } : {}}
               />
               <span
                 className={`text-[10px] font-medium mt-0.5 transition-colors ${

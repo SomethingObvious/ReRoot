@@ -8,7 +8,7 @@ const fadeUp = {
 };
 
 function urgencyColor(daysLeft: number) {
-  if (daysLeft <= 2) return "text-primary bg-primary/10";
+  if (daysLeft <= 2) return "text-destructive bg-destructive/10";
   if (daysLeft <= 4) return "text-amber-600 bg-amber-50";
   return "text-success bg-success/10";
 }
@@ -36,6 +36,7 @@ export default function Fridge() {
             key={item.name}
             variants={fadeUp}
             whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.02, boxShadow: "0 14px 40px rgba(139,92,246,0.15)" }}
             className="glass-strong rounded-3xl p-4 flex items-center gap-4"
           >
             <span className="text-2xl">{item.icon}</span>
