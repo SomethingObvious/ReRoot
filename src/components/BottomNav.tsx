@@ -32,7 +32,7 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
 
           if (isScan) {
             return (
-              <div key="scan" className="relative -mt-8 mx-1">
+              <div key="scan" className="relative flex-1 flex flex-col items-center -mt-8">
                 <motion.button
                   whileTap={{ scale: 0.85 }}
                   onClick={onScanClick}
