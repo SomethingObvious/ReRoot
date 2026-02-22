@@ -176,18 +176,20 @@ export default function WrappedStory({ onClose }: Props) {
             whileHover={{ scale: 1.25 }}
             whileTap={{ scale: 0.9 }}
             onClick={(e) => { e.stopPropagation(); handleShare(); }}
-            className="w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors"
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 transition-all"
             style={{
               background: "rgba(255,255,255,0.15)",
-              borderColor: "rgba(255,255,255,0.25)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderImage = "linear-gradient(135deg, #E1306C, #F77737, #FCAF45) 1";
-              e.currentTarget.style.borderImageSlice = "1";
+              e.currentTarget.style.borderColor = "transparent";
+              e.currentTarget.style.backgroundImage = "linear-gradient(rgba(255,255,255,0.15), rgba(255,255,255,0.15)), linear-gradient(135deg, #E1306C, #F77737, #FCAF45)";
+              e.currentTarget.style.backgroundOrigin = "border-box";
+              e.currentTarget.style.backgroundClip = "padding-box, border-box";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderImage = "none";
               e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+              e.currentTarget.style.backgroundImage = "none";
+              e.currentTarget.style.backgroundClip = "unset";
             }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
