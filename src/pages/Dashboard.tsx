@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import RewardsToggle from "@/components/RewardsToggle";
 import RootImpactCard from "@/components/RootImpactCard";
 import WeeklySpendChart from "@/components/WeeklySpendChart";
+import NutroMeter from "@/components/NutroMeter";
+import GlobalFootprint from "@/components/GlobalFootprint";
+import StoreLoyalty from "@/components/StoreLoyalty";
 import WrappedCard from "@/components/WrappedCard";
 import WrappedStory from "@/components/WrappedStory";
 import { RECEIPT_HISTORY } from "@/lib/mockData";
@@ -57,9 +60,22 @@ export default function Dashboard() {
           <RootImpactCard />
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mb-6">
+        <motion.div variants={fadeUp} className="mb-4">
           <WeeklySpendChart />
         </motion.div>
+
+        <motion.div variants={fadeUp} className="mb-4">
+          <NutroMeter />
+        </motion.div>
+
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <motion.div variants={fadeUp}>
+            <GlobalFootprint />
+          </motion.div>
+          <motion.div variants={fadeUp}>
+            <StoreLoyalty />
+          </motion.div>
+        </div>
 
         <motion.div variants={fadeUp}>
           <h2 className="text-sm font-outfit font-semibold text-foreground mb-3">Recent Receipts</h2>
