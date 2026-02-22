@@ -54,6 +54,7 @@ export default function Dashboard() {
             <motion.div
               key={receipt.id}
               whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02, boxShadow: "0 14px 40px rgba(139,92,246,0.15)" }}
               onClick={() => navigate(`/receipt/${receipt.id}`)}
               className="glass-strong rounded-3xl p-4 flex items-center justify-between cursor-pointer"
             >

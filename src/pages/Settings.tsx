@@ -85,9 +85,12 @@ export default function Settings() {
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => toggleWatch(item.id)}
-                className={`w-12 h-7 rounded-full flex items-center px-1 transition-colors ${
-                  item.enabled ? "bg-success" : "bg-muted"
-                }`}
+                className="w-12 h-7 rounded-full flex items-center px-1 transition-colors"
+                style={{
+                  background: item.enabled
+                    ? "linear-gradient(180deg, hsl(258 80% 72%), hsl(258 90% 58%))"
+                    : "hsl(270 25% 93%)",
+                }}
               >
                 <motion.div
                   className="w-5 h-5 rounded-full bg-card shadow-sm"
