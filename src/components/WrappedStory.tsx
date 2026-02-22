@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Volume2, VolumeX, Share2, Trophy } from "lucide-react";
+import { X, Volume2, VolumeX, Share2, Trophy, Upload, Ghost, Music } from "lucide-react";
 import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer,
 } from "recharts";
@@ -98,6 +98,25 @@ export default function WrappedStory({ onClose }: Props) {
       className="fixed inset-0 z-[100] flex flex-col"
       style={{ background: slideGradients[current] }}
     >
+      {/* Fixed background bubbles for blur effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full"
+            style={{
+              width: 80 + i * 30,
+              height: 80 + i * 30,
+              left: `${10 + (i * 13) % 80}%`,
+              top: `${10 + (i * 17) % 70}%`,
+              background: `radial-gradient(circle, rgba(255,255,255,0.08), transparent)`,
+            }}
+            animate={{ y: [0, -30, 0], x: [0, 15, 0] }}
+            transition={{ duration: 4 + i, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
+          />
+        ))}
+      </div>
+
       {/* Progress bars */}
       <div className="flex gap-1 px-4 pt-4 pb-2 relative z-20">
         {Array.from({ length: total }).map((_, i) => (
@@ -134,8 +153,86 @@ export default function WrappedStory({ onClose }: Props) {
           {current === 1 && <Slide1 key="s1" />}
           {current === 2 && <Slide2 key="s2" />}
           {current === 3 && <Slide3 key="s3" />}
-          {current === 4 && <Slide4 key="s4" onShare={handleShare} />}
+          {current === 4 && <Slide4 key="s4" />}
         </AnimatePresence>
+      </div>
+
+      {/* Glass Dock – Social Share */}
+      <div
+        className="relative z-30 px-6 py-4 border-t border-white/30"
+        style={{
+          background: "rgba(255,255,255,0.20)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          boxShadow: "0 -10px 40px rgba(255,255,255,0.15), inset 0 1px 0 rgba(255,255,255,0.3)",
+        }}
+      >
+        <p className="text-[10px] font-outfit font-semibold text-white/50 uppercase tracking-widest text-center mb-3">
+          Share your Wrapped
+        </p>
+        <div className="flex items-center justify-center gap-5">
+          {/* Instagram */}
+          <motion.button
+            whileHover={{ scale: 1.25 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => { e.stopPropagation(); handleShare(); }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors"
+            style={{
+              background: "rgba(255,255,255,0.15)",
+              borderColor: "rgba(255,255,255,0.25)",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderImage = "linear-gradient(135deg, #E1306C, #F77737, #FCAF45) 1";
+              e.currentTarget.style.borderImageSlice = "1";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderImage = "none";
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" />
+              <circle cx="12" cy="12" r="5" />
+              <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none" />
+            </svg>
+          </motion.button>
+
+          {/* TikTok */}
+          <motion.button
+            whileHover={{ scale: 1.25 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => { e.stopPropagation(); handleShare(); }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 group relative overflow-hidden"
+            style={{ background: "rgba(255,255,255,0.15)" }}
+          >
+            <Music className="w-5 h-5 text-white relative z-10" />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ background: "linear-gradient(135deg, #00f2ea, #000, #ff0050)", mixBlendMode: "overlay" }}
+            />
+          </motion.button>
+
+          {/* Snapchat */}
+          <motion.button
+            whileHover={{ scale: 1.25 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => { e.stopPropagation(); handleShare(); }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 hover:border-yellow-300/60 hover:bg-yellow-400/20 transition-colors"
+            style={{ background: "rgba(255,255,255,0.15)" }}
+          >
+            <Ghost className="w-5 h-5 text-white" />
+          </motion.button>
+
+          {/* Native Share */}
+          <motion.button
+            whileHover={{ scale: 1.25 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={(e) => { e.stopPropagation(); handleShare(); }}
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 hover:border-white/50 hover:bg-white/20 transition-colors"
+            style={{ background: "rgba(255,255,255,0.15)" }}
+          >
+            <Upload className="w-5 h-5 text-white" />
+          </motion.button>
+        </div>
       </div>
     </motion.div>
   );
@@ -323,7 +420,7 @@ function Slide3() {
 }
 
 /* ─── Slide 4: The Funny Stat ─── */
-function Slide4({ onShare }: { onShare: () => void }) {
+function Slide4() {
   return (
     <motion.div
       initial="hidden" animate="show" exit={{ opacity: 0, scale: 0.95 }}
@@ -348,7 +445,7 @@ function Slide4({ onShare }: { onShare: () => void }) {
         The Moment of Truth
       </motion.p>
       <motion.h1 custom={1} variants={textFadeUp} className="text-4xl font-outfit font-extrabold text-white mb-2 relative z-10">
-        Cheesus Christ! 🧀
+        Gouda Vibes Only 🧀
       </motion.h1>
       <motion.p custom={2} variants={textFadeUp} className="text-lg font-outfit text-white/80 mb-2 relative z-10">
         You bought <span className="font-bold text-white">2.4kg of Cheese</span> this month.
@@ -356,22 +453,13 @@ function Slide4({ onShare }: { onShare: () => void }) {
 
       <motion.div
         custom={3} variants={textFadeUp}
-        className="flex items-center gap-2 rounded-2xl bg-white/15 backdrop-blur px-5 py-3 border border-white/20 mb-6 relative z-10"
+        className="flex items-center gap-2 rounded-2xl bg-white/15 backdrop-blur px-5 py-3 border border-white/20 relative z-10"
       >
         <Trophy className="w-5 h-5 text-yellow-300" />
         <p className="text-sm font-outfit text-white/90">
           You are the <span className="font-extrabold text-yellow-300">#2 Buyer of Cheese</span> on Reroot
         </p>
       </motion.div>
-
-      <motion.button
-        custom={4} variants={textFadeUp}
-        whileTap={{ scale: 0.95 }}
-        onClick={(e) => { e.stopPropagation(); onShare(); }}
-        className="relative z-10 btn-gel rounded-full px-8 py-3 flex items-center gap-2 text-sm font-outfit font-semibold"
-      >
-        <Share2 className="w-4 h-4" /> Share This
-      </motion.button>
     </motion.div>
   );
 }
