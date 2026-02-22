@@ -4,6 +4,7 @@ import { Settings } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import RewardsToggle from "@/components/RewardsToggle";
 import RootImpactCard from "@/components/RootImpactCard";
+import WeeklySpendChart from "@/components/WeeklySpendChart";
 import WrappedCard from "@/components/WrappedCard";
 import WrappedStory from "@/components/WrappedStory";
 import { RECEIPT_HISTORY } from "@/lib/mockData";
@@ -52,8 +53,12 @@ export default function Dashboard() {
           <RewardsToggle />
         </motion.div>
 
-        <motion.div variants={fadeUp} className="mb-6">
+        <motion.div variants={fadeUp} className="mb-4">
           <RootImpactCard />
+        </motion.div>
+
+        <motion.div variants={fadeUp} className="mb-6">
+          <WeeklySpendChart />
         </motion.div>
 
         <motion.div variants={fadeUp}>

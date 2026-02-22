@@ -182,9 +182,9 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining }: P
                 <div className="flex items-center gap-4 mb-2">
                   <Slider
                     value={[item.remaining]}
-                    onValueChange={([v]) => onUpdateRemaining(item.id, v)}
+                    onValueChange={([v]) => onUpdateRemaining(item.id, Math.round(v / 5) * 5)}
                     max={100}
-                    step={25}
+                    step={1}
                     className="flex-1"
                   />
                   <span className="text-sm font-outfit font-bold text-foreground w-12 text-right">{item.remaining}%</span>
