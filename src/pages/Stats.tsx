@@ -2,9 +2,22 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { TrendingDown, TrendingUp, AlertTriangle, ChevronRight, Dna } from "lucide-react";
 import {
-  AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer,
-  BarChart, Bar, Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
-  LineChart, Line, Legend,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  LineChart,
+  Line,
+  Legend,
 } from "recharts";
 import WeeklySpendChart from "@/components/WeeklySpendChart";
 import NutroMeter from "@/components/NutroMeter";
@@ -58,7 +71,9 @@ function GlassTooltip({ active, payload, label }: any) {
     <div className="glass rounded-xl px-3 py-1.5 text-[10px] font-outfit font-semibold text-foreground shadow-lg">
       <p className="mb-0.5">{label}</p>
       {payload.map((p: any) => (
-        <p key={p.dataKey} style={{ color: p.color }}>{p.name}: {p.value}</p>
+        <p key={p.dataKey} style={{ color: p.color }}>
+          {p.name}: {p.value}
+        </p>
       ))}
     </div>
   );
@@ -84,7 +99,7 @@ export default function Stats() {
       <motion.div variants={fadeUp} className="grid grid-cols-3 gap-2 mb-4">
         {[
           { label: "This Month", value: `$${STATS_DATA.monthlyTotal}` },
-          { label: "Avg / Trip", value: `$${STATS_DATA.avgPerTrip}` },
+          { label: "Avg / Trip", value: `$${STATS_DATA.avgPerTrip.toFixed(2)}` },
           { label: "Trips", value: `${STATS_DATA.tripsThisMonth}` },
         ].map((s) => (
           <div key={s.label} className="aero-card rounded-2xl p-3 text-center overflow-hidden">
@@ -121,7 +136,12 @@ export default function Stats() {
           <div className="h-[130px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={macroWeeks} barGap={1}>
-                <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 50%)" }} />
+                <XAxis
+                  dataKey="week"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 50%)" }}
+                />
                 <YAxis hide />
                 <Tooltip content={<GlassTooltip />} cursor={false} />
                 <Bar dataKey="protein" stackId="a" fill="hsl(258 80% 60%)" radius={[0, 0, 0, 0]} name="Protein" />
@@ -148,9 +168,19 @@ export default function Stats() {
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="70%">
                 <PolarGrid stroke="hsl(260 20% 85%)" />
-                <PolarAngleAxis dataKey="nutrient" tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 45%)" }} />
+                <PolarAngleAxis
+                  dataKey="nutrient"
+                  tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 45%)" }}
+                />
                 <PolarRadiusAxis tick={false} axisLine={false} domain={[0, 130]} />
-                <Radar name="Recommended" dataKey="recommended" stroke="hsl(260 20% 70%)" fill="hsl(260 20% 80%)" fillOpacity={0.15} strokeDasharray="4 4" />
+                <Radar
+                  name="Recommended"
+                  dataKey="recommended"
+                  stroke="hsl(260 20% 70%)"
+                  fill="hsl(260 20% 80%)"
+                  fillOpacity={0.15}
+                  strokeDasharray="4 4"
+                />
                 <Radar name="You" dataKey="you" stroke="hsl(142 71% 45%)" fill="hsl(142 71% 45%)" fillOpacity={0.25} />
               </RadarChart>
             </ResponsiveContainer>
@@ -165,7 +195,10 @@ export default function Stats() {
               <span className="text-[9px] font-outfit text-muted-foreground">Recommended</span>
             </div>
           </div>
-          <div className="flex items-center gap-1 mt-2 px-2 py-1.5 rounded-lg" style={{ background: "hsl(0 84% 55% / 0.08)" }}>
+          <div
+            className="flex items-center gap-1 mt-2 px-2 py-1.5 rounded-lg"
+            style={{ background: "hsl(0 84% 55% / 0.08)" }}
+          >
             <AlertTriangle className="w-3 h-3 flex-shrink-0" style={{ color: "hsl(0 84% 55%)" }} />
             <span className="text-[9px] font-outfit font-semibold" style={{ color: "hsl(0 84% 55%)" }}>
               Low Iron detected in 3 recent shops
@@ -182,11 +215,31 @@ export default function Stats() {
           <div className="h-[130px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={inflationData}>
-                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 50%)" }} />
+                <XAxis
+                  dataKey="month"
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 50%)" }}
+                />
                 <YAxis hide domain={["dataMin - 20", "dataMax + 10"]} />
                 <Tooltip content={<GlassTooltip />} cursor={false} />
-                <Line type="monotone" dataKey="avg" stroke="hsl(0 84% 55%)" strokeWidth={1.5} dot={false} name="National Avg" strokeDasharray="4 4" />
-                <Line type="monotone" dataKey="you" stroke="hsl(142 71% 45%)" strokeWidth={2} dot={false} name="Your Basket" />
+                <Line
+                  type="monotone"
+                  dataKey="avg"
+                  stroke="hsl(0 84% 55%)"
+                  strokeWidth={1.5}
+                  dot={false}
+                  name="National Avg"
+                  strokeDasharray="4 4"
+                />
+                <Line
+                  type="monotone"
+                  dataKey="you"
+                  stroke="hsl(142 71% 45%)"
+                  strokeWidth={2}
+                  dot={false}
+                  name="Your Basket"
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -196,11 +249,17 @@ export default function Stats() {
               <span className="text-[9px] font-outfit text-muted-foreground">You</span>
             </div>
             <div className="flex items-center gap-1">
-              <div className="w-3 h-0.5 rounded-full border-t border-dashed" style={{ borderColor: "hsl(0 84% 55%)" }} />
+              <div
+                className="w-3 h-0.5 rounded-full border-t border-dashed"
+                style={{ borderColor: "hsl(0 84% 55%)" }}
+              />
               <span className="text-[9px] font-outfit text-muted-foreground">National Avg</span>
             </div>
           </div>
-          <div className="flex items-center gap-1 px-2 py-1.5 rounded-lg" style={{ background: "hsl(142 71% 45% / 0.08)" }}>
+          <div
+            className="flex items-center gap-1 px-2 py-1.5 rounded-lg"
+            style={{ background: "hsl(142 71% 45% / 0.08)" }}
+          >
             <TrendingDown className="w-3 h-3" style={{ color: "hsl(142 71% 45%)" }} />
             <span className="text-[9px] font-outfit font-semibold" style={{ color: "hsl(142 71% 45%)" }}>
               You beat inflation by 4.2% this month!
@@ -235,9 +294,16 @@ export default function Stats() {
                   )}
                 </div>
                 <span className="text-[11px] font-outfit font-bold text-foreground">${p.spent}</span>
-                <span className="text-[9px] font-outfit font-semibold" style={{
-                  color: p.trend.startsWith("+") ? "hsl(0 84% 55%)" : p.trend.startsWith("-") ? "hsl(142 71% 45%)" : "hsl(260 20% 60%)"
-                }}>
+                <span
+                  className="text-[9px] font-outfit font-semibold"
+                  style={{
+                    color: p.trend.startsWith("+")
+                      ? "hsl(0 84% 55%)"
+                      : p.trend.startsWith("-")
+                        ? "hsl(142 71% 45%)"
+                        : "hsl(260 20% 60%)",
+                  }}
+                >
                   {p.trend}
                 </span>
                 <ChevronRight className="w-3 h-3 text-muted-foreground" />
