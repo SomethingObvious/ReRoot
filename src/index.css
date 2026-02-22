@@ -178,6 +178,17 @@
     position: relative;
   }
 
+  @keyframes shimmer {
+    0% { background-position: 100% 0%; }
+    100% { background-position: -100% 0%; }
+  }
+
+  @keyframes iridescence {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
+
   @keyframes sway {
     0%, 100% { transform: rotate(-3deg); }
     50% { transform: rotate(3deg); }
