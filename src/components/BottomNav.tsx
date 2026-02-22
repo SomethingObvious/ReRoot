@@ -36,13 +36,15 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
                 <motion.button
                   whileTap={{ scale: 0.85 }}
                   onClick={onScanClick}
-                  className="relative w-16 h-16 rounded-full flex items-center justify-center animate-pulse-glow"
+                  className="relative w-16 h-16 rounded-full flex items-center justify-center border-2 border-white/50"
                   style={{
-                    background: "radial-gradient(circle at 35% 35%, rgba(255,255,255,0.9) 0%, hsl(258 90% 66%) 40%, hsl(270 90% 40%) 100%)",
-                    boxShadow: "inset 0 2px 6px rgba(255,255,255,0.5), 0 0 25px rgba(139,92,246,0.4)",
+                    background: "rgba(255,255,255,0.30)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    boxShadow: "inset 0 1px 2px rgba(255,255,255,0.5), 0 4px 16px rgba(139,92,246,0.10)",
                   }}
                 >
-                  <ScanLine className="w-7 h-7 text-primary-foreground drop-shadow-sm" />
+                  <ScanLine className="w-7 h-7 text-primary drop-shadow-sm" />
                 </motion.button>
                 <span className="text-[10px] font-medium text-muted-foreground text-center block mt-1">
                   Scan
