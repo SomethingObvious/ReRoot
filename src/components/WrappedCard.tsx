@@ -19,28 +19,24 @@ export default function WrappedCard({ onClick }: Props) {
       }}
     >
       {/* Holographic foil shimmer */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
+      <div
+        className="absolute inset-0 pointer-events-none animate-[shimmer_4s_ease-in-out_infinite]"
         style={{
           background:
             "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.35) 45%, rgba(255,200,255,0.2) 50%, rgba(255,255,255,0.35) 55%, transparent 70%)",
           backgroundSize: "200% 100%",
         }}
-        animate={{ backgroundPosition: ["-100% 0%", "200% 0%"] }}
-        transition={{ duration: 3, repeat: Infinity, repeatDelay: 1.5, ease: "easeInOut" }}
       />
 
       {/* Rainbow iridescence */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none opacity-30"
+      <div
+        className="absolute inset-0 pointer-events-none opacity-30 animate-[iridescence_6s_linear_infinite]"
         style={{
           background:
             "linear-gradient(135deg, hsl(0 80% 70%), hsl(60 80% 70%), hsl(120 80% 70%), hsl(200 80% 70%), hsl(280 80% 70%))",
           backgroundSize: "300% 300%",
           mixBlendMode: "overlay",
         }}
-        animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
       />
 
       <div className="relative z-10 flex items-center justify-between">
