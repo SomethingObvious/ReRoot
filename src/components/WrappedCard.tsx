@@ -51,7 +51,7 @@ export default function WrappedCard({ onClick }: Props) {
               February Wrapped
             </span>
           </div>
-          <h3 className="text-lg font-outfit font-bold text-white leading-tight">Your Month takes Root!</h3>
+          <h3 className="text-lg font-outfit font-bold text-white leading-tight">Your Month Takes Root!</h3>
           <p className="text-xs font-outfit text-white/70 mt-1">See your stats, savings & surprises ✨</p>
         </div>
         <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
