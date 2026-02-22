@@ -176,7 +176,7 @@ export default function WrappedStory({ onClose }: Props) {
             whileHover={{ scale: 1.25 }}
             whileTap={{ scale: 0.9 }}
             onClick={(e) => { e.stopPropagation(); handleShare(); }}
-            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 transition-all"
+            className="w-12 h-12 rounded-full flex items-center justify-center border-2 border-white/25 transition-colors duration-150"
             style={{
               background: "rgba(255,255,255,0.15)",
             }}
