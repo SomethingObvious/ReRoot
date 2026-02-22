@@ -62,9 +62,10 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
             >
               {isActive && (
                 <motion.div
-                  layoutId="nav-indicator"
                   className="absolute inset-0 bg-primary/10 rounded-2xl"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2 }}
                   style={{ boxShadow: "0 0 12px rgba(139,92,246,0.15)" }}
                 />
               )}
