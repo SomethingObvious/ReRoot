@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Camera, Scan } from "lucide-react";
+import { X, Camera, Scan, Zap, ZapOff, Sun, Contrast } from "lucide-react";
 import confetti from "canvas-confetti";
 import { scanReceipt } from "@/lib/api";
 import type { Receipt } from "@/lib/mockData";
@@ -62,6 +62,11 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
   const [processingText, setProcessingText] = useState(0);
   const [result, setResult] = useState<Receipt | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [autoDetect, setAutoDetect] = useState(true);
+  const [flash, setFlash] = useState(false);
+  const [brightness, setBrightness] = useState(50);
+  const [contrast, setContrast] = useState(50);
+  const [slidersActive, setSlidersActive] = useState(false);
 
   const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -121,6 +126,37 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
             </motion.button>
           </div>
 
+          {/* Pro Mode Top Bar */}
+          {stage === "viewfinder" && (
+            <div className="flex items-center justify-between px-5 py-2">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setAutoDetect(!autoDetect)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-outfit font-semibold"
+                style={{
+                  background: autoDetect ? "hsl(142 71% 45% / 0.2)" : "hsl(0 0% 100% / 0.1)",
+                  color: autoDetect ? "hsl(142 71% 60%)" : "hsl(0 0% 70%)",
+                }}
+              >
+                <div className="w-2 h-2 rounded-full" style={{ background: autoDetect ? "hsl(142 71% 55%)" : "hsl(0 0% 50%)" }} />
+                Auto-Detect
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setFlash(!flash)}
+                className="w-9 h-9 rounded-full flex items-center justify-center"
+                style={{
+                  background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)",
+                }}
+              >
+                {flash
+                  ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
+                  : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />
+                }
+              </motion.button>
+            </div>
+          )}
+
           {/* Content */}
           <div className="flex-1 flex flex-col items-center justify-center px-6">
             <AnimatePresence mode="wait">
@@ -154,6 +190,48 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                     <p className="text-purple-200/70 text-sm font-outfit">
                       Position receipt within frame
                     </p>
+                  </div>
+
+                  {/* Side Sliders */}
+                  <div
+                    className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 transition-opacity duration-300"
+                    style={{ opacity: slidersActive ? 1 : 0.5 }}
+                    onPointerDown={() => setSlidersActive(true)}
+                    onPointerUp={() => setSlidersActive(false)}
+                    onPointerLeave={() => setSlidersActive(false)}
+                  >
+                    {/* Brightness */}
+                    <div className="flex flex-col items-center gap-1.5">
+                      <Sun className="w-3 h-3 text-white/60" />
+                      <div className="relative w-1 h-24 rounded-full bg-white/20 overflow-hidden">
+                        <motion.div
+                          className="absolute bottom-0 w-full rounded-full bg-white/50"
+                          style={{ height: `${brightness}%` }}
+                        />
+                        <input
+                          type="range" min={0} max={100} value={brightness}
+                          onChange={(e) => setBrightness(Number(e.target.value))}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          style={{ writingMode: "vertical-lr", direction: "rtl" }}
+                        />
+                      </div>
+                    </div>
+                    {/* Contrast */}
+                    <div className="flex flex-col items-center gap-1.5">
+                      <Contrast className="w-3 h-3 text-white/60" />
+                      <div className="relative w-1 h-24 rounded-full bg-white/20 overflow-hidden">
+                        <motion.div
+                          className="absolute bottom-0 w-full rounded-full bg-white/50"
+                          style={{ height: `${contrast}%` }}
+                        />
+                        <input
+                          type="range" min={0} max={100} value={contrast}
+                          onChange={(e) => setContrast(Number(e.target.value))}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          style={{ writingMode: "vertical-lr", direction: "rtl" }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -213,17 +291,22 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
             </AnimatePresence>
           </div>
 
-          {/* Bottom button */}
+          {/* Bottom button — Shutter */}
           {stage === "viewfinder" && (
-            <div className="p-6 pb-10">
+            <div className="p-6 pb-10 flex flex-col items-center">
               <motion.button
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.85 }}
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full py-4 btn-gel rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-3"
+                className="w-20 h-20 rounded-full flex items-center justify-center ring-4 ring-white/30"
+                style={{
+                  background: "radial-gradient(circle at 35% 35%, hsl(0 0% 100%), hsl(0 0% 85%), hsl(0 0% 70%))",
+                  boxShadow:
+                    "inset 0 4px 8px rgba(255,255,255,0.9), inset 0 -6px 12px rgba(0,0,0,0.25), 0 8px 30px rgba(255,255,255,0.15)",
+                }}
               >
-                <Camera className="w-5 h-5" />
-                Snap Receipt
+                <Camera className="w-7 h-7 text-foreground/70" style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} />
               </motion.button>
+              <p className="text-purple-200/60 text-[10px] font-outfit mt-2">Tap to capture</p>
               <input
                 ref={fileInputRef}
                 type="file"
