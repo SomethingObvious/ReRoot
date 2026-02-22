@@ -1,5 +1,4 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import { LayoutDashboard, Wallet, ScanLine, Refrigerator, BarChart3 } from "lucide-react";
 
 interface BottomNavProps {
@@ -20,22 +19,19 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 flex justify-center pb-5 px-4 pointer-events-none">
-      <motion.nav
-        initial={{ y: 100 }}
-        animate={{ y: 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="glass-strong rounded-[28px] px-2 py-2 flex items-end gap-1 pointer-events-auto max-w-md w-full"
-      >
+      <nav className="glass-strong rounded-[28px] px-2 py-2 flex items-end pointer-events-auto max-w-md w-full">
         {tabs.map((tab) => {
           const isActive = tab.path !== "scan" && location.pathname === tab.path;
           const isScan = tab.path === "scan";
 
           if (isScan) {
             return (
-              <div key="scan" className="relative flex-1 flex flex-col items-center -mt-8">
-                <motion.button
-                  whileTap={{ scale: 0.85 }}
-                  onClick={onScanClick}
+              <button
+                key="scan"
+                onClick={onScanClick}
+                className="relative flex-1 flex flex-col items-center -mt-8 active:scale-90 transition-transform duration-150"
+              >
+                <div
                   className="relative w-16 h-16 rounded-full flex items-center justify-center border-2 border-white/50"
                   style={{
                     background: "rgba(255,255,255,0.30)",
@@ -45,27 +41,23 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
                   }}
                 >
                   <ScanLine className="w-7 h-7 text-primary drop-shadow-sm" />
-                </motion.button>
+                </div>
                 <span className="text-[10px] font-medium text-muted-foreground text-center block mt-1">
                   Scan
                 </span>
-              </div>
+              </button>
             );
           }
 
           return (
-            <motion.button
+            <button
               key={tab.path}
-              whileTap={{ scale: 0.9 }}
               onClick={() => navigate(tab.path)}
-              className="relative flex-1 flex flex-col items-center py-2 px-1 rounded-2xl"
+              className="relative flex-1 flex flex-col items-center py-2 px-1 rounded-2xl active:scale-90 transition-transform duration-150"
             >
               {isActive && (
-                <motion.div
+                <div
                   className="absolute inset-0 bg-primary/10 rounded-2xl"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2 }}
                   style={{ boxShadow: "0 0 12px rgba(139,92,246,0.15)" }}
                 />
               )}
@@ -82,10 +74,10 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
               >
                 {tab.label}
               </span>
-            </motion.button>
+            </button>
           );
         })}
-      </motion.nav>
+      </nav>
     </div>
   );
 }
