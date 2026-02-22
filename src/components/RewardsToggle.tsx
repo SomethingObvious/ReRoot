@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, ShoppingBag } from "lucide-react";
 
-export default function RewardsTierToggle() {
+export default function RewardsToggle() {
   const [isPublic, setIsPublic] = useState(false);
 
   return (
