@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LayoutDashboard, Wallet, ScanLine, Refrigerator, BarChart3, Camera } from "lucide-react";
+import { LayoutDashboard, Wallet, ScanLine, Refrigerator, BarChart3 } from "lucide-react";
 
 interface BottomNavProps {
   onScanClick: () => void;
@@ -36,14 +36,15 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
                 <motion.button
                   whileTap={{ scale: 0.85 }}
                   onClick={onScanClick}
-                  className="relative w-16 h-16 rounded-full flex items-center justify-center ring-4 ring-white/30"
+                  className="relative w-16 h-16 rounded-full flex items-center justify-center border-2 border-white/50"
                   style={{
-                    background: "radial-gradient(circle at 35% 35%, hsl(0 0% 100%), hsl(347 77% 50%), hsl(347 77% 42%))",
-                    boxShadow:
-                      "inset 0 4px 6px rgba(255,255,255,0.9), inset 0 -6px 10px rgba(0,0,0,0.3), 0 10px 30px rgba(225,29,72,0.5)",
+                    background: "rgba(255,255,255,0.30)",
+                    backdropFilter: "blur(24px)",
+                    WebkitBackdropFilter: "blur(24px)",
+                    boxShadow: "inset 0 1px 2px rgba(255,255,255,0.5), 0 4px 16px rgba(139,92,246,0.10)",
                   }}
                 >
-                  <Camera className="w-7 h-7 text-white" style={{ filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.4))" }} />
+                  <ScanLine className="w-7 h-7 text-primary drop-shadow-sm" />
                 </motion.button>
                 <span className="text-[10px] font-medium text-muted-foreground text-center block mt-1">
                   Scan
