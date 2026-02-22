@@ -71,6 +71,7 @@
       hsl(200 80% 90%) 100%
     );
     min-height: 100vh;
+    scrollbar-gutter: stable;
   }
 }
 
