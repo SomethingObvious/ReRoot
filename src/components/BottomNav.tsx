@@ -24,7 +24,7 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="glass-strong rounded-[28px] px-2 py-2 flex items-center gap-1 pointer-events-auto max-w-md w-full"
+        className="glass-strong rounded-[28px] px-2 py-2 flex items-end gap-1 pointer-events-auto max-w-md w-full"
       >
         {tabs.map((tab) => {
           const isActive = tab.path !== "scan" && location.pathname === tab.path;
