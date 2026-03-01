@@ -10,7 +10,7 @@ export default function StoreLoyalty() {
     <div className="aero-card rounded-3xl p-4 overflow-hidden">
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-2">
-          <Store className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(139,92,246,0.3))" }} />
+          <Store className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(109,168,126,0.3))" }} />
           <h3 className="text-xs font-outfit font-semibold text-foreground">Store Loyalty</h3>
         </div>
 
