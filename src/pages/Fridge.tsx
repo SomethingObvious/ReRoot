@@ -131,15 +131,22 @@ export default function Fridge() {
                 setSortMode(opt.value);
                 setSortAsc(true);
               }}
-              className="px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-colors"
+              className="px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-all"
               style={sortMode === opt.value ? {
-                background: "rgba(245, 240, 255, 0.6)",
+                background: "rgba(255, 255, 255, 0.55)",
+                backdropFilter: "blur(20px)",
+                WebkitBackdropFilter: "blur(20px)",
+                border: "1px solid rgba(255,255,255,0.7)",
+                boxShadow: "0 2px 12px rgba(190,60,90,0.08), inset 0 1px 2px rgba(255,255,255,0.6)",
+                color: "hsl(var(--foreground))",
+              } : {
+                background: "rgba(255, 255, 255, 0.25)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                border: "1px solid rgba(167, 139, 250, 0.3)",
-                boxShadow: "0 2px 12px rgba(139,92,246,0.1), inset 0 1px 2px rgba(255,255,255,0.5)",
-                color: "hsl(var(--foreground))",
-              } : { border: "1px solid transparent", color: "hsl(var(--muted-foreground))" }}
+                border: "1px solid rgba(255,255,255,0.35)",
+                boxShadow: "inset 0 1px 1px rgba(255,255,255,0.3)",
+                color: "hsl(var(--muted-foreground))",
+              }}
             >
               {opt.label}
             </button>
