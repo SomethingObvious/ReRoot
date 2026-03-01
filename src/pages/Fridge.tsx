@@ -55,20 +55,22 @@ export default function Fridge() {
   const { fridgeItems, setFridgeItems } = useFridge();
   const [selectedItem, setSelectedItem] = useState<FridgeItem | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("expiry");
+  const [sortAsc, setSortAsc] = useState(true);
 
   const sortedItems = useMemo(() => {
     const items = [...fridgeItems];
+    const dir = sortAsc ? 1 : -1;
     switch (sortMode) {
       case "expiry":
-        return items.sort((a, b) => a.daysLeft - b.daysLeft);
+        return items.sort((a, b) => (a.daysLeft - b.daysLeft) * dir);
       case "purchase":
-        return items.sort((a, b) => a.purchaseDate.localeCompare(b.purchaseDate));
+        return items.sort((a, b) => a.purchaseDate.localeCompare(b.purchaseDate) * dir);
       case "category":
-        return items.sort((a, b) => (CATEGORY_ORDER[a.category] ?? 99) - (CATEGORY_ORDER[b.category] ?? 99));
+        return items.sort((a, b) => ((CATEGORY_ORDER[a.category] ?? 99) - (CATEGORY_ORDER[b.category] ?? 99)) * dir);
       default:
         return items;
     }
-  }, [fridgeItems, sortMode]);
+  }, [fridgeItems, sortMode, sortAsc]);
 
   const handleUpdateRemaining = (id: string, value: number) => {
     setFridgeItems((prev) =>
@@ -107,33 +109,41 @@ export default function Fridge() {
 
         {/* Sort Pills */}
         <div className="flex items-center gap-2 mb-4">
-          <button
-            onClick={() => {
-              const idx = SORT_OPTIONS.findIndex((o) => o.value === sortMode);
-              setSortMode(SORT_OPTIONS[(idx + 1) % SORT_OPTIONS.length].value);
-            }}
-            className="flex-shrink-0 w-7 h-7 rounded-full glass flex items-center justify-center"
-          >
-            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
-          </button>
           {SORT_OPTIONS.map((opt) => (
             <button
               key={opt.value}
-              onClick={() => setSortMode(opt.value)}
-              className={`px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-colors ${
-                sortMode === opt.value
-                  ? "text-foreground"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
+              onClick={() => {
+                if (sortMode === opt.value) return;
+                setSortMode(opt.value);
+                setSortAsc(true);
+              }}
+              className="px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-colors"
               style={sortMode === opt.value ? {
                 background: "rgba(245, 240, 255, 0.6)",
                 backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
                 border: "1px solid rgba(167, 139, 250, 0.3)",
-              } : { border: "1px solid transparent" }}
+                boxShadow: "0 2px 12px rgba(139,92,246,0.1), inset 0 1px 2px rgba(255,255,255,0.5)",
+                color: "hsl(var(--foreground))",
+              } : { border: "1px solid transparent", color: "hsl(var(--muted-foreground))" }}
             >
               {opt.label}
             </button>
           ))}
+          <button
+            onClick={() => setSortAsc((prev) => !prev)}
+            className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-transform"
+            style={{
+              background: "rgba(245, 240, 255, 0.5)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid rgba(167, 139, 250, 0.25)",
+              boxShadow: "0 2px 8px rgba(139,92,246,0.08), inset 0 1px 2px rgba(255,255,255,0.5)",
+              transform: sortAsc ? "rotate(0deg)" : "rotate(180deg)",
+            }}
+          >
+            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
