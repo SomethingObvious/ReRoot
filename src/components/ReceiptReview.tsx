@@ -218,7 +218,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
         <p className="text-2xl font-bold font-outfit text-white mt-0.5">${receipt.finalTotal.toFixed(2)}</p>
         <p className="text-xs text-white/50 font-outfit mt-0.5">
-          Wednesday, February 18, 2025
+          Wednesday, February 18, 2026
         </p>
       </div>
 
