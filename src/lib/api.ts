@@ -1,4 +1,4 @@
-import { DEMO_RECEIPT, type Receipt } from "./mockData";
+import { DEMO_RECEIPT, DEMO_SCANNED_RECEIPT, type Receipt, type ScannedReceipt } from "./mockData";
 
 const API_BASE = "http://127.0.0.1:8000";
 
@@ -16,7 +16,26 @@ export async function scanReceipt(file: File): Promise<Receipt> {
     return await response.json();
   } catch {
     // Fallback to demo data when backend is unreachable
-    await new Promise((r) => setTimeout(r, 3000)); // Simulate processing
+    await new Promise((r) => setTimeout(r, 3000));
     return DEMO_RECEIPT;
+  }
+}
+
+export async function scanReceiptStructured(file?: File): Promise<ScannedReceipt> {
+  try {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await fetch(`${API_BASE}/scan-structured`, {
+        method: "POST",
+        body: formData,
+      });
+      if (!response.ok) throw new Error("Scan failed");
+      return await response.json();
+    }
+    throw new Error("No file");
+  } catch {
+    await new Promise((r) => setTimeout(r, 3000));
+    return DEMO_SCANNED_RECEIPT;
   }
 }
