@@ -24,20 +24,28 @@ function fireConfetti() {
   confetti({ ...defaults, particleCount: 40, spread: 120, shapes: ["circle"], colors: ["#4ADE80", "#8B5CF6"], scalar: 0.8 });
 }
 
+const bubbleConfigs = Array.from({ length: 12 }, (_, i) => ({
+  width: 6 + (((i * 7 + 3) % 10)),
+  height: 6 + (((i * 5 + 2) % 10)),
+  left: `${10 + ((i * 13 + 5) % 80)}%`,
+  duration: `${2 + ((i * 3) % 4)}s`,
+  delay: `${(i * 0.4) % 2}s`,
+}));
+
 function PurpleBubbles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: 12 }).map((_, i) => (
+      {bubbleConfigs.map((cfg, i) => (
         <div
           key={i}
           className="absolute rounded-full"
           style={{
-            width: 6 + Math.random() * 10,
-            height: 6 + Math.random() * 10,
-            left: `${10 + Math.random() * 80}%`,
+            width: cfg.width,
+            height: cfg.height,
+            left: cfg.left,
             bottom: "-10px",
             background: `radial-gradient(circle, hsl(152 50% 55% / 0.7), hsl(152 45% 40% / 0.3))`,
-            animation: `bubble-rise ${2 + Math.random() * 2}s ease-out ${Math.random() * 2}s infinite`,
+            animation: `bubble-rise ${cfg.duration} ease-out ${cfg.delay} infinite`,
           }}
         />
       ))}
