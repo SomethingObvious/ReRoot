@@ -436,7 +436,7 @@ function Slide2() {
       >
         <p className="text-xs font-outfit text-white/70">
           You prevented <span className="text-white font-bold">8.5kg of CO2e</span>. That's about the emissions from
-          driving from downtown <span className="text-white font-bold">downtown Kingston to Napanee and back</span>!
+          driving from <span className="text-white font-bold">downtown Kingston to Napanee and back</span>!
         </p>
       </motion.div>
     </motion.div>
