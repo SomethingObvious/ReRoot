@@ -123,7 +123,7 @@ export default function Fridge() {
             placeholder="Search items..."
             className="w-full pl-10 pr-4 py-2.5 rounded-2xl text-sm font-outfit text-foreground placeholder:text-muted-foreground outline-none"
             style={{
-              paddingTop: "9px",
+              paddingTop: "10px",
               background: "rgba(255, 255, 255, 0.55)",
               backdropFilter: "blur(20px)",
               WebkitBackdropFilter: "blur(20px)",
