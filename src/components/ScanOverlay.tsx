@@ -156,30 +156,28 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
               {stage === "review" && "Review Receipt"}
               {stage === "done" && "Receipt Saved!"}
             </h2>
-            <motion.button
-              whileTap={{ scale: 0.85 }}
-              onClick={handleClose}
-              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
-            >
-              <X className="w-5 h-5 text-primary-foreground" />
-            </motion.button>
-          </div>
-
-          {/* Flash toggle */}
-          {stage === "viewfinder" && (
-            <div className="flex items-center justify-end px-5 py-2">
+            <div className="flex items-center gap-3">
+              {stage === "viewfinder" && (
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setFlash(!flash)}
+                  className="w-10 h-10 rounded-full flex items-center justify-center"
+                  style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
+                >
+                  {flash
+                    ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
+                    : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
+                </motion.button>
+              )}
               <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setFlash(!flash)}
-                className="w-9 h-9 rounded-full flex items-center justify-center"
-                style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
+                whileTap={{ scale: 0.85 }}
+                onClick={handleClose}
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
               >
-                {flash
-                  ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
-                  : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
+                <X className="w-5 h-5 text-primary-foreground" />
               </motion.button>
             </div>
-          )}
+          </div>
 
           {/* Content */}
           <div className="flex-1 flex flex-col items-center justify-center px-6 overflow-hidden">
