@@ -7,9 +7,9 @@ const SLIDE_DURATION = 5000;
 
 const slideGradients = [
   "linear-gradient(135deg, hsl(142 60% 25%), hsl(160 70% 35%), hsl(142 50% 20%))", // green - savings
-  "linear-gradient(135deg, hsl(258 70% 30%), hsl(220 60% 40%), hsl(258 60% 25%))", // purple - health
+  "linear-gradient(135deg, hsl(345 60% 30%), hsl(220 60% 40%), hsl(345 50% 25%))", // rose - health
   "linear-gradient(135deg, hsl(142 60% 20%), hsl(80 50% 30%), hsl(142 50% 15%))", // deep green - eco
-  "linear-gradient(135deg, hsl(258 80% 35%), hsl(292 70% 40%), hsl(258 70% 25%))", // violet - personality
+  "linear-gradient(135deg, hsl(345 70% 35%), hsl(338 65% 40%), hsl(345 60% 25%))", // rose - personality
   "linear-gradient(135deg, hsl(40 80% 45%), hsl(30 80% 40%), hsl(0 60% 35%))", // gold/red - cheese
 ];
 
@@ -39,10 +39,10 @@ const heatmapWeeks = [
 ];
 
 function heatColor(v: number) {
-  if (v >= 8) return "hsl(258 80% 60%)";
-  if (v >= 5) return "hsl(258 60% 50% / 0.7)";
-  if (v >= 3) return "hsl(258 50% 55% / 0.4)";
-  return "hsl(258 30% 70% / 0.2)";
+  if (v >= 8) return "hsl(345 70% 50%)";
+  if (v >= 5) return "hsl(345 55% 45% / 0.7)";
+  if (v >= 3) return "hsl(345 45% 50% / 0.4)";
+  return "hsl(345 25% 60% / 0.2)";
 }
 
 interface Props {
