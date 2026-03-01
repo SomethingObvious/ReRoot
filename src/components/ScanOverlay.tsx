@@ -25,10 +25,12 @@ function fireConfetti() {
 }
 
 const bubbleConfigs = Array.from({ length: 14 }, (_, i) => ({
-  size: 5 + (i % 5) * 2,
-  xOffset: -60 + ((i * 19 + 7) % 120),
-  duration: 2 + ((i * 3 + 1) % 4) * 0.5,
-  delay: ((i * 7 + 3) % 14) * 0.2,
+  size: 4 + ((i * 3 + 2) % 6) * 1.5,
+  xOffset: -55 + ((i * 23 + 11) % 110),
+  duration: 1.8 + ((i * 7 + 2) % 11) * 0.25,
+  delay: ((i * 11 + 5) % 30) * 0.15,
+  xDrift: ((i % 2 === 0) ? 1 : -1) * (5 + (i * 3 % 15)),
+  riseHeight: -80 - ((i * 13 + 7) % 80),
 }));
 
 function RisingBubbles() {
@@ -46,9 +48,10 @@ function RisingBubbles() {
             background: `radial-gradient(circle, hsl(152 50% 60% / 0.8), hsl(152 45% 45% / 0.4))`,
           }}
           animate={{
-            y: [0, -50, -130],
-            opacity: [0, 0.8, 0],
-            scale: [0.6, 1.1, 0.2],
+            y: [0, cfg.riseHeight * 0.4, cfg.riseHeight],
+            x: [0, cfg.xDrift, cfg.xDrift * 0.5],
+            opacity: [0, 0.75, 0],
+            scale: [0.5, 1, 0.15],
           }}
           transition={{
             duration: cfg.duration,
