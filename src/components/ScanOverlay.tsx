@@ -162,7 +162,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
-            background: "linear-gradient(160deg, hsl(330 35% 35%) 0%, hsl(340 30% 30%) 50%, hsl(335 25% 32%) 100%)",
+            background: "linear-gradient(160deg, hsl(330 30% 48%) 0%, hsl(340 30% 35%) 50%, hsl(335 28% 34%) 100%)",
           }}
         >
           {/* Hidden canvas for photo capture */}
