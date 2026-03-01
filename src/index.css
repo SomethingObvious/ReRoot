@@ -6,53 +6,53 @@
 
 @layer base {
   :root {
-    --background: 270 40% 97%;
-    --foreground: 240 64% 27%;
+    --background: 330 20% 40%;
+    --foreground: 330 10% 92%;
 
-    --card: 270 30% 98%;
-    --card-foreground: 240 64% 27%;
+    --card: 330 20% 38%;
+    --card-foreground: 330 10% 92%;
 
-    --popover: 270 30% 98%;
-    --popover-foreground: 240 64% 27%;
+    --popover: 330 20% 38%;
+    --popover-foreground: 330 10% 92%;
 
-    --primary: 258 90% 66%;
+    --primary: 143 24% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 270 40% 95%;
-    --secondary-foreground: 240 64% 27%;
+    --secondary: 330 15% 35%;
+    --secondary-foreground: 330 10% 90%;
 
-    --muted: 270 25% 93%;
-    --muted-foreground: 260 20% 50%;
+    --muted: 330 15% 33%;
+    --muted-foreground: 330 15% 65%;
 
-    --accent: 292 84% 61%;
+    --accent: 143 30% 50%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 270 30% 90%;
-    --input: 270 30% 90%;
-    --ring: 258 90% 66%;
+    --border: 330 15% 45%;
+    --input: 330 15% 45%;
+    --ring: 143 24% 55%;
 
     --radius: 1.5rem;
 
-    --earth: 240 64% 27%;
-    --earth-foreground: 0 0% 100%;
+    --earth: 330 10% 92%;
+    --earth-foreground: 330 20% 30%;
 
-    --success: 142 71% 45%;
+    --success: 143 24% 55%;
     --success-foreground: 0 0% 100%;
 
-    --glass: 270 50% 98%;
-    --glass-border: 0 0% 100%;
+    --glass: 330 20% 42%;
+    --glass-border: 330 15% 50%;
 
-    --sidebar-background: 270 30% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 258 90% 66%;
+    --sidebar-background: 330 20% 38%;
+    --sidebar-foreground: 330 10% 90%;
+    --sidebar-primary: 143 24% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 40% 95%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 270 30% 90%;
-    --sidebar-ring: 258 90% 66%;
+    --sidebar-accent: 330 15% 35%;
+    --sidebar-accent-foreground: 330 10% 90%;
+    --sidebar-border: 330 15% 45%;
+    --sidebar-ring: 143 24% 55%;
   }
 }
 
@@ -71,12 +71,10 @@
 
   body {
     @apply bg-background text-foreground font-outfit antialiased;
-    background: linear-gradient(135deg,
-      hsl(270 60% 95%) 0%,
-      hsl(280 50% 93%) 25%,
-      hsl(260 45% 94%) 50%,
-      hsl(200 70% 92%) 75%,
-      hsl(200 80% 90%) 100%
+    background: linear-gradient(160deg,
+      hsl(330 30% 40%) 0%,
+      hsl(335 25% 37%) 50%,
+      hsl(330 20% 34%) 100%
     );
     min-height: 100vh;
   }
@@ -84,36 +82,36 @@
 
 @layer utilities {
   .glass {
-    background: rgba(245, 240, 255, 0.50);
+    background: rgba(100, 70, 80, 0.35);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.60);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     box-shadow:
-      0 8px 32px rgba(139, 92, 246, 0.08),
-      0 2px 8px rgba(139, 92, 246, 0.04),
-      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      0 8px 32px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .glass-strong {
-    background: rgba(245, 240, 255, 0.55);
+    background: rgba(100, 70, 80, 0.45);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
-    border: 1px solid rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow:
-      0 12px 40px rgba(139, 92, 246, 0.10),
-      0 4px 12px rgba(139, 92, 246, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      0 12px 40px rgba(0, 0, 0, 0.18),
+      0 4px 12px rgba(0, 0, 0, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.10);
   }
 
   .aero-card {
     position: relative;
-    background: rgba(255, 255, 255, 0.50);
+    background: rgba(100, 70, 80, 0.40);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.90);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     box-shadow:
-      0 8px 32px rgba(139, 92, 246, 0.08),
-      0 2px 8px rgba(139, 92, 246, 0.04);
+      0 8px 32px rgba(0, 0, 0, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.08);
     overflow: hidden;
   }
   .aero-card::before {
@@ -123,30 +121,30 @@
     left: 0;
     right: 0;
     height: 55%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.1) 40%, transparent 65%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 40%, transparent 65%);
     pointer-events: none;
     z-index: 1;
   }
 
   .shadow-soft {
-    box-shadow: 0 4px 20px rgba(139, 92, 246, 0.08), 0 1px 4px rgba(139, 92, 246, 0.04);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
   }
 
   .shadow-deep {
-    box-shadow: 0 12px 40px rgba(139, 92, 246, 0.15), 0 4px 12px rgba(139, 92, 246, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.20), 0 4px 12px rgba(0, 0, 0, 0.10);
   }
 
   .shadow-glow-primary {
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15);
+    box-shadow: 0 0 20px rgba(109, 168, 126, 0.3), 0 0 60px rgba(109, 168, 126, 0.12);
   }
 
   .shadow-glow-success {
-    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3), 0 0 60px rgba(74, 222, 128, 0.1);
+    box-shadow: 0 0 20px rgba(109, 168, 126, 0.3), 0 0 60px rgba(109, 168, 126, 0.1);
   }
 
   /* Grape Gel button style */
   .btn-gel {
-    background: linear-gradient(180deg, hsl(258 80% 72%) 0%, hsl(258 90% 58%) 100%);
+    background: linear-gradient(180deg, hsl(143 28% 60%) 0%, hsl(143 24% 48%) 100%);
     position: relative;
     overflow: hidden;
     color: white;
@@ -158,20 +156,20 @@
     left: 0;
     right: 0;
     height: 45%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0) 100%);
     border-radius: 0 0 40% 40%;
     pointer-events: none;
   }
 
   /* Holographic receipt modal */
   .holo-receipt {
-    background: rgba(245, 240, 255, 0.30);
+    background: rgba(100, 70, 80, 0.30);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
-    border: 1px solid rgba(167, 139, 250, 0.50);
+    border: 1px solid rgba(109, 168, 126, 0.30);
     box-shadow:
-      0 0 30px rgba(139, 92, 246, 0.12),
-      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      0 0 30px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 
   .text-earth {
@@ -208,8 +206,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4), 0 0 60px rgba(139, 92, 246, 0.15), inset 0 -2px 8px rgba(255,255,255,0.3); }
-    50% { box-shadow: 0 0 35px rgba(139, 92, 246, 0.6), 0 0 90px rgba(217, 70, 239, 0.25), inset 0 -2px 8px rgba(255,255,255,0.3); }
+    0%, 100% { box-shadow: 0 0 20px rgba(109, 168, 126, 0.3), 0 0 60px rgba(109, 168, 126, 0.12), inset 0 -2px 8px rgba(255,255,255,0.1); }
+    50% { box-shadow: 0 0 35px rgba(109, 168, 126, 0.5), 0 0 90px rgba(109, 168, 126, 0.2), inset 0 -2px 8px rgba(255,255,255,0.1); }
   }
 
   @keyframes float {
