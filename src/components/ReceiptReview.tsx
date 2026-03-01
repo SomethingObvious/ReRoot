@@ -152,17 +152,18 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
                   inputMode="decimal"
                   placeholder={`$/${useKg ? "kg" : "lb"}`}
                   className="w-20 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30 [appearance:textfield]"
-                  value={item.unitPrice ?? ""}
+                  value={item.unitPrice !== null ? (useKg ? item.unitPrice : +(item.unitPrice / 2.20462).toFixed(2)) : ""}
                   onChange={(e) => {
-                    const pricePerUnit = e.target.value ? parseFloat(e.target.value) : null;
-                    // Store as price/kg internally
-                    const pricePerKg = pricePerUnit !== null ? (useKg ? pricePerUnit : pricePerUnit * 2.20462) : null;
-                    // Auto-calculate weights from costs
-                    let newWeights = item.packageWeights || item.packageCosts!.map(() => null);
-                    if (pricePerKg && pricePerKg > 0) {
-                      newWeights = item.packageCosts!.map((cost) => +(cost / pricePerKg).toFixed(3));
+                    const pricePerDisplayUnit = e.target.value ? parseFloat(e.target.value) : null;
+                    if (pricePerDisplayUnit === null) {
+                      onChange({ ...item, unitPrice: null });
+                      return;
                     }
-                    onChange({ ...item, unitPrice: pricePerKg !== null ? +pricePerKg.toFixed(2) : null, packageWeights: newWeights });
+                    // Store as price/kg internally
+                    const pricePerKg = useKg ? pricePerDisplayUnit : pricePerDisplayUnit * 2.20462;
+                    // Auto-calculate weights: weight_kg = cost / pricePerKg
+                    const newWeights = item.packageCosts!.map((cost) => +(cost / pricePerKg).toFixed(3));
+                    onChange({ ...item, unitPrice: +pricePerKg.toFixed(4), packageWeights: newWeights });
                   }}
                 />
               </div>
