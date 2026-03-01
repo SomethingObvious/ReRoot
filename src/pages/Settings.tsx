@@ -88,7 +88,7 @@ export default function Settings() {
                 className="w-12 h-7 rounded-full flex items-center px-1 transition-colors"
                 style={{
                   background: item.enabled
-                    ? "linear-gradient(180deg, hsl(258 80% 72%), hsl(258 90% 58%))"
+                    ? "linear-gradient(180deg, hsl(345 65% 55%), hsl(338 60% 45%))"
                     : "hsl(270 25% 93%)",
                 }}
               >
