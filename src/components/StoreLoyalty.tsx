@@ -7,17 +7,11 @@ export default function StoreLoyalty() {
   const { storeLoyalty: data } = useReceipts();
   const topStore = data.reduce((a, b) => (a.value > b.value ? a : b));
   return (
-    <div className="rounded-3xl p-4 overflow-hidden" style={{
-      background: "rgba(255,255,255,0.55)",
-      backdropFilter: "blur(24px)",
-      WebkitBackdropFilter: "blur(24px)",
-      border: "1px solid rgba(255,255,255,0.90)",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03)",
-    }}>
+    <div className="aero-card rounded-3xl p-4 overflow-hidden">
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-2">
-          <Store className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(109,168,126,0.3))" }} />
-          <h3 className="text-xs font-outfit font-semibold" style={{ color: "hsl(240 64% 27%)" }}>Store Loyalty</h3>
+          <Store className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(139,92,246,0.3))" }} />
+          <h3 className="text-xs font-outfit font-semibold text-foreground">Store Loyalty</h3>
         </div>
 
         <div className="flex justify-center mb-2">
@@ -46,8 +40,8 @@ export default function StoreLoyalty() {
           {data.map((d) => (
             <div key={d.name} className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: d.color }} />
-              <span className="text-[10px] font-outfit font-semibold flex-1 break-words" style={{ color: "hsl(240 64% 27%)", textWrap: "balance" as any }}>{d.name}</span>
-              <span className="text-[10px] font-outfit flex-shrink-0" style={{ color: "hsl(260 20% 50%)" }}>{d.value}%</span>
+              <span className="text-[10px] font-outfit font-semibold text-foreground flex-1 break-words" style={{ textWrap: "balance" as any }}>{d.name}</span>
+              <span className="text-[10px] font-outfit text-muted-foreground flex-shrink-0">{d.value}%</span>
             </div>
           ))}
         </div>

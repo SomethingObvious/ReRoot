@@ -8,15 +8,8 @@ export default function RootImpactCard() {
   return (
     <motion.div
       layout
-      className="rounded-3xl p-5 relative overflow-hidden"
-      style={{
-        background: "rgba(255,255,255,0.55)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: "1px solid rgba(255,255,255,0.90)",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03)",
-      }}
-      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(0,0,0,0.08)" }}
+      className="glass-strong rounded-3xl p-5 relative overflow-hidden"
+      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(139,92,246,0.18)" }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       onHoverStart={() => setShowTooltip(true)}
       onHoverEnd={() => setShowTooltip(false)}
@@ -27,14 +20,14 @@ export default function RootImpactCard() {
           <div className="animate-sway origin-bottom inline-block">
             <Leaf className="w-5 h-5 text-success" />
           </div>
-          <h3 className="text-sm font-outfit font-semibold" style={{ color: "hsl(240 64% 27%)", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}>Root Impact</h3>
+          <h3 className="text-sm font-outfit font-semibold text-foreground">Root Impact</h3>
         </div>
-        <span className="text-xs font-outfit" style={{ color: "hsl(260 20% 50%)" }}>This Month</span>
+        <span className="text-xs font-outfit text-muted-foreground">This Month</span>
       </div>
 
       <div className="mb-3">
-        <p className="text-2xl font-outfit font-bold" style={{ color: "hsl(240 64% 27%)" }}>3.2 kg</p>
-        <p className="text-xs font-outfit mt-0.5" style={{ color: "hsl(260 20% 45%)" }}>
+        <p className="text-2xl font-outfit font-bold text-foreground">3.2 kg</p>
+        <p className="text-xs font-outfit text-muted-foreground mt-0.5">
           Food Rescued — Equivalent to 8 meals saved from landfill.
         </p>
       </div>
@@ -55,15 +48,15 @@ export default function RootImpactCard() {
         <div className="flex-1 bg-success/10 rounded-2xl px-3 py-2.5 flex items-center gap-2">
           <Wind className="w-4 h-4 text-success" />
           <div>
-            <p className="text-xs font-outfit font-semibold" style={{ color: "hsl(240 64% 27%)" }}>8.5 kg</p>
-            <p className="text-[10px] font-outfit" style={{ color: "hsl(260 20% 50%)" }}>CO₂e Reduced</p>
+            <p className="text-xs font-outfit font-semibold text-foreground">8.5 kg</p>
+            <p className="text-[10px] font-outfit text-muted-foreground">CO₂e Reduced</p>
           </div>
         </div>
         <div className="flex-1 bg-primary/8 rounded-2xl px-3 py-2.5 flex items-center gap-2">
           <Droplets className="w-4 h-4 text-primary" />
           <div>
-            <p className="text-xs font-outfit font-semibold" style={{ color: "hsl(240 64% 27%)" }}>450 L</p>
-            <p className="text-[10px] font-outfit" style={{ color: "hsl(260 20% 50%)" }}>Water Saved</p>
+            <p className="text-xs font-outfit font-semibold text-foreground">450 L</p>
+            <p className="text-[10px] font-outfit text-muted-foreground">Water Saved</p>
           </div>
         </div>
       </div>
