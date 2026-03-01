@@ -1,9 +1,17 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle, Sparkles } from "lucide-react";
+import { AlertTriangle, Sparkles, ArrowUpDown } from "lucide-react";
 import { useFridge } from "@/lib/fridgeContext";
 import type { FridgeItem } from "@/lib/mockData";
 import IngredientDetail from "@/components/IngredientDetail";
+
+type SortMode = "expiry" | "purchase" | "category";
+const SORT_OPTIONS: { value: SortMode; label: string }[] = [
+  { value: "expiry", label: "Expiry" },
+  { value: "purchase", label: "Purchased" },
+  { value: "category", label: "Category" },
+];
+const CATEGORY_ORDER: Record<string, number> = { Meat: 0, Produce: 1, Dairy: 2, Frozen: 3, Grocery: 4 };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -46,6 +54,21 @@ function CircularProgress({ daysLeft, totalDays, size = 44 }: { daysLeft: number
 export default function Fridge() {
   const { fridgeItems, setFridgeItems } = useFridge();
   const [selectedItem, setSelectedItem] = useState<FridgeItem | null>(null);
+  const [sortMode, setSortMode] = useState<SortMode>("expiry");
+
+  const sortedItems = useMemo(() => {
+    const items = [...fridgeItems];
+    switch (sortMode) {
+      case "expiry":
+        return items.sort((a, b) => a.daysLeft - b.daysLeft);
+      case "purchase":
+        return items.sort((a, b) => a.purchaseDate.localeCompare(b.purchaseDate));
+      case "category":
+        return items.sort((a, b) => (CATEGORY_ORDER[a.category] ?? 99) - (CATEGORY_ORDER[b.category] ?? 99));
+      default:
+        return items;
+    }
+  }, [fridgeItems, sortMode]);
 
   const handleUpdateRemaining = (id: string, value: number) => {
     setFridgeItems((prev) =>
@@ -78,12 +101,35 @@ export default function Fridge() {
         <motion.h1 variants={fadeUp} className="text-2xl font-outfit font-bold text-foreground mb-1">
           My Fridge
         </motion.h1>
-        <motion.p variants={fadeUp} className="text-sm font-outfit text-muted-foreground mb-5">
+        <motion.p variants={fadeUp} className="text-sm font-outfit text-muted-foreground mb-4">
           Track freshness & reduce waste 🥬
         </motion.p>
 
+        {/* Sort Pills */}
+        <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
+          <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+          {SORT_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => setSortMode(opt.value)}
+              className={`px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-all ${
+                sortMode === opt.value
+                  ? "glass-strong text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              style={sortMode === opt.value ? {
+                background: "rgba(245, 240, 255, 0.6)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid rgba(167, 139, 250, 0.3)",
+              } : undefined}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </motion.div>
+
         <div className="grid grid-cols-2 gap-3">
-          {fridgeItems.map((item) => (
+          {sortedItems.map((item) => (
             <motion.div
               key={item.id}
               variants={fadeUp}
