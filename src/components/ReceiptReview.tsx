@@ -23,7 +23,7 @@ function ConfidenceBadge({ confidence }: { confidence: string }) {
   };
   return (
     <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${colors[confidence as keyof typeof colors] || colors.Medium}`}>
-      {confidence} confidence
+      {confidence} Confidence
     </span>
   );
 }
@@ -78,7 +78,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
             <span className="text-xs text-white/50 font-outfit">
               {item.quantity > 1 && `${item.quantity}× `}
               {item.unit === "kg" && item.weightKg ? `${item.weightKg} kg` : ""}
-              {item.unitPrice !== null && ` @ $${item.unitPrice.toFixed(2)}/${item.unit}`}
+              {item.unitPrice !== null && !item.packageCosts && ` @ $${item.unitPrice.toFixed(2)}/${item.unit}`}
             </span>
             <ConfidenceBadge confidence={item.confidence} />
             {item.storageLocation && (
@@ -127,32 +127,36 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
                         const kg = val !== null ? (useKg ? val : val / 2.20462) : null;
                         const newWeights = [...(item.packageWeights || item.packageCosts!.map(() => null))];
                         newWeights[i] = kg !== null ? +kg.toFixed(3) : null;
-                        // Auto-calculate unitPrice from this package
-                        let unitPrice = item.unitPrice;
-                        if (kg && kg > 0) {
-                          unitPrice = +(cost / kg).toFixed(2);
-                        }
-                        onChange({ ...item, packageWeights: newWeights, unitPrice });
+                        onChange({ ...item, packageWeights: newWeights });
                       }}
                     />
                     <span className="text-[10px] text-white/30 font-outfit">{unit}</span>
-                    {weightKg !== null && weightKg > 0 && (
-                      <span className="text-[10px] text-white/40 font-outfit">
-                        ${(cost / weightKg).toFixed(2)}/{useKg ? "kg" : "lb"}
-                      </span>
-                    )}
                   </div>
                 );
               })}
 
-              {/* Computed unit price */}
-              {item.unitPrice !== null && (
-                <div className="flex items-center gap-2 mt-1 pt-1.5 border-t border-white/10">
-                  <span className="text-[10px] text-white/50 font-outfit">
-                    Avg: ${useKg ? item.unitPrice.toFixed(2) : (item.unitPrice / 2.20462).toFixed(2)}/{useKg ? "kg" : "lb"}
-                  </span>
-                </div>
-              )}
+              {/* Price per unit input — auto-populates weights upward */}
+              <div className="flex items-center gap-2 mt-1 pt-1.5 border-t border-white/10">
+                <span className="text-[10px] text-white/50 font-outfit shrink-0">Price/{useKg ? "kg" : "lb"}</span>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  placeholder={`$/${useKg ? "kg" : "lb"}`}
+                  className="w-20 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30 [appearance:textfield]"
+                  value={item.unitPrice ?? ""}
+                  onChange={(e) => {
+                    const pricePerUnit = e.target.value ? parseFloat(e.target.value) : null;
+                    // Store as price/kg internally
+                    const pricePerKg = pricePerUnit !== null ? (useKg ? pricePerUnit : pricePerUnit * 2.20462) : null;
+                    // Auto-calculate weights from costs
+                    let newWeights = item.packageWeights || item.packageCosts!.map(() => null);
+                    if (pricePerKg && pricePerKg > 0) {
+                      newWeights = item.packageCosts!.map((cost) => +(cost / pricePerKg).toFixed(3));
+                    }
+                    onChange({ ...item, unitPrice: pricePerKg !== null ? +pricePerKg.toFixed(2) : null, packageWeights: newWeights });
+                  }}
+                />
+              </div>
             </div>
           )}
 
