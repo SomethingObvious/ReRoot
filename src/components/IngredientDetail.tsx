@@ -127,11 +127,13 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining, onU
                   <span className="text-xs font-outfit font-semibold" style={{ color: status.color }}>{status.label}</span>
                 </div>
 
-                <div className="relative h-3 rounded-full overflow-hidden bg-muted mb-3">
-                  <div className="absolute inset-0 flex">
-                    <div className="h-full rounded-l-full" style={{ width: `${greenEnd}%`, background: "linear-gradient(90deg, hsl(142 71% 55%), hsl(142 71% 45%))" }} />
-                    <div className="h-full" style={{ width: `${yellowEnd - greenEnd}%`, background: "linear-gradient(90deg, hsl(45 93% 55%), hsl(30 90% 50%))" }} />
-                    <div className="h-full rounded-r-full" style={{ width: `${100 - yellowEnd}%`, background: "linear-gradient(90deg, hsl(0 70% 55%), hsl(0 84% 50%))" }} />
+                <div className="relative h-3 mb-3">
+                  <div className="absolute inset-0 rounded-full overflow-hidden">
+                    <div className="absolute inset-0 flex">
+                      <div className="h-full rounded-l-full" style={{ width: `${greenEnd}%`, background: "linear-gradient(90deg, hsl(142 71% 55%), hsl(142 71% 45%))" }} />
+                      <div className="h-full" style={{ width: `${yellowEnd - greenEnd}%`, background: "linear-gradient(90deg, hsl(45 93% 55%), hsl(30 90% 50%))" }} />
+                      <div className="h-full rounded-r-full" style={{ width: `${100 - yellowEnd}%`, background: "linear-gradient(90deg, hsl(0 70% 55%), hsl(0 84% 50%))" }} />
+                    </div>
                   </div>
                   {/* Glassified Indicator */}
                   <motion.div
