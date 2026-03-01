@@ -242,7 +242,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         >
           <Check className="w-4 h-4 text-emerald-400 shrink-0" />
           <span className="text-xs font-outfit font-medium text-emerald-300">
-            All items confirmed ✓
+            All items confirmed
           </span>
         </motion.div>
       )}
