@@ -26,15 +26,10 @@ export default function Dashboard() {
 
   return (
     <>
-      <motion.div
-        variants={stagger}
-        initial="hidden"
-        animate="show"
-        className="px-5 pt-14 pb-32 max-w-lg mx-auto"
-      >
+      <motion.div variants={stagger} initial="hidden" animate="show" className="px-5 pt-14 pb-32 max-w-lg mx-auto">
         <motion.div variants={fadeUp} className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-sm font-outfit text-muted-foreground">Good Morning,</p>
+            <p className="text-sm font-outfit text-muted-foreground">Good Evening,</p>
             <h1 className="text-2xl font-outfit font-bold text-foreground">Paul 🌱</h1>
           </div>
           <motion.button
@@ -91,9 +86,7 @@ export default function Dashboard() {
         </motion.div>
       </motion.div>
 
-      <AnimatePresence>
-        {wrappedOpen && <WrappedStory onClose={() => setWrappedOpen(false)} />}
-      </AnimatePresence>
+      <AnimatePresence>{wrappedOpen && <WrappedStory onClose={() => setWrappedOpen(false)} />}</AnimatePresence>
     </>
   );
 }
