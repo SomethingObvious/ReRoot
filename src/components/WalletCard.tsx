@@ -63,7 +63,7 @@ export default function WalletCard() {
 
         <p className="text-4xl font-outfit font-bold text-primary-foreground mb-1">{WALLET_DATA.balance}</p>
         <p className="text-sm font-outfit text-white/70">
-          {WALLET_DATA.nextTierAt - WALLET_DATA.balance} points to {WALLET_DATA.nextTier}
+          {WALLET_DATA.nextTierAt - WALLET_DATA.balance} points to <strong>{WALLET_DATA.nextTier}</strong>
         </p>
 
         <div className="mt-4 h-1.5 rounded-full bg-white/15 overflow-hidden">
