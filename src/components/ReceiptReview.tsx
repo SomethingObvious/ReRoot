@@ -287,10 +287,10 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0, opacity: 0 }}
-                          className="inline-flex items-end gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-outfit font-medium"
+                          className="inline-flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-outfit font-medium"
                         >
-                          <AlertTriangle className="w-3 h-3 shrink-0 relative -top-px" />
-                          <span style={{ lineHeight: 1 }}>{catReviewCount}</span>
+                          <AlertTriangle className="w-3 h-3 shrink-0" />
+                          <span style={{ lineHeight: 1, position: "relative", top: "0.5px" }}>{catReviewCount}</span>
                         </motion.span>
                       )}
                     </AnimatePresence>
