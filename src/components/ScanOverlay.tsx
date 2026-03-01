@@ -36,7 +36,7 @@ function PurpleBubbles() {
             height: 6 + Math.random() * 10,
             left: `${10 + Math.random() * 80}%`,
             bottom: "-10px",
-            background: `radial-gradient(circle, rgba(167,139,250,0.7), rgba(139,92,246,0.3))`,
+            background: `radial-gradient(circle, hsl(152 50% 55% / 0.7), hsl(152 45% 40% / 0.3))`,
             animation: `bubble-rise ${2 + Math.random() * 2}s ease-out ${Math.random() * 2}s infinite`,
           }}
         />
@@ -142,7 +142,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
-            background: "linear-gradient(160deg, hsl(258 40% 28%) 0%, hsl(270 35% 22%) 50%, hsl(250 30% 20%) 100%)",
+            background: "linear-gradient(160deg, hsl(340 20% 18%) 0%, hsl(350 15% 14%) 50%, hsl(330 12% 12%) 100%)",
           }}
         >
           {/* Hidden canvas for photo capture */}
@@ -175,7 +175,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="w-full max-w-sm aspect-[3/5] relative rounded-3xl overflow-hidden border-2 border-purple-400/20"
+                  className="w-full max-w-sm aspect-[3/5] relative rounded-3xl overflow-hidden border-2 border-rose-200/20"
                 >
                   {/* Live camera feed */}
                   <video
@@ -186,7 +186,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   {/* Translucent overlay */}
-                  <div className="absolute inset-0 bg-purple-950/15 pointer-events-none" />
+                  <div className="absolute inset-0 bg-rose-950/10 pointer-events-none" />
 
                   {/* Corner brackets */}
                   {[
@@ -195,14 +195,14 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     "bottom-4 left-4 border-b-2 border-l-2",
                     "bottom-4 right-4 border-b-2 border-r-2",
                   ].map((pos, i) => (
-                    <div key={i} className={`absolute w-12 h-12 ${pos} border-primary/60 rounded-md`} />
+                    <div key={i} className={`absolute w-12 h-12 ${pos} rounded-md`} style={{ borderColor: "hsl(330 30% 80% / 0.5)" }} />
                   ))}
 
                   {/* Scan line */}
-                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(330 30% 85% / 0.7), transparent)" }} />
+                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(152 45% 55% / 0.7), transparent)" }} />
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
-                    <p className="text-purple-200/60 text-sm font-outfit">
+                    <p className="text-rose-100/50 text-sm font-outfit">
                       Position receipt within frame
                     </p>
                   </div>
@@ -233,14 +233,14 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     key={processingText}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-purple-200 text-lg font-outfit font-medium"
+                    className="text-rose-100/80 text-lg font-outfit font-medium"
                   >
                     {processingTexts[processingText]}
                   </motion.p>
                   <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg, hsl(258 90% 66%), hsl(292 84% 61%))" }}
+                      style={{ background: "linear-gradient(90deg, hsl(152 50% 45%), hsl(152 55% 55%))" }}
                       initial={{ width: "0%" }}
                       animate={{ width: "100%" }}
                       transition={{ duration: 3, ease: "easeInOut" }}
@@ -273,16 +273,16 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     animate={{ scale: 1 }}
                     transition={{ type: "spring", stiffness: 300, delay: 0.3 }}
                     className="w-20 h-20 rounded-full flex items-center justify-center"
-                    style={{ background: "hsl(142 71% 45% / 0.2)" }}
+                    style={{ background: "hsl(152 50% 45% / 0.2)" }}
                   >
                     <span className="text-4xl">✅</span>
                   </motion.div>
                   <div>
                     <p className="text-xl font-outfit font-bold text-primary-foreground">Receipt Saved!</p>
-                    <p className="text-purple-200/70 text-sm font-outfit mt-1">
+                    <p className="text-rose-100/60 text-sm font-outfit mt-1">
                       {result.lineItems.length} items added • ${result.finalTotal.toFixed(2)}
                     </p>
-                    <p className="text-sm font-outfit font-semibold mt-2" style={{ color: "hsl(142 71% 55%)" }}>
+                    <p className="text-sm font-outfit font-semibold mt-2" style={{ color: "hsl(152 50% 55%)" }}>
                       +{result.pointsEarned} points earned 🌱
                     </p>
                   </div>
@@ -294,14 +294,14 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                       .slice(0, 3)
                       .map((item) => (
                         <div key={item.id} className="flex items-center justify-between px-4 py-2 rounded-xl bg-white/10">
-                          <span className="text-sm font-outfit text-purple-200">{item.nameNormalized}</span>
+                          <span className="text-sm font-outfit text-rose-100/80">{item.nameNormalized}</span>
                           <span className="text-xs font-outfit font-medium" style={{ color: "hsl(0 70% 60%)" }}>
                             Use in {item.estimatedExpiryDays}d
                           </span>
                         </div>
                       ))}
                     {result.lineItems.some((i) => i.estimatedExpiryDays !== undefined && i.estimatedExpiryDays <= 7) && (
-                      <p className="text-[11px] text-purple-300/60 font-outfit text-center">
+                      <p className="text-[11px] text-rose-200/50 font-outfit text-center">
                         ⏱ Items expiring soon — check your Fridge tab
                       </p>
                     )}
@@ -320,7 +320,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 onClick={() => fileInputRef.current?.click()}
                 className="w-14 h-14 rounded-full flex items-center justify-center bg-white/10 border border-white/20"
               >
-                <ImagePlus className="w-6 h-6 text-purple-200" />
+                <ImagePlus className="w-6 h-6 text-rose-100/70" />
               </motion.button>
 
               {/* Shutter button */}
@@ -366,7 +366,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 onClick={handleClose}
                 className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep"
                 style={{
-                  background: "linear-gradient(180deg, hsl(142 71% 50%) 0%, hsl(142 71% 40%) 100%)",
+                  background: "linear-gradient(180deg, hsl(152 50% 50%) 0%, hsl(152 50% 40%) 100%)",
                   color: "white",
                 }}
               >
