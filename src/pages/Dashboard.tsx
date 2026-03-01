@@ -7,7 +7,7 @@ import RootImpactCard from "@/components/RootImpactCard";
 import StoreLoyalty from "@/components/StoreLoyalty";
 import WrappedCard from "@/components/WrappedCard";
 import WrappedStory from "@/components/WrappedStory";
-import { RECEIPT_HISTORY } from "@/lib/mockData";
+import { useReceipts } from "@/lib/receiptContext";
 
 const stagger = {
   hidden: {},
@@ -22,6 +22,7 @@ const fadeUp = {
 export default function Dashboard() {
   const navigate = useNavigate();
   const [wrappedOpen, setWrappedOpen] = useState(false);
+  const { receipts } = useReceipts();
 
   return (
     <>
@@ -64,7 +65,7 @@ export default function Dashboard() {
         <motion.div variants={fadeUp}>
           <h2 className="text-sm font-outfit font-semibold text-foreground mb-3">Recent Receipts</h2>
           <div className="space-y-3">
-            {RECEIPT_HISTORY.map((receipt) => (
+            {receipts.map((receipt) => (
               <motion.div
                 key={receipt.id}
                 whileTap={{ scale: 0.97 }}

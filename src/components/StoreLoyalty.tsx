@@ -1,14 +1,11 @@
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { Store } from "lucide-react";
-
-const data = [
-  { name: "Metro", value: 60, color: "hsl(0 84% 55%)" },
-  { name: "Loblaws", value: 25, color: "hsl(45 93% 50%)" },
-  { name: "Local Market", value: 15, color: "hsl(142 71% 45%)" },
-];
+import { useReceipts } from "@/lib/receiptContext";
 
 export default function StoreLoyalty() {
+  const { storeLoyalty: data } = useReceipts();
+  const topStore = data.reduce((a, b) => (a.value > b.value ? a : b));
   return (
     <div className="aero-card rounded-3xl p-4 overflow-hidden">
       <div className="relative z-10">
@@ -51,7 +48,7 @@ export default function StoreLoyalty() {
 
         <div className="mt-2 rounded-xl p-2" style={{ background: "hsl(0 84% 55% / 0.06)" }}>
           <p className="text-[9px] font-outfit font-semibold text-center break-words" style={{ color: "hsl(0 84% 50%)", textWrap: "balance" as any }}>
-            🏆 Metro VIP — check your points!
+            🏆 {topStore.name} VIP — check your points!
           </p>
         </div>
       </div>

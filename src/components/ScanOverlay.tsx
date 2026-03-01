@@ -8,6 +8,7 @@ import ReceiptReview from "./ReceiptReview";
 interface ScanOverlayProps {
   isOpen: boolean;
   onClose: () => void;
+  onReceiptSaved?: (receipt: ScannedReceipt) => void;
 }
 
 const processingTexts = [
@@ -44,7 +45,7 @@ function PurpleBubbles() {
   );
 }
 
-export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
+export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOverlayProps) {
   const [stage, setStage] = useState<"viewfinder" | "processing" | "review" | "done">("viewfinder");
   const [processingText, setProcessingText] = useState(0);
   const [result, setResult] = useState<ScannedReceipt | null>(null);
@@ -118,9 +119,10 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
     }, 3200);
   };
 
-  const handleConfirm = (_receipt: ScannedReceipt) => {
+  const handleConfirm = (confirmedReceipt: ScannedReceipt) => {
     setStage("done");
     setTimeout(fireConfetti, 200);
+    onReceiptSaved?.(confirmedReceipt);
   };
 
   const handleClose = () => {

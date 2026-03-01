@@ -2,13 +2,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Flag } from "lucide-react";
 import { toast } from "sonner";
-import { RECEIPT_HISTORY } from "@/lib/mockData";
+import { useReceipts } from "@/lib/receiptContext";
 import ReceiptTicket from "@/components/ReceiptTicket";
 
 export default function ReceiptDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const receipt = RECEIPT_HISTORY.find((r) => r.id === id);
+  const { receipts } = useReceipts();
+  const receipt = receipts.find((r) => r.id === id);
 
   if (!receipt) {
     return (
