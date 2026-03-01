@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,33 +13,48 @@ import ReceiptDetail from "./pages/ReceiptDetail";
 import NotFound from "./pages/NotFound";
 import BottomNav from "./components/BottomNav";
 import ScanOverlay from "./components/ScanOverlay";
+import { ReceiptProvider, useReceipts } from "./lib/receiptContext";
+import type { ScannedReceipt } from "./lib/mockData";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+function AppInner() {
   const [scanOpen, setScanOpen] = useState(false);
+  const { addScannedReceipt } = useReceipts();
+
+  const handleScanComplete = useCallback((scanned: ScannedReceipt) => {
+    addScannedReceipt(scanned);
+  }, [addScannedReceipt]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/wallet" element={<Wallet />} />
-            <Route path="/fridge" element={<Fridge />} />
-            <Route path="/stats" element={<Stats />} />
-            <Route path="/settings" element={<Settings />} />
-            <Route path="/receipt/:id" element={<ReceiptDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <BottomNav onScanClick={() => setScanOpen(true)} />
-          <ScanOverlay isOpen={scanOpen} onClose={() => setScanOpen(false)} />
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <>
+      <Toaster />
+      <Sonner />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/wallet" element={<Wallet />} />
+          <Route path="/fridge" element={<Fridge />} />
+          <Route path="/stats" element={<Stats />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/receipt/:id" element={<ReceiptDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <BottomNav onScanClick={() => setScanOpen(true)} />
+        <ScanOverlay isOpen={scanOpen} onClose={() => setScanOpen(false)} onReceiptSaved={handleScanComplete} />
+      </BrowserRouter>
+    </>
   );
-};
+}
+
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <TooltipProvider>
+      <ReceiptProvider>
+        <AppInner />
+      </ReceiptProvider>
+    </TooltipProvider>
+  </QueryClientProvider>
+);
 
 export default App;
