@@ -41,13 +41,22 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
       }`}
     >
       {item.needsReview && (
-        <div className="flex items-center gap-1.5 mb-2">
-          <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-          <span className="text-[11px] font-outfit font-medium text-amber-300">Needs Review</span>
-          {item.unitPrice === null && <span className="text-[10px] text-white/50">— unit price missing</span>}
-          {item.weightKg === null && item.unit === "packages" && (
-            <span className="text-[10px] text-white/50">— weights missing</span>
-          )}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-1.5">
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[11px] font-outfit font-medium text-amber-300">Needs Review</span>
+            {item.unitPrice === null && !item.packageCosts && <span className="text-[10px] text-white/50">— unit price missing</span>}
+            {item.weightKg === null && item.unit === "packages" && (
+              <span className="text-[10px] text-white/50">— weights missing</span>
+            )}
+          </div>
+          <button
+            onClick={() => onChange({ ...item, needsReview: false })}
+            className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 text-[10px] font-outfit font-medium hover:bg-emerald-400/30 transition-colors"
+          >
+            <Check className="w-3 h-3" />
+            Confirm
+          </button>
         </div>
       )}
 
@@ -212,16 +221,28 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         </p>
       </div>
 
-      {/* Needs Review Banner */}
-      {needsReviewCount > 0 && (
+      {needsReviewCount > 0 ? (
         <motion.div
+          key={`review-${needsReviewCount}`}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-400/25 mb-3 shrink-0"
         >
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
           <span className="text-xs font-outfit font-medium text-amber-300">
-            {needsReviewCount} item{needsReviewCount > 1 ? "s" : ""} need review
+            {needsReviewCount} item{needsReviewCount > 1 ? "s" : ""} need{needsReviewCount === 1 ? "s" : ""} review
+          </span>
+        </motion.div>
+      ) : (
+        <motion.div
+          key="all-set"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-emerald-500/15 border border-emerald-400/25 mb-3 shrink-0"
+        >
+          <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span className="text-xs font-outfit font-medium text-emerald-300">
+            All items confirmed ✓
           </span>
         </motion.div>
       )}
