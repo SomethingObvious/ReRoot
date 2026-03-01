@@ -166,8 +166,8 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       {/* Category Groups — scrollable area with fade edges */}
       <div className="relative flex-1 min-h-0"
         style={{
-          maskImage: "linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent)",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 24px, black calc(100% - 24px), transparent)",
+          maskImage: "linear-gradient(to bottom, transparent 4px, black 40px, black calc(100% - 40px), transparent calc(100% - 4px))",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent 4px, black 40px, black calc(100% - 40px), transparent calc(100% - 4px))",
         }}
       >
 
