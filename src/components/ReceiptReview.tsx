@@ -17,9 +17,9 @@ const categoryConfig: Record<ItemCategory, { icon: React.ElementType; emoji: str
 
 function ConfidenceBadge({ confidence }: { confidence: string }) {
   const colors = {
-    High: "bg-success/20 text-success",
-    Medium: "bg-yellow-500/20 text-yellow-600",
-    Low: "bg-destructive/20 text-destructive",
+    High: "bg-emerald-400/20 text-emerald-300",
+    Medium: "bg-amber-400/20 text-amber-300",
+    Low: "bg-red-400/20 text-red-300",
   };
   return (
     <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${colors[confidence as keyof typeof colors] || colors.Medium}`}>
@@ -36,17 +36,17 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
       layout
       className={`relative rounded-2xl p-3 transition-colors ${
         item.needsReview
-          ? "bg-yellow-500/10 border border-yellow-500/30"
-          : "bg-white/30 border border-white/40"
+          ? "bg-amber-500/10 border border-amber-400/25"
+          : "bg-white/8 border border-white/10"
       }`}
     >
       {item.needsReview && (
         <div className="flex items-center gap-1.5 mb-2">
-          <AlertTriangle className="w-3.5 h-3.5 text-yellow-500" />
-          <span className="text-[11px] font-outfit font-medium text-yellow-600">Needs Review</span>
-          {item.unitPrice === null && <span className="text-[10px] text-muted-foreground">— unit price missing</span>}
+          <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+          <span className="text-[11px] font-outfit font-medium text-amber-300">Needs Review</span>
+          {item.unitPrice === null && <span className="text-[10px] text-white/50">— unit price missing</span>}
           {item.weightKg === null && item.unit === "packages" && (
-            <span className="text-[10px] text-muted-foreground">— weights missing</span>
+            <span className="text-[10px] text-white/50">— weights missing</span>
           )}
         </div>
       )}
@@ -55,7 +55,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
         <div className="flex-1 min-w-0">
           {editing ? (
             <input
-              className="w-full bg-white/50 rounded-lg px-2 py-1 text-sm font-outfit font-medium text-foreground border border-primary/30 outline-none focus:border-primary"
+              className="w-full bg-white/10 rounded-lg px-2 py-1 text-sm font-outfit font-medium text-white border border-purple-400/40 outline-none focus:border-purple-400"
               value={item.nameNormalized}
               onChange={(e) => onChange({ ...item, nameNormalized: e.target.value })}
               onBlur={() => setEditing(false)}
@@ -66,23 +66,23 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
               onClick={() => setEditing(true)}
               className="flex items-center gap-1.5 group text-left"
             >
-              <span className="text-sm font-outfit font-medium text-foreground">
-                {item.brand && <span className="text-muted-foreground">{item.brand} </span>}
+              <span className="text-sm font-outfit font-medium text-white">
+                {item.brand && <span className="text-white/60">{item.brand} </span>}
                 {item.nameNormalized}
               </span>
-              <Pencil className="w-3 h-3 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Pencil className="w-3 h-3 text-white/40 opacity-0 group-hover:opacity-100 transition-opacity" />
             </button>
           )}
 
           <div className="flex items-center gap-2 mt-1 flex-wrap">
-            <span className="text-xs text-muted-foreground font-outfit">
+            <span className="text-xs text-white/50 font-outfit">
               {item.quantity > 1 && `${item.quantity}× `}
               {item.unit === "kg" && item.weightKg ? `${item.weightKg} kg` : ""}
               {item.unitPrice !== null && ` @ $${item.unitPrice.toFixed(2)}/${item.unit}`}
             </span>
             <ConfidenceBadge confidence={item.confidence} />
             {item.storageLocation && (
-              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-primary/10 text-primary font-medium">
+              <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-400/15 text-purple-300 font-medium">
                 {item.storageLocation}
               </span>
             )}
@@ -91,7 +91,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
           {item.packageCosts && (
             <div className="mt-1.5 flex gap-1 flex-wrap">
               {item.packageCosts.map((cost, i) => (
-                <span key={i} className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/40 text-muted-foreground font-outfit">
+                <span key={i} className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/50 font-outfit">
                   Pkg {i + 1}: ${cost.toFixed(2)}
                 </span>
               ))}
@@ -100,7 +100,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
 
           {item.estimatedExpiryDays !== undefined && (
             <div className="mt-1 flex items-center gap-1">
-              <span className="text-[10px] text-muted-foreground font-outfit">
+              <span className="text-[10px] text-white/40 font-outfit">
                 ⏱ Est. expiry: {item.estimatedExpiryDays < 7
                   ? `${item.estimatedExpiryDays}d`
                   : item.estimatedExpiryDays < 60
@@ -111,7 +111,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
           )}
         </div>
 
-        <span className="text-sm font-outfit font-bold text-foreground whitespace-nowrap">
+        <span className="text-sm font-outfit font-bold text-white whitespace-nowrap">
           ${item.lineTotal.toFixed(2)}
         </span>
       </div>
@@ -121,7 +121,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
 
 export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps) {
   const [items, setItems] = useState<LineItem[]>(receipt.lineItems);
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>("Grocery");
   const categories = Array.from(new Set(items.map((i) => i.category))) as ItemCategory[];
 
   const grouped = categories.reduce((acc, cat) => {
@@ -143,9 +143,9 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
     <div className="w-full max-w-sm mx-auto flex flex-col gap-4">
       {/* Store & Date Header */}
       <div className="text-center">
-        <p className="text-xs tracking-widest uppercase text-muted-foreground font-outfit">{receipt.storeName}</p>
-        <p className="text-2xl font-bold font-outfit text-foreground mt-1">${receipt.finalTotal.toFixed(2)}</p>
-        <p className="text-xs text-muted-foreground font-outfit mt-0.5">
+        <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
+        <p className="text-2xl font-bold font-outfit text-white mt-1">${receipt.finalTotal.toFixed(2)}</p>
+        <p className="text-xs text-white/50 font-outfit mt-0.5">
           {new Date(receipt.purchaseDate).toLocaleDateString("en-CA", {
             weekday: "long", year: "numeric", month: "long", day: "numeric",
           })}
@@ -157,37 +157,48 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-yellow-500/15 border border-yellow-500/30"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-400/25"
         >
-          <AlertTriangle className="w-4 h-4 text-yellow-500 shrink-0" />
-          <span className="text-xs font-outfit font-medium text-yellow-700">
+          <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+          <span className="text-xs font-outfit font-medium text-amber-300">
             {needsReviewCount} item{needsReviewCount > 1 ? "s" : ""} need review
           </span>
         </motion.div>
       )}
 
-      {/* Category Groups */}
-      <div className="flex flex-col gap-3 max-h-[40vh] overflow-y-auto pr-1 -mr-1">
+      {/* Category Groups — scrollable with hidden scrollbar */}
+      <div
+        className="flex flex-col gap-3 max-h-[45vh] overflow-y-auto"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        <style>{`.receipt-scroll::-webkit-scrollbar { display: none; }`}</style>
         {categories.map((cat) => {
           const config = categoryConfig[cat];
           const catItems = grouped[cat];
           const catTotal = catItems.reduce((s, i) => s + i.lineTotal, 0);
-          const isOpen = expandedCategory === cat || expandedCategory === null;
+          const isOpen = expandedCategory === cat;
 
           return (
             <div key={cat} className="rounded-2xl overflow-hidden">
               <button
-                onClick={() => setExpandedCategory(expandedCategory === cat ? null : cat)}
-                className="w-full flex items-center justify-between px-4 py-2.5 rounded-2xl glass"
+                onClick={() => setExpandedCategory(isOpen ? null : cat)}
+                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl"
+                style={{
+                  background: "rgba(255,255,255,0.06)",
+                  border: "1px solid rgba(255,255,255,0.10)",
+                }}
               >
                 <div className="flex items-center gap-2">
                   <span className="text-base">{config.emoji}</span>
-                  <span className="text-sm font-outfit font-semibold text-foreground">{cat}</span>
-                  <span className="text-xs text-muted-foreground font-outfit">({catItems.length})</span>
+                  <span className="text-sm font-outfit font-semibold text-white">{cat}</span>
+                  <span className="text-xs text-white/40 font-outfit">({catItems.length})</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-outfit font-bold text-foreground">${catTotal.toFixed(2)}</span>
-                  {isOpen ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
+                  <span className="text-sm font-outfit font-bold text-white">${catTotal.toFixed(2)}</span>
+                  {isOpen ? <ChevronUp className="w-4 h-4 text-white/40" /> : <ChevronDown className="w-4 h-4 text-white/40" />}
                 </div>
               </button>
 
@@ -214,18 +225,18 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       </div>
 
       {/* Totals Breakdown */}
-      <div className="glass rounded-2xl px-4 py-3 space-y-1.5">
-        <div className="flex justify-between text-xs font-outfit text-muted-foreground">
+      <div className="rounded-2xl px-4 py-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
+        <div className="flex justify-between text-xs font-outfit text-white/50">
           <span>Extracted Items Total</span>
           <span>${receipt.extractedItemsTotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between text-xs font-outfit text-muted-foreground">
+        <div className="flex justify-between text-xs font-outfit text-white/50">
           <span>Discounts / Adjustments</span>
-          <span className="text-success">{receipt.adjustmentsTotal >= 0 ? "+" : ""}${receipt.adjustmentsTotal.toFixed(2)}</span>
+          <span className="text-emerald-400">{receipt.adjustmentsTotal >= 0 ? "+" : ""}${receipt.adjustmentsTotal.toFixed(2)}</span>
         </div>
-        <div className="border-t border-dashed border-purple-300/30 pt-1.5 flex justify-between">
-          <span className="text-sm font-outfit font-semibold text-foreground">Receipt Total</span>
-          <span className="text-sm font-outfit font-bold text-foreground">${receipt.finalTotal.toFixed(2)}</span>
+        <div className="border-t border-dashed border-white/15 pt-1.5 flex justify-between">
+          <span className="text-sm font-outfit font-semibold text-white">Receipt Total</span>
+          <span className="text-sm font-outfit font-bold text-white">${receipt.finalTotal.toFixed(2)}</span>
         </div>
       </div>
 
