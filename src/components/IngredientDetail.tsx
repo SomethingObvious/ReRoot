@@ -91,30 +91,28 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining, onU
             <div className="px-5 pb-32 -mt-4 relative">
               {/* Title */}
               <div className="glass-strong rounded-2xl p-4 mb-4">
-                <div className="flex items-center gap-2">
-                  {editingName ? (
-                    <div className="flex items-center gap-2 flex-1">
-                      <Input
-                        value={nameValue}
-                        onChange={(e) => setNameValue(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
-                        className="text-xl font-outfit font-bold h-8 bg-transparent border-accent/30"
-                        autoFocus
-                      />
-                      <button onClick={handleSaveName} className="w-7 h-7 rounded-full glass flex items-center justify-center flex-shrink-0">
-                        <Check className="w-4 h-4 text-accent" />
-                      </button>
-                    </div>
-                  ) : (
-                    <>
-                      <h2 className="text-xl font-outfit font-bold text-foreground flex-1">{item.name}</h2>
-                      <button onClick={() => setEditingName(true)} className="w-7 h-7 rounded-full glass flex items-center justify-center flex-shrink-0">
-                        <Pencil className="w-3.5 h-3.5 text-muted-foreground" />
-                      </button>
-                    </>
-                  )}
-                </div>
-                <p className="text-xs font-outfit text-muted-foreground mt-0.5">
+                {editingName ? (
+                  <div className="flex items-center gap-2 mb-1">
+                    <Input
+                      value={nameValue}
+                      onChange={(e) => setNameValue(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
+                      className="text-lg font-outfit font-bold h-9 bg-transparent border-accent/30 rounded-xl px-3"
+                      autoFocus
+                    />
+                    <button onClick={handleSaveName} className="w-8 h-8 rounded-full glass flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-accent" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 mb-1">
+                    <h2 className="text-xl font-outfit font-bold text-foreground flex-1">{item.name}</h2>
+                    <button onClick={() => setEditingName(true)} className="w-7 h-7 rounded-full glass flex items-center justify-center flex-shrink-0">
+                      <Pencil className="w-3.5 h-3.5 text-muted-foreground" />
+                    </button>
+                  </div>
+                )}
+                <p className="text-xs font-outfit text-muted-foreground">
                   Purchased at {item.store} • {item.purchaseDate} • ${item.price.toFixed(2)}
                 </p>
                 <p className="text-xs font-outfit text-muted-foreground mt-0.5">{item.weight} remaining</p>
