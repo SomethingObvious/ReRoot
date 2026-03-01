@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import BottomNav from "./components/BottomNav";
 import ScanOverlay from "./components/ScanOverlay";
 import { ReceiptProvider, useReceipts } from "./lib/receiptContext";
+import { FridgeProvider, useFridge } from "./lib/fridgeContext";
 import type { ScannedReceipt } from "./lib/mockData";
 
 const queryClient = new QueryClient();
@@ -21,10 +22,12 @@ const queryClient = new QueryClient();
 function AppInner() {
   const [scanOpen, setScanOpen] = useState(false);
   const { addScannedReceipt } = useReceipts();
+  const { addItemsFromReceipt } = useFridge();
 
   const handleScanComplete = useCallback((scanned: ScannedReceipt) => {
     addScannedReceipt(scanned);
-  }, [addScannedReceipt]);
+    addItemsFromReceipt(scanned);
+  }, [addScannedReceipt, addItemsFromReceipt]);
 
   return (
     <>
@@ -51,7 +54,9 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ReceiptProvider>
-        <AppInner />
+        <FridgeProvider>
+          <AppInner />
+        </FridgeProvider>
       </ReceiptProvider>
     </TooltipProvider>
   </QueryClientProvider>

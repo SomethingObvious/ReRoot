@@ -315,6 +315,7 @@ export interface FridgeItem {
   recipe: { title: string; description: string; prepTime: string };
   storageTip: string;
   remaining: number;
+  isNew?: boolean;
 }
 
 export const FRIDGE_ITEMS: FridgeItem[] = [
