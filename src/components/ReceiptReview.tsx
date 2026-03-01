@@ -280,14 +280,14 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
                   <div className="flex items-center gap-2">
                     <span className="text-base">{config.emoji}</span>
                     <span className="text-sm font-outfit font-semibold text-white">{cat}</span>
-                    <span className="text-xs text-white/40" style={{ fontFamily: '"SF Mono", "Roboto Mono", "Consolas", monospace' }}>({catItems.length})</span>
+                    <span className="text-xs text-white/40 font-outfit">({catItems.length})</span>
                     <AnimatePresence>
                       {catReviewCount > 0 && (
                         <motion.span
                           initial={{ scale: 0, opacity: 0 }}
                           animate={{ scale: 1, opacity: 1 }}
                           exit={{ scale: 0, opacity: 0 }}
-                          className="flex items-center gap-1 text-[10px] px-1.5 py-px rounded-full bg-amber-500/20 text-amber-300 font-outfit font-medium leading-tight"
+                          className="flex items-center gap-1 text-[10px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-outfit font-medium"
                         >
                           <AlertTriangle className="w-3 h-3" />
                           {catReviewCount}
