@@ -24,32 +24,41 @@ function fireConfetti() {
   confetti({ ...defaults, particleCount: 40, spread: 120, shapes: ["circle"], colors: ["#4ADE80", "#8B5CF6"], scalar: 0.8 });
 }
 
-const bubbleConfigs = Array.from({ length: 8 }, (_, i) => ({
-  size: 5 + (((i * 7 + 3) % 8)),
-  left: `${12 + ((i * 11 + 7) % 76)}%`,
-  duration: `${3 + ((i * 2) % 3)}s`,
-  delay: `${(i * 0.5) % 3}s`,
+const bubbleConfigs = Array.from({ length: 6 }, (_, i) => ({
+  size: 4 + (i % 4) * 2,
+  xOffset: -40 + ((i * 17 + 5) % 80),
+  duration: 2.5 + (i % 3) * 0.8,
+  delay: i * 0.4,
 }));
 
-function PurpleBubbles() {
+function RisingBubbles() {
   return (
-    <div className="absolute inset-0 pointer-events-none z-0" style={{ overflow: "visible" }}>
+    <>
       {bubbleConfigs.map((cfg, i) => (
-        <div
+        <motion.div
           key={i}
-          className="absolute rounded-full"
+          className="absolute rounded-full pointer-events-none"
           style={{
             width: cfg.size,
             height: cfg.size,
-            left: cfg.left,
-            bottom: "0",
+            left: `calc(50% + ${cfg.xOffset}px)`,
+            bottom: 0,
             background: `radial-gradient(circle, hsl(152 50% 55% / 0.5), hsl(152 45% 40% / 0.15))`,
-            animation: `bubble-rise ${cfg.duration} ease-in-out ${cfg.delay} infinite`,
-            willChange: "transform, opacity",
+          }}
+          animate={{
+            y: [0, -60, -120],
+            opacity: [0, 0.6, 0],
+            scale: [0.8, 1, 0.3],
+          }}
+          transition={{
+            duration: cfg.duration,
+            delay: cfg.delay,
+            repeat: Infinity,
+            ease: "easeOut",
           }}
         />
       ))}
-    </div>
+    </>
   );
 }
 
@@ -230,7 +239,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 >
                   <div className="relative flex flex-col items-center gap-8">
                     <div className="relative">
-                      <PurpleBubbles />
+                      <RisingBubbles />
                       <motion.div
                         animate={{ rotateY: 360 }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
