@@ -13,9 +13,9 @@ export default function WrappedCard({ onClick }: Props) {
       onClick={onClick}
       className="relative rounded-3xl p-5 cursor-pointer overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, hsl(258 80% 65%), hsl(292 84% 55%), hsl(258 80% 65%))",
+        background: "linear-gradient(135deg, hsl(345 70% 42%), hsl(338 65% 48%), hsl(345 70% 42%))",
         backgroundSize: "200% 200%",
-        boxShadow: "0 12px 40px rgba(139,92,246,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
+        boxShadow: "0 12px 40px rgba(190,60,90,0.3), inset 0 1px 0 rgba(255,255,255,0.3)",
       }}
     >
       {/* Holographic foil shimmer */}

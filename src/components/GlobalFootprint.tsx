@@ -3,7 +3,7 @@ import { MapPin } from "lucide-react";
 
 const origins = [
   { country: "Canada 🇨🇦", pct: 65, items: "Apples, Pork, Milk", color: "hsl(0 84% 55%)" },
-  { country: "USA 🇺🇸", pct: 20, items: "Berries", color: "hsl(258 80% 60%)" },
+  { country: "USA 🇺🇸", pct: 20, items: "Berries", color: "hsl(345 70% 45%)" },
   { country: "Mexico 🇲🇽", pct: 10, items: "Avocados", color: "hsl(142 71% 45%)" },
   { country: "Other 🌍", pct: 5, items: "", color: "hsl(260 20% 65%)" },
 ];
@@ -13,7 +13,7 @@ export default function GlobalFootprint() {
     <div className="aero-card rounded-3xl p-4 h-full flex flex-col">
       <div className="relative z-10 flex-1 flex flex-col">
         <div className="flex items-center gap-2 mb-1">
-          <MapPin className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(139,92,246,0.3))" }} />
+          <MapPin className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(190,60,90,0.3))" }} />
           <h3 className="text-sm font-outfit font-semibold text-foreground">Global Footprint</h3>
         </div>
         <div className="flex items-center gap-2 mb-4">

@@ -37,7 +37,7 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
                     background: "rgba(255,255,255,0.30)",
                     backdropFilter: "blur(24px)",
                     WebkitBackdropFilter: "blur(24px)",
-                    boxShadow: "inset 0 1px 2px rgba(255,255,255,0.5), 0 4px 16px rgba(139,92,246,0.10)",
+                    boxShadow: "inset 0 1px 2px rgba(255,255,255,0.5), 0 4px 16px rgba(190,60,90,0.10)",
                   }}
                 >
                   <ScanLine className="w-7 h-7 text-primary drop-shadow-sm" />
@@ -58,14 +58,14 @@ export default function BottomNav({ onScanClick }: BottomNavProps) {
               {isActive && (
                 <div
                   className="absolute inset-0 bg-primary/10 rounded-2xl"
-                  style={{ boxShadow: "0 0 12px rgba(139,92,246,0.15)" }}
+                  style={{ boxShadow: "0 0 12px rgba(190,60,90,0.15)" }}
                 />
               )}
               <tab.icon
                 className={`w-5 h-5 transition-colors ${
                   isActive ? "text-primary drop-shadow-sm" : "text-muted-foreground"
                 }`}
-                style={isActive ? { filter: "drop-shadow(0 0 4px rgba(139,92,246,0.4))" } : {}}
+                style={isActive ? { filter: "drop-shadow(0 0 4px rgba(190,60,90,0.4))" } : {}}
               />
               <span
                 className={`text-[10px] font-medium mt-0.5 transition-colors ${

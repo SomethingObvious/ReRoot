@@ -18,7 +18,7 @@ export default function RewardsToggle() {
           backdropFilter: "blur(24px)",
           WebkitBackdropFilter: "blur(24px)",
           border: "1px solid rgba(255,255,255,0.90)",
-          boxShadow: "0 8px 32px rgba(139,92,246,0.08), 0 2px 8px rgba(139,92,246,0.04)",
+          boxShadow: "0 8px 32px rgba(190,60,90,0.08), 0 2px 8px rgba(190,60,90,0.04)",
         }}
       >
         {/* Diagonal gloss sheen */}
@@ -36,10 +36,10 @@ export default function RewardsToggle() {
               className="w-10 h-10 rounded-2xl flex items-center justify-center"
               style={{
                 background: isPublic
-                  ? "linear-gradient(135deg, hsl(258 80% 70%), hsl(292 70% 60%))"
+                  ? "linear-gradient(135deg, hsl(345 60% 55%), hsl(338 55% 50%))"
                   : "linear-gradient(135deg, hsl(220 15% 80%), hsl(220 10% 65%))",
                 boxShadow: isPublic
-                  ? "0 4px 12px rgba(139,92,246,0.3), inset 0 1px 0 rgba(255,255,255,0.4)"
+                  ? "0 4px 12px rgba(190,60,90,0.3), inset 0 1px 0 rgba(255,255,255,0.4)"
                   : "0 4px 12px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.5)",
               }}
             >
