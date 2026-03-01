@@ -165,8 +165,8 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
 
       {/* Category Groups — scrollable area with fade edges */}
       <div className="relative flex-1 min-h-0">
-        {/* Bottom fade only — subtle */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(265 38% 24%), transparent)" }} />
+        {/* Bottom fade — uses mask to fade content opacity */}
+        <div className="absolute bottom-0 left-0 right-0 h-10 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5), transparent)" }} />
 
         <div
           className="flex flex-col gap-3 h-full overflow-y-auto py-2"
