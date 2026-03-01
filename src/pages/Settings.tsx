@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Bell, Download, ChevronRight } from "lucide-react";
+import { ArrowLeft, Bell, Download, ChevronRight, AlertTriangle } from "lucide-react";
 import profilePhoto from "@/assets/profile-photo.jpg";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { PRICE_WATCH_ITEMS } from "@/lib/mockData";
+import { useFridge } from "@/lib/fridgeContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -14,6 +15,10 @@ const fadeUp = {
 export default function Settings() {
   const navigate = useNavigate();
   const [watchItems, setWatchItems] = useState(PRICE_WATCH_ITEMS);
+  const { fridgeItems } = useFridge();
+  const [expiryAlerts, setExpiryAlerts] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(fridgeItems.map((item) => [item.id, item.daysLeft <= 3]))
+  );
 
   const toggleWatch = (id: string) => {
     setWatchItems((prev) =>
@@ -21,6 +26,11 @@ export default function Settings() {
         item.id === id ? { ...item, enabled: !item.enabled } : item
       )
     );
+    toast.success("Saved ✓", { duration: 1500 });
+  };
+
+  const toggleExpiryAlert = (id: string) => {
+    setExpiryAlerts((prev) => ({ ...prev, [id]: !prev[id] }));
     toast.success("Saved ✓", { duration: 1500 });
   };
 
@@ -65,6 +75,48 @@ export default function Settings() {
           <p className="text-xs font-outfit text-muted-foreground">Member since Jun 2024</p>
         </div>
         <ChevronRight className="w-4 h-4 text-muted-foreground" />
+      </motion.div>
+
+      <motion.div variants={fadeUp} className="mb-4">
+        <div className="flex items-center gap-2 mb-3">
+          <AlertTriangle className="w-4 h-4 text-amber-500" />
+          <h2 className="text-sm font-outfit font-semibold text-foreground">Expiry Alerts</h2>
+        </div>
+        <div className="glass-strong rounded-3xl overflow-hidden divide-y divide-border">
+          {fridgeItems.map((item) => (
+            <div key={item.id} className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-3">
+                <span className="text-lg">{item.icon}</span>
+                <div>
+                  <p className="text-sm font-outfit font-medium text-foreground">{item.name}</p>
+                  <p className="text-xs font-outfit text-muted-foreground">
+                    {item.daysLeft <= 0
+                      ? "Expired"
+                      : item.daysLeft === 1
+                      ? "1 day left"
+                      : `${item.daysLeft} days left`}
+                  </p>
+                </div>
+              </div>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={() => toggleExpiryAlert(item.id)}
+                className="w-12 h-7 rounded-full flex items-center px-1 transition-colors"
+                style={{
+                  background: expiryAlerts[item.id]
+                    ? "linear-gradient(180deg, hsl(35 90% 55%), hsl(25 85% 45%))"
+                    : "hsl(270 25% 93%)",
+                }}
+              >
+                <motion.div
+                  className="w-5 h-5 rounded-full bg-card shadow-sm"
+                  animate={{ x: expiryAlerts[item.id] ? 20 : 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              </motion.button>
+            </div>
+          ))}
+        </div>
       </motion.div>
 
       <motion.div variants={fadeUp} className="mb-4">
