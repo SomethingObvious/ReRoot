@@ -152,7 +152,7 @@ export default function Fridge() {
               key={item.id}
               variants={fadeUp}
               whileTap={{ scale: 0.95 }}
-              whileHover={{ scale: 1.03, boxShadow: "0 14px 40px rgba(139,92,246,0.18)" }}
+              whileHover={{ scale: 1.03, boxShadow: "0 14px 40px rgba(190,60,90,0.18)" }}
               onClick={() => setSelectedItem(item)}
               className="glass-strong rounded-3xl p-4 flex flex-col items-center gap-2 cursor-pointer relative"
             >
