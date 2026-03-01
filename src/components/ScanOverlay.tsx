@@ -142,14 +142,14 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
-            background: "linear-gradient(160deg, hsl(330 35% 30%) 0%, hsl(340 30% 25%) 50%, hsl(335 25% 22%) 100%)",
+            background: "linear-gradient(160deg, hsl(330 35% 35%) 0%, hsl(340 30% 30%) 50%, hsl(335 25% 27%) 100%)",
           }}
         >
           {/* Hidden canvas for photo capture */}
           <canvas ref={canvasRef} className="hidden" />
 
           {/* Header */}
-          <div className="flex items-center justify-between p-4 pt-6">
+          <div className="flex items-center justify-between p-4 pt-8">
             <h2 className="text-primary-foreground text-lg font-semibold font-outfit">
               {stage === "viewfinder" && "Scan Receipt"}
               {stage === "processing" && "Processing"}
@@ -199,7 +199,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   ))}
 
                   {/* Scan line */}
-                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(335 30% 28% / 0.8), transparent)" }} />
+                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(335 30% 40% / 0.6), transparent)" }} />
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
                     <p className="text-rose-100/50 text-sm font-outfit">
