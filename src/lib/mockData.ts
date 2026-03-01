@@ -316,6 +316,7 @@ export interface FridgeItem {
   storageTip: string;
   remaining: number;
   isNew?: boolean;
+  notes?: string;
 }
 
 export const FRIDGE_ITEMS: FridgeItem[] = [

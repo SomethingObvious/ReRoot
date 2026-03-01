@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChefHat, Lightbulb, Clock, Star, AlertTriangle, Sparkles } from "lucide-react";
+import { X, ChefHat, Lightbulb, Clock, Sparkles, Pencil, Check, StickyNote } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import type { FridgeItem } from "@/lib/mockData";
 
 const categoryImages: Record<string, string> = {
@@ -18,6 +21,8 @@ interface Props {
   item: FridgeItem;
   onClose: () => void;
   onUpdateRemaining: (id: string, value: number) => void;
+  onUpdateName: (id: string, name: string) => void;
+  onUpdateNotes: (id: string, notes: string) => void;
 }
 
 function freshnessStatus(daysLeft: number, totalDays: number) {
@@ -27,13 +32,28 @@ function freshnessStatus(daysLeft: number, totalDays: number) {
   return { label: `${daysLeft} Days Left 🚨`, color: "hsl(0 84% 60%)" };
 }
 
-export default function IngredientDetail({ item, onClose, onUpdateRemaining }: Props) {
+export default function IngredientDetail({ item, onClose, onUpdateRemaining, onUpdateName, onUpdateNotes }: Props) {
   const status = freshnessStatus(item.daysLeft, item.totalDays);
   const freshPct = Math.min(100, Math.round((item.daysLeft / item.totalDays) * 100));
+  const [editingName, setEditingName] = useState(false);
+  const [nameValue, setNameValue] = useState(item.name);
+  const [notesValue, setNotesValue] = useState(item.notes || "");
 
-  // Freshness bar segments
   const greenEnd = 60;
   const yellowEnd = 85;
+
+  const handleSaveName = () => {
+    if (nameValue.trim()) {
+      onUpdateName(item.id, nameValue.trim());
+    } else {
+      setNameValue(item.name);
+    }
+    setEditingName(false);
+  };
+
+  const handleNotesBlur = () => {
+    onUpdateNotes(item.id, notesValue);
+  };
 
   return (
     <AnimatePresence>
@@ -71,7 +91,29 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining }: P
             <div className="px-5 pb-32 -mt-4 relative">
               {/* Title */}
               <div className="glass-strong rounded-2xl p-4 mb-4">
-                <h2 className="text-xl font-outfit font-bold text-foreground">{item.name}</h2>
+                <div className="flex items-center gap-2">
+                  {editingName ? (
+                    <div className="flex items-center gap-2 flex-1">
+                      <Input
+                        value={nameValue}
+                        onChange={(e) => setNameValue(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSaveName()}
+                        className="text-xl font-outfit font-bold h-8 bg-transparent border-accent/30"
+                        autoFocus
+                      />
+                      <button onClick={handleSaveName} className="w-7 h-7 rounded-full glass flex items-center justify-center flex-shrink-0">
+                        <Check className="w-4 h-4 text-accent" />
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <h2 className="text-xl font-outfit font-bold text-foreground flex-1">{item.name}</h2>
+                      <button onClick={() => setEditingName(true)} className="w-7 h-7 rounded-full glass flex items-center justify-center flex-shrink-0">
+                        <Pencil className="w-3.5 h-3.5 text-muted-foreground" />
+                      </button>
+                    </>
+                  )}
+                </div>
                 <p className="text-xs font-outfit text-muted-foreground mt-0.5">
                   Purchased at {item.store} • {item.purchaseDate} • ${item.price.toFixed(2)}
                 </p>
@@ -85,24 +127,28 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining }: P
                   <span className="text-xs font-outfit font-semibold" style={{ color: status.color }}>{status.label}</span>
                 </div>
 
-                {/* Bar */}
                 <div className="relative h-3 rounded-full overflow-hidden bg-muted mb-3">
                   <div className="absolute inset-0 flex">
                     <div className="h-full rounded-l-full" style={{ width: `${greenEnd}%`, background: "linear-gradient(90deg, hsl(142 71% 55%), hsl(142 71% 45%))" }} />
                     <div className="h-full" style={{ width: `${yellowEnd - greenEnd}%`, background: "linear-gradient(90deg, hsl(45 93% 55%), hsl(30 90% 50%))" }} />
                     <div className="h-full rounded-r-full" style={{ width: `${100 - yellowEnd}%`, background: "linear-gradient(90deg, hsl(0 70% 55%), hsl(0 84% 50%))" }} />
                   </div>
-                  {/* Indicator */}
+                  {/* Glassified Indicator */}
                   <motion.div
                     initial={{ left: "0%" }}
                     animate={{ left: `${Math.max(2, Math.min(96, 100 - freshPct))}%` }}
                     transition={{ type: "spring", stiffness: 200, damping: 25, delay: 0.3 }}
-                    className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2 shadow-lg"
-                    style={{ borderColor: status.color }}
+                    className="absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.55)",
+                      backdropFilter: "blur(12px)",
+                      WebkitBackdropFilter: "blur(12px)",
+                      border: `2px solid ${status.color}`,
+                      boxShadow: `0 2px 12px rgba(0,0,0,0.12), 0 0 8px ${status.color}40, inset 0 1px 2px rgba(255,255,255,0.7)`,
+                    }}
                   />
                 </div>
 
-                {/* Labels */}
                 <div className="flex justify-between text-[10px] font-outfit text-muted-foreground">
                   <span className="text-success">Best: {item.bestStart}–{item.bestEnd}</span>
                   <span className="text-amber-500">Soon: {item.useSoonStart}–{item.useSoonEnd}</span>
@@ -110,7 +156,27 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining }: P
                 </div>
               </div>
 
-              {/* Chef's Idea - Shimmer card */}
+              {/* Notes */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, type: "spring", stiffness: 250, damping: 25 }}
+                className="glass-strong rounded-2xl p-4 mb-4"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <StickyNote className="w-4 h-4 text-accent" />
+                  <h3 className="text-sm font-outfit font-semibold text-foreground">Notes</h3>
+                </div>
+                <Textarea
+                  value={notesValue}
+                  onChange={(e) => setNotesValue(e.target.value)}
+                  onBlur={handleNotesBlur}
+                  placeholder="Add a note… e.g. 'opened on Monday' or 'use for pasta'"
+                  className="bg-transparent border-accent/20 text-sm font-outfit min-h-[60px] resize-none placeholder:text-muted-foreground/50"
+                />
+              </motion.div>
+
+              {/* Chef's Idea */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -123,7 +189,6 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining }: P
                   boxShadow: "0 8px 30px rgba(139,92,246,0.1), inset 0 1px 0 rgba(255,255,255,0.5)",
                 }}
               >
-                {/* Shimmer */}
                 <motion.div
                   className="absolute inset-0 pointer-events-none"
                   style={{ background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.4) 50%, transparent 60%)" }}

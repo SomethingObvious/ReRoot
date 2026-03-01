@@ -57,6 +57,16 @@ export default function Fridge() {
     else setSelectedItem((prev) => (prev?.id === id ? { ...prev, remaining: value } : prev));
   };
 
+  const handleUpdateName = (id: string, name: string) => {
+    setFridgeItems((prev) => prev.map((i) => (i.id === id ? { ...i, name } : i)));
+    setSelectedItem((prev) => (prev?.id === id ? { ...prev, name } : prev));
+  };
+
+  const handleUpdateNotes = (id: string, notes: string) => {
+    setFridgeItems((prev) => prev.map((i) => (i.id === id ? { ...i, notes } : i)));
+    setSelectedItem((prev) => (prev?.id === id ? { ...prev, notes } : prev));
+  };
+
   return (
     <>
       <motion.div
@@ -113,6 +123,8 @@ export default function Fridge() {
             item={selectedItem}
             onClose={() => setSelectedItem(null)}
             onUpdateRemaining={handleUpdateRemaining}
+            onUpdateName={handleUpdateName}
+            onUpdateNotes={handleUpdateNotes}
           />
         )}
       </AnimatePresence>
