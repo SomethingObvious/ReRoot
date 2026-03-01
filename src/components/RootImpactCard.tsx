@@ -9,7 +9,7 @@ export default function RootImpactCard() {
     <motion.div
       layout
       className="glass-strong rounded-3xl p-5 relative overflow-hidden"
-      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(0,0,0,0.2)" }}
+      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(139,92,246,0.18)" }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       onHoverStart={() => setShowTooltip(true)}
       onHoverEnd={() => setShowTooltip(false)}
@@ -68,7 +68,7 @@ export default function RootImpactCard() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             className="absolute top-2 right-2 text-primary-foreground text-[11px] font-outfit px-3 py-2 rounded-2xl shadow-deep max-w-[200px]"
-            style={{ background: "linear-gradient(135deg, hsl(143 24% 45%), hsl(143 30% 35%))" }}
+            style={{ background: "linear-gradient(135deg, hsl(258 90% 55%), hsl(292 84% 50%))" }}
           >
             Based on your average consumption vs. spoil rate.
           </motion.div>
