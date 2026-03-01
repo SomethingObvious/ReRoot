@@ -67,10 +67,10 @@ export default function RootImpactCard() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
-            className="absolute top-2 right-2 text-primary-foreground text-[11px] font-outfit px-3 py-2 rounded-2xl shadow-deep max-w-[200px]"
-            style={{ background: "linear-gradient(135deg, hsl(345 70% 42%), hsl(338 65% 48%))" }}
+            className="absolute top-2 right-2 text-white text-[11px] font-outfit px-3 py-1.5 rounded-2xl shadow-deep max-w-[220px] leading-snug"
+            style={{ background: "linear-gradient(135deg, hsl(345 70% 42%), hsl(330 60% 50%), hsl(280 50% 48%))" }}
           >
-            Based on your average consumption vs. spoil rate.
+            Based on your <strong>average consumption</strong> vs. <strong>spoil rate</strong>.
           </motion.div>
         )}
       </AnimatePresence>
