@@ -62,7 +62,9 @@
   }
 
   html {
-    overflow-y: scroll;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(258 40% 50% / 0.3) transparent;
   }
 
   body {
