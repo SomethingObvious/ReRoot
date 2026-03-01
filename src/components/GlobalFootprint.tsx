@@ -17,7 +17,7 @@ export default function GlobalFootprint() {
           <h3 className="text-sm font-outfit font-semibold text-foreground">Global Footprint</h3>
         </div>
         <div className="flex items-center gap-2 mb-1">
-          <span className="text-lg font-outfit font-bold text-foreground">Local Hero 🍁</span>
+          <span className="text-lg font-outfit font-bold text-foreground">Local Hero🍁</span>
         </div>
 
         <div className="space-y-2.5 mb-3">
