@@ -70,7 +70,7 @@ export default function RootImpactCard() {
             className="absolute top-2 right-2 text-white text-[11px] font-outfit px-3 py-1.5 rounded-2xl shadow-deep max-w-[220px] leading-snug"
             style={{ background: "linear-gradient(135deg, hsl(345 70% 42%), hsl(338 65% 48%), hsl(330 55% 45%))" }}
           >
-            Based on your <strong>average consumption</strong> vs. <strong>spoil rate</strong>.
+            Based on your <strong>average<br />consumption</strong> vs. <strong>spoil rate</strong>.
           </motion.div>
         )}
       </AnimatePresence>
