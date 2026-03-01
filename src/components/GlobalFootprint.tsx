@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 
 const origins = [
-  { country: "Canada 🇨🇦", pct: 65, items: "Apples, Pork, Milk", color: "hsl(0 84% 55%)" },
-  { country: "USA 🇺🇸", pct: 20, items: "Berries", color: "hsl(345 70% 45%)" },
-  { country: "Mexico 🇲🇽", pct: 10, items: "Avocados", color: "hsl(142 71% 45%)" },
-  { country: "Other 🌍", pct: 5, items: "", color: "hsl(260 20% 65%)" },
+  { country: "Canada", flag: "🇨🇦", pct: 65, items: "Apples, Pork, Milk", color: "hsl(0 84% 55%)" },
+  { country: "USA", flag: "🇺🇸", pct: 20, items: "Berries", color: "hsl(345 70% 45%)" },
+  { country: "Mexico", flag: "🇲🇽", pct: 10, items: "Avocados", color: "hsl(142 71% 45%)" },
+  { country: "Other", flag: "🌍", pct: 5, items: "", color: "hsl(260 20% 65%)" },
 ];
 
 export default function GlobalFootprint() {
@@ -24,7 +24,7 @@ export default function GlobalFootprint() {
           {origins.map((o) => (
             <div key={o.country}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[11px] font-outfit font-semibold text-foreground">{o.country}</span>
+                <span className="text-[11px] font-outfit font-semibold text-foreground">{o.country} {o.flag}</span>
                 <span className="text-[11px] font-outfit font-semibold text-muted-foreground">{o.pct}%</span>
               </div>
               <div className="h-2 rounded-full bg-muted overflow-hidden">
