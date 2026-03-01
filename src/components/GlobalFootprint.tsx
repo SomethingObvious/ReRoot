@@ -16,7 +16,7 @@ export default function GlobalFootprint() {
           <MapPin className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(190,60,90,0.3))" }} />
           <h3 className="text-sm font-outfit font-semibold text-foreground">Global Footprint</h3>
         </div>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center gap-2 mb-1">
           <span className="text-lg font-outfit font-bold text-foreground">Local Hero 🍁</span>
         </div>
 
