@@ -115,13 +115,13 @@ export default function Fridge() {
 
         {/* Search */}
         <div className="relative mb-3" style={{ marginTop: "-2px" }}>
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search items..."
-            className="w-full pl-9 pr-4 py-2.5 rounded-2xl text-sm font-outfit text-foreground placeholder:text-muted-foreground outline-none"
+            className="w-full px-4 py-2.5 rounded-2xl text-sm font-outfit text-foreground placeholder:text-muted-foreground outline-none"
             style={{
               background: "rgba(255, 255, 255, 0.55)",
               backdropFilter: "blur(20px)",
