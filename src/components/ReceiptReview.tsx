@@ -23,7 +23,7 @@ function ConfidenceBadge({ confidence }: { confidence: string }) {
   };
   return (
     <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${colors[confidence as keyof typeof colors] || colors.Medium}`}>
-      {confidence}
+      {confidence} confidence
     </span>
   );
 }
@@ -88,12 +88,42 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
           </div>
 
           {item.packageCosts && (
-            <div className="mt-1.5 flex gap-1 flex-wrap">
+            <div className="mt-2 flex flex-col gap-1.5">
               {item.packageCosts.map((cost, i) => (
-                <span key={i} className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/50 font-outfit">
-                  Pkg {i + 1}: ${cost.toFixed(2)}
-                </span>
+                <div key={i} className="flex items-center gap-2">
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/50 font-outfit shrink-0">
+                    Pkg {i + 1}: ${cost.toFixed(2)}
+                  </span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    placeholder="kg"
+                    className="w-16 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30"
+                    value={item.packageWeights?.[i] ?? ""}
+                    onChange={(e) => {
+                      const newWeights = [...(item.packageWeights || item.packageCosts!.map(() => null))];
+                      newWeights[i] = e.target.value ? parseFloat(e.target.value) : null;
+                      onChange({ ...item, packageWeights: newWeights });
+                    }}
+                  />
+                  <span className="text-[10px] text-white/30 font-outfit">kg</span>
+                </div>
               ))}
+              {/* Unit price input for the whole item */}
+              <div className="flex items-center gap-2 mt-1 pt-1.5 border-t border-white/10">
+                <span className="text-[10px] text-white/50 font-outfit shrink-0">Price/kg</span>
+                <input
+                  type="number"
+                  step="0.01"
+                  placeholder="$/kg"
+                  className="w-20 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30"
+                  value={item.unitPrice ?? ""}
+                  onChange={(e) => {
+                    onChange({ ...item, unitPrice: e.target.value ? parseFloat(e.target.value) : null });
+                  }}
+                />
+                <span className="text-[10px] text-white/30 font-outfit">$/kg</span>
+              </div>
             </div>
           )}
 
