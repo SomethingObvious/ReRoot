@@ -11,21 +11,21 @@ export default function RewardsToggle() {
       <motion.div
         layout
         className="relative rounded-3xl p-5 overflow-hidden"
-        style={{
-          background: isPublic
-            ? "rgba(255,255,255,0.55)"
-            : "rgba(255,255,255,0.65)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(255,255,255,0.90)",
-          boxShadow: "0 8px 32px rgba(139,92,246,0.08), 0 2px 8px rgba(139,92,246,0.04)",
-        }}
+          style={{
+            background: isPublic
+              ? "rgba(80, 55, 65, 0.55)"
+              : "rgba(80, 55, 65, 0.55)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            border: "1px solid rgba(255,255,255,0.10)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.15), 0 2px 8px rgba(0,0,0,0.08)",
+          }}
       >
         {/* Diagonal gloss sheen */}
         <div
           className="absolute top-0 left-0 w-full h-full pointer-events-none"
           style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.15) 30%, transparent 55%)",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 30%, transparent 55%)",
           }}
         />
 
@@ -52,13 +52,13 @@ export default function RewardsToggle() {
             <div>
               <h3
                 className="font-outfit font-semibold text-sm"
-                style={{ color: "hsl(240 64% 27%)", textShadow: "0 0 8px rgba(255,255,255,0.6)" }}
+                style={{ color: "hsl(330 10% 90%)" }}
               >
                 {isPublic ? "Market Rewards" : "Vault Mode"}
               </h3>
               <p
                 className="text-xs font-outfit"
-                style={{ color: "hsl(260 20% 50%)", textShadow: "0 0 6px rgba(255,255,255,0.4)" }}
+                style={{ color: "hsl(330 15% 65%)" }}
               >
                 {isPublic ? "Power Earner (2x)" : "Standard Points (1x)"}
               </p>
@@ -100,7 +100,7 @@ export default function RewardsToggle() {
 
         <p
           className="relative z-10 text-xs font-outfit leading-relaxed"
-          style={{ color: "hsl(260 20% 45%)", textShadow: "0 0 6px rgba(255,255,255,0.4)" }}
+          style={{ color: "hsl(330 15% 65%)" }}
         >
           {isPublic ? "Anonymized insights active. Earn 2x points on every scan." : "Data processed locally. No sharing."}
         </p>
