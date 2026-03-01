@@ -62,7 +62,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
   finalTotal: 80.91,
   extractedItemsTotal: 88.11,
   adjustmentsTotal: -7.20,
-  pointsEarned: 81,
+  pointsEarned: 52,
   lineItems: [
     {
       id: "item-001",

@@ -35,9 +35,9 @@ export function ReceiptProvider({ children }: { children: ReactNode }) {
       savings: Math.abs(scanned.adjustmentsTotal),
       pointsEarned: scanned.pointsEarned,
       items: scanned.lineItems.map((li) => ({
-        name: li.nameNormalized,
+        name: `${li.quantity > 1 ? `${li.quantity}x ` : ""}${li.nameNormalized}`,
         price: li.lineTotal,
-        quantity: li.quantity,
+        quantity: 1,
         category: li.category,
       })),
     };
