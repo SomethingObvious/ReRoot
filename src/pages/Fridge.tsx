@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AlertTriangle } from "lucide-react";
-import { FRIDGE_ITEMS, type FridgeItem } from "@/lib/mockData";
+import { AlertTriangle, Sparkles } from "lucide-react";
+import { useFridge } from "@/lib/fridgeContext";
+import type { FridgeItem } from "@/lib/mockData";
 import IngredientDetail from "@/components/IngredientDetail";
 
 const fadeUp = {
@@ -43,11 +44,11 @@ function CircularProgress({ daysLeft, totalDays, size = 44 }: { daysLeft: number
 }
 
 export default function Fridge() {
-  const [items, setItems] = useState<FridgeItem[]>([...FRIDGE_ITEMS].sort((a, b) => a.daysLeft - b.daysLeft));
+  const { fridgeItems, setFridgeItems } = useFridge();
   const [selectedItem, setSelectedItem] = useState<FridgeItem | null>(null);
 
   const handleUpdateRemaining = (id: string, value: number) => {
-    setItems((prev) =>
+    setFridgeItems((prev) =>
       value === 0
         ? prev.filter((i) => i.id !== id)
         : prev.map((i) => (i.id === id ? { ...i, remaining: value } : i))
@@ -72,15 +73,26 @@ export default function Fridge() {
         </motion.p>
 
         <div className="grid grid-cols-2 gap-3">
-          {items.map((item) => (
+          {fridgeItems.map((item) => (
             <motion.div
               key={item.id}
               variants={fadeUp}
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.03, boxShadow: "0 14px 40px rgba(139,92,246,0.18)" }}
               onClick={() => setSelectedItem(item)}
-              className="glass-strong rounded-3xl p-4 flex flex-col items-center gap-2 cursor-pointer"
+              className="glass-strong rounded-3xl p-4 flex flex-col items-center gap-2 cursor-pointer relative"
             >
+              {item.isNew && (
+                <motion.div
+                  initial={{ scale: 0, rotate: -12 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 15, delay: 0.3 }}
+                  className="absolute -top-2 -right-2 z-10 flex items-center gap-0.5 px-2 py-0.5 rounded-full text-[10px] font-outfit font-bold text-white"
+                  style={{ background: "linear-gradient(135deg, hsl(258 90% 66%), hsl(292 84% 61%))" }}
+                >
+                  <Sparkles className="w-2.5 h-2.5" /> NEW
+                </motion.div>
+              )}
               <span className="text-3xl">{item.icon}</span>
               <CircularProgress daysLeft={item.daysLeft} totalDays={item.totalDays} />
               <p className="text-xs font-outfit font-semibold text-foreground text-center leading-tight">{item.name}</p>
