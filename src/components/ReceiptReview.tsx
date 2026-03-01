@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { AlertTriangle, Check, ChevronDown, ChevronUp, Pencil, Package, Leaf, Snowflake, ShoppingBasket } from "lucide-react";
 import type { ScannedReceipt, LineItem, ItemCategory } from "@/lib/mockData";
 
@@ -201,23 +201,13 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
                 </div>
               </button>
 
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="flex flex-col gap-2 p-2 pt-2">
-                      {catItems.map((item) => (
-                        <EditableLineItem key={item.id} item={item} onChange={handleItemChange} />
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {isOpen && (
+                <div className="flex flex-col gap-2 p-2 pt-2">
+                  {catItems.map((item) => (
+                    <EditableLineItem key={item.id} item={item} onChange={handleItemChange} />
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
