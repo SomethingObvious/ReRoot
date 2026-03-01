@@ -149,7 +149,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           <canvas ref={canvasRef} className="hidden" />
 
           {/* Header */}
-          <div className="flex items-center justify-between p-4 pt-12">
+          <div className="flex items-center justify-between p-4 pt-6">
             <h2 className="text-primary-foreground text-lg font-semibold font-outfit">
               {stage === "viewfinder" && "Scan Receipt"}
               {stage === "processing" && "Processing"}
