@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, Sparkles, ArrowUpDown } from "lucide-react";
 import { useFridge } from "@/lib/fridgeContext";
@@ -56,9 +57,14 @@ export default function Fridge() {
   const [selectedItem, setSelectedItem] = useState<FridgeItem | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("expiry");
   const [sortAsc, setSortAsc] = useState(true);
+  const [search, setSearch] = useState("");
 
   const sortedItems = useMemo(() => {
-    const items = [...fridgeItems];
+    let items = [...fridgeItems];
+    if (search.trim()) {
+      const q = search.trim().toLowerCase();
+      items = items.filter((i) => i.name.toLowerCase().includes(q));
+    }
     const dir = sortAsc ? 1 : -1;
     switch (sortMode) {
       case "expiry":
@@ -70,7 +76,7 @@ export default function Fridge() {
       default:
         return items;
     }
-  }, [fridgeItems, sortMode, sortAsc]);
+  }, [fridgeItems, sortMode, sortAsc, search]);
 
   const handleUpdateRemaining = (id: string, value: number) => {
     setFridgeItems((prev) =>
@@ -106,6 +112,25 @@ export default function Fridge() {
         <motion.p variants={fadeUp} className="text-sm font-outfit text-muted-foreground mb-4">
           Track freshness & reduce waste 🥬
         </motion.p>
+
+        {/* Search */}
+        <div className="relative mb-3">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search items..."
+            className="w-full pl-9 pr-4 py-2.5 rounded-2xl text-sm font-outfit text-foreground placeholder:text-muted-foreground outline-none"
+            style={{
+              background: "rgba(255, 255, 255, 0.55)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(255,255,255,0.7)",
+              boxShadow: "0 2px 12px rgba(190,60,90,0.06), inset 0 1px 2px rgba(255,255,255,0.5)",
+            }}
+          />
+        </div>
 
         {/* Sort Pills */}
         <div className="flex items-center gap-2 mb-4">
