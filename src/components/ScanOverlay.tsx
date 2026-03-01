@@ -166,7 +166,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           </div>
 
           {/* Content */}
-          <div className="flex-1 flex flex-col items-center justify-center px-6 overflow-hidden">
+          <div className="flex-1 flex flex-col items-center justify-start pt-2 px-6 overflow-hidden">
             <AnimatePresence mode="wait">
               {stage === "viewfinder" && (
                 <motion.div
