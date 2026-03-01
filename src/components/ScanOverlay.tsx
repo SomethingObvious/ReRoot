@@ -226,33 +226,35 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="flex flex-col items-center justify-center gap-8 relative flex-1"
+                  className="flex flex-col items-center justify-center gap-8 flex-1"
                 >
-                  <PurpleBubbles />
-                  <motion.div
-                    animate={{ rotateY: 360 }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    className="text-7xl"
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    🌱
-                  </motion.div>
-                  <motion.p
-                    key={processingText}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-rose-100/80 text-lg font-outfit font-medium"
-                  >
-                    {processingTexts[processingText]}
-                  </motion.p>
-                  <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                  <div className="relative flex flex-col items-center gap-8">
+                    <PurpleBubbles />
                     <motion.div
-                      className="h-full rounded-full"
-                      style={{ background: "linear-gradient(90deg, hsl(152 50% 45%), hsl(152 55% 55%))" }}
-                      initial={{ width: "0%" }}
-                      animate={{ width: "100%" }}
-                      transition={{ duration: 3, ease: "easeInOut" }}
-                    />
+                      animate={{ rotateY: 360 }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                      className="text-7xl"
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      🌱
+                    </motion.div>
+                    <motion.p
+                      key={processingText}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-rose-100/80 text-lg font-outfit font-medium"
+                    >
+                      {processingTexts[processingText]}
+                    </motion.p>
+                    <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                      <motion.div
+                        className="h-full rounded-full"
+                        style={{ background: "linear-gradient(90deg, hsl(152 50% 45%), hsl(152 55% 55%))" }}
+                        initial={{ width: "0%" }}
+                        animate={{ width: "100%" }}
+                        transition={{ duration: 3, ease: "easeInOut" }}
+                      />
+                    </div>
                   </div>
                 </motion.div>
               )}
