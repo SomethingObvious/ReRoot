@@ -15,6 +15,195 @@ export interface Receipt {
   pointsEarned: number;
 }
 
+// ── New structured receipt types ──
+
+export type Confidence = "High" | "Medium" | "Low";
+export type ItemCategory = "Grocery" | "Meat" | "Produce" | "Frozen";
+export type StorageLocation = "Fridge" | "Freezer" | "Pantry";
+
+export interface LineItem {
+  id: string;
+  category: ItemCategory;
+  brand: string | null;
+  nameNormalized: string;
+  nameRaw?: string;
+  quantity: number;
+  unit: string;
+  unitPrice: number | null;
+  weightKg: number | null;
+  lineTotal: number;
+  packageCosts?: number[];
+  confidence: Confidence;
+  needsReview: boolean;
+  estimatedExpiryDays?: number;
+  storageLocation?: StorageLocation;
+}
+
+export interface ScannedReceipt {
+  id: string;
+  createdAt: string;
+  storeName: string;
+  purchaseDate: string;
+  currency: string;
+  finalTotal: number;
+  extractedItemsTotal: number;
+  adjustmentsTotal: number;
+  lineItems: LineItem[];
+  pointsEarned: number;
+}
+
+export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
+  id: "demo-receipt-001",
+  createdAt: new Date().toISOString(),
+  storeName: "Metro",
+  purchaseDate: new Date().toISOString().split("T")[0],
+  currency: "CAD",
+  finalTotal: 80.91,
+  extractedItemsTotal: 88.11,
+  adjustmentsTotal: -7.20,
+  pointsEarned: 81,
+  lineItems: [
+    {
+      id: "item-001",
+      category: "Grocery",
+      brand: "Selection",
+      nameNormalized: "Spices",
+      quantity: 2,
+      unit: "each",
+      unitPrice: 1.79,
+      weightKg: null,
+      lineTotal: 3.58,
+      confidence: "High",
+      needsReview: false,
+      estimatedExpiryDays: 365,
+      storageLocation: "Pantry",
+    },
+    {
+      id: "item-002",
+      category: "Grocery",
+      brand: "Selection",
+      nameNormalized: "Canned Tomatoes",
+      quantity: 3,
+      unit: "each",
+      unitPrice: 1.79,
+      weightKg: null,
+      lineTotal: 5.37,
+      confidence: "High",
+      needsReview: false,
+      estimatedExpiryDays: 730,
+      storageLocation: "Pantry",
+    },
+    {
+      id: "item-003",
+      category: "Grocery",
+      brand: "Selection",
+      nameNormalized: "Pickles",
+      quantity: 1,
+      unit: "each",
+      unitPrice: null,
+      weightKg: null,
+      lineTotal: 3.99,
+      confidence: "Medium",
+      needsReview: true,
+      estimatedExpiryDays: 365,
+      storageLocation: "Pantry",
+    },
+    {
+      id: "item-004",
+      category: "Grocery",
+      brand: "Unico",
+      nameNormalized: "Pickled Peppers",
+      quantity: 1,
+      unit: "each",
+      unitPrice: null,
+      weightKg: null,
+      lineTotal: 3.49,
+      confidence: "Medium",
+      needsReview: true,
+      estimatedExpiryDays: 365,
+      storageLocation: "Pantry",
+    },
+    {
+      id: "item-009",
+      category: "Grocery",
+      brand: "Selection",
+      nameNormalized: "Eggs (30 Large)",
+      quantity: 1,
+      unit: "each",
+      unitPrice: null,
+      weightKg: null,
+      lineTotal: 9.99,
+      confidence: "Medium",
+      needsReview: false,
+      estimatedExpiryDays: 28,
+      storageLocation: "Fridge",
+    },
+    {
+      id: "item-005",
+      category: "Meat",
+      brand: null,
+      nameNormalized: "Pork Tenderloin",
+      quantity: 4,
+      unit: "packages",
+      unitPrice: null,
+      weightKg: null,
+      lineTotal: 44.0,
+      packageCosts: [9.10, 11.42, 11.0, 12.48],
+      confidence: "Medium",
+      needsReview: true,
+      estimatedExpiryDays: 3,
+      storageLocation: "Fridge",
+    },
+    {
+      id: "item-006",
+      category: "Produce",
+      brand: null,
+      nameNormalized: "Green Cabbage",
+      quantity: 1,
+      unit: "kg",
+      unitPrice: 2.18,
+      weightKg: 2.395,
+      lineTotal: 5.22,
+      confidence: "High",
+      needsReview: false,
+      estimatedExpiryDays: 7,
+      storageLocation: "Fridge",
+    },
+    {
+      id: "item-007",
+      category: "Frozen",
+      brand: "McCain",
+      nameNormalized: "Superfries Crinkle Cut",
+      quantity: 1,
+      unit: "each",
+      unitPrice: null,
+      weightKg: null,
+      lineTotal: 5.49,
+      confidence: "Medium",
+      needsReview: false,
+      estimatedExpiryDays: 270,
+      storageLocation: "Freezer",
+    },
+    {
+      id: "item-008",
+      category: "Frozen",
+      brand: "Ferma",
+      nameNormalized: "Mixed Vegetables",
+      quantity: 2,
+      unit: "each",
+      unitPrice: 3.49,
+      weightKg: null,
+      lineTotal: 6.98,
+      confidence: "High",
+      needsReview: false,
+      estimatedExpiryDays: 365,
+      storageLocation: "Freezer",
+    },
+  ],
+};
+
+// ── Legacy types (unchanged) ──
+
 export const DEMO_RECEIPT: Receipt = {
   id: "rcpt-001",
   store: "Metro",
@@ -123,7 +312,7 @@ export interface FridgeItem {
   riskStart: string;
   recipe: { title: string; description: string; prepTime: string };
   storageTip: string;
-  remaining: number; // 0-100
+  remaining: number;
 }
 
 export const FRIDGE_ITEMS: FridgeItem[] = [

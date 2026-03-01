@@ -1,10 +1,9 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Camera, Scan, Zap, ZapOff, Sun, Contrast } from "lucide-react";
+import { X, Camera, ImagePlus, Zap, ZapOff } from "lucide-react";
 import confetti from "canvas-confetti";
-import { scanReceipt } from "@/lib/api";
-import type { Receipt } from "@/lib/mockData";
-import ReceiptTicket from "./ReceiptTicket";
+import { DEMO_SCANNED_RECEIPT, type ScannedReceipt } from "@/lib/mockData";
+import ReceiptReview from "./ReceiptReview";
 
 interface ScanOverlayProps {
   isOpen: boolean;
@@ -13,27 +12,15 @@ interface ScanOverlayProps {
 
 const processingTexts = [
   "Photosynthesizing...",
-  "Identifying Veggies...",
-  "Checking Prices...",
-  "Tallying Savings...",
+  "Identifying items...",
+  "Checking prices...",
+  "Tallying savings...",
 ];
 
 function fireConfetti() {
   const defaults = { origin: { y: 0.7 }, zIndex: 9999 };
-  confetti({
-    ...defaults,
-    particleCount: 80,
-    spread: 80,
-    colors: ["#8B5CF6", "#D946EF", "#4ADE80", "#A78BFA"],
-  });
-  confetti({
-    ...defaults,
-    particleCount: 40,
-    spread: 120,
-    shapes: ["circle"],
-    colors: ["#4ADE80", "#8B5CF6"],
-    scalar: 0.8,
-  });
+  confetti({ ...defaults, particleCount: 80, spread: 80, colors: ["#8B5CF6", "#D946EF", "#4ADE80", "#A78BFA"] });
+  confetti({ ...defaults, particleCount: 40, spread: 120, shapes: ["circle"], colors: ["#4ADE80", "#8B5CF6"], scalar: 0.8 });
 }
 
 function PurpleBubbles() {
@@ -58,20 +45,64 @@ function PurpleBubbles() {
 }
 
 export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
-  const [stage, setStage] = useState<"viewfinder" | "processing" | "result">("viewfinder");
+  const [stage, setStage] = useState<"viewfinder" | "processing" | "review" | "done">("viewfinder");
   const [processingText, setProcessingText] = useState(0);
-  const [result, setResult] = useState<Receipt | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [autoDetect, setAutoDetect] = useState(true);
+  const [result, setResult] = useState<ScannedReceipt | null>(null);
   const [flash, setFlash] = useState(false);
-  const [brightness, setBrightness] = useState(50);
-  const [contrast, setContrast] = useState(50);
-  const [slidersActive, setSlidersActive] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Start camera when overlay opens
+  useEffect(() => {
+    if (isOpen && stage === "viewfinder") {
+      startCamera();
+    }
+    return () => stopCamera();
+  }, [isOpen, stage]);
+
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 1920 } },
+      });
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+      }
+    } catch {
+      // Camera not available — user can still use file upload
+    }
+  };
+
+  const stopCamera = () => {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+  };
+
+  const capturePhoto = useCallback(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.drawImage(video, 0, 0);
+    stopCamera();
+    processCapture();
+  }, []);
+
+  const handleFileSelect = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    stopCamera();
+    processCapture();
+  }, []);
 
+  const processCapture = () => {
     setStage("processing");
     let textIdx = 0;
     const interval = setInterval(() => {
@@ -79,19 +110,21 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
       setProcessingText(textIdx);
     }, 900);
 
-    try {
-      const receipt = await scanReceipt(file);
+    // Simulate processing (Wizard of Oz)
+    setTimeout(() => {
       clearInterval(interval);
-      setResult(receipt);
-      setStage("result");
-      setTimeout(fireConfetti, 300);
-    } catch {
-      clearInterval(interval);
-      setStage("viewfinder");
-    }
-  }, []);
+      setResult(DEMO_SCANNED_RECEIPT);
+      setStage("review");
+    }, 3200);
+  };
+
+  const handleConfirm = (_receipt: ScannedReceipt) => {
+    setStage("done");
+    setTimeout(fireConfetti, 200);
+  };
 
   const handleClose = () => {
+    stopCamera();
     setStage("viewfinder");
     setResult(null);
     onClose();
@@ -110,12 +143,16 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
             background: "linear-gradient(160deg, hsl(258 60% 20%) 0%, hsl(270 50% 12%) 50%, hsl(240 50% 15%) 100%)",
           }}
         >
+          {/* Hidden canvas for photo capture */}
+          <canvas ref={canvasRef} className="hidden" />
+
           {/* Header */}
           <div className="flex items-center justify-between p-4 pt-12">
             <h2 className="text-primary-foreground text-lg font-semibold font-outfit">
               {stage === "viewfinder" && "Scan Receipt"}
               {stage === "processing" && "Processing"}
-              {stage === "result" && "Receipt Scanned!"}
+              {stage === "review" && "Review Receipt"}
+              {stage === "done" && "Receipt Saved!"}
             </h2>
             <motion.button
               whileTap={{ scale: 0.85 }}
@@ -126,39 +163,24 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
             </motion.button>
           </div>
 
-          {/* Pro Mode Top Bar */}
+          {/* Flash toggle */}
           {stage === "viewfinder" && (
-            <div className="flex items-center justify-between px-5 py-2">
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => setAutoDetect(!autoDetect)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-outfit font-semibold"
-                style={{
-                  background: autoDetect ? "hsl(142 71% 45% / 0.2)" : "hsl(0 0% 100% / 0.1)",
-                  color: autoDetect ? "hsl(142 71% 60%)" : "hsl(0 0% 70%)",
-                }}
-              >
-                <div className="w-2 h-2 rounded-full" style={{ background: autoDetect ? "hsl(142 71% 55%)" : "hsl(0 0% 50%)" }} />
-                Auto-Detect
-              </motion.button>
+            <div className="flex items-center justify-end px-5 py-2">
               <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={() => setFlash(!flash)}
                 className="w-9 h-9 rounded-full flex items-center justify-center"
-                style={{
-                  background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)",
-                }}
+                style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
               >
                 {flash
                   ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
-                  : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />
-                }
+                  : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
               </motion.button>
             </div>
           )}
 
           {/* Content */}
-          <div className="flex-1 flex flex-col items-center justify-center px-6">
+          <div className="flex-1 flex flex-col items-center justify-center px-6 overflow-hidden">
             <AnimatePresence mode="wait">
               {stage === "viewfinder" && (
                 <motion.div
@@ -169,8 +191,18 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   className="w-full max-w-sm aspect-[3/4] relative rounded-3xl overflow-hidden border-2 border-purple-400/30"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-b from-purple-950/60 to-black/80" />
+                  {/* Live camera feed */}
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-purple-950/30 to-black/40 pointer-events-none" />
 
+                  {/* Corner brackets */}
                   {[
                     "top-4 left-4 border-t-2 border-l-2",
                     "top-4 right-4 border-t-2 border-r-2",
@@ -180,58 +212,13 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                     <div key={i} className={`absolute w-12 h-12 ${pos} border-primary rounded-md`} />
                   ))}
 
+                  {/* Scan line */}
                   <div className="absolute left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan-line" />
-
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Scan className="w-16 h-16 text-purple-300/30" />
-                  </div>
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
                     <p className="text-purple-200/70 text-sm font-outfit">
                       Position receipt within frame
                     </p>
-                  </div>
-
-                  {/* Side Sliders */}
-                  <div
-                    className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-6 transition-opacity duration-300"
-                    style={{ opacity: slidersActive ? 1 : 0.5 }}
-                    onPointerDown={() => setSlidersActive(true)}
-                    onPointerUp={() => setSlidersActive(false)}
-                    onPointerLeave={() => setSlidersActive(false)}
-                  >
-                    {/* Brightness */}
-                    <div className="flex flex-col items-center gap-1.5">
-                      <Sun className="w-3 h-3 text-white/60" />
-                      <div className="relative w-1 h-24 rounded-full bg-white/20 overflow-hidden">
-                        <motion.div
-                          className="absolute bottom-0 w-full rounded-full bg-white/50"
-                          style={{ height: `${brightness}%` }}
-                        />
-                        <input
-                          type="range" min={0} max={100} value={brightness}
-                          onChange={(e) => setBrightness(Number(e.target.value))}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                          style={{ writingMode: "vertical-lr", direction: "rtl" }}
-                        />
-                      </div>
-                    </div>
-                    {/* Contrast */}
-                    <div className="flex flex-col items-center gap-1.5">
-                      <Contrast className="w-3 h-3 text-white/60" />
-                      <div className="relative w-1 h-24 rounded-full bg-white/20 overflow-hidden">
-                        <motion.div
-                          className="absolute bottom-0 w-full rounded-full bg-white/50"
-                          style={{ height: `${contrast}%` }}
-                        />
-                        <input
-                          type="range" min={0} max={100} value={contrast}
-                          onChange={(e) => setContrast(Number(e.target.value))}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                          style={{ writingMode: "vertical-lr", direction: "rtl" }}
-                        />
-                      </div>
-                    </div>
                   </div>
                 </motion.div>
               )}
@@ -246,7 +233,6 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                   className="flex flex-col items-center gap-8 relative"
                 >
                   <PurpleBubbles />
-
                   <motion.div
                     animate={{ rotateY: 360 }}
                     transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -255,7 +241,6 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                   >
                     🌱
                   </motion.div>
-
                   <motion.p
                     key={processingText}
                     initial={{ opacity: 0, y: 10 }}
@@ -264,7 +249,6 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                   >
                     {processingTexts[processingText]}
                   </motion.p>
-
                   <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
                       className="h-full rounded-full"
@@ -277,26 +261,84 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                 </motion.div>
               )}
 
-              {stage === "result" && result && (
+              {stage === "review" && result && (
                 <motion.div
-                  key="result"
+                  key="review"
                   initial={{ y: 300, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
-                  className="w-full max-w-sm max-h-[60vh] overflow-y-auto"
+                  className="w-full max-w-sm max-h-[75vh] overflow-y-auto pb-4"
                 >
-                  <ReceiptTicket receipt={result} />
+                  <ReceiptReview receipt={result} onConfirm={handleConfirm} />
+                </motion.div>
+              )}
+
+              {stage === "done" && result && (
+                <motion.div
+                  key="done"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="flex flex-col items-center gap-6 text-center"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring", stiffness: 300, delay: 0.3 }}
+                    className="w-20 h-20 rounded-full flex items-center justify-center"
+                    style={{ background: "hsl(142 71% 45% / 0.2)" }}
+                  >
+                    <span className="text-4xl">✅</span>
+                  </motion.div>
+                  <div>
+                    <p className="text-xl font-outfit font-bold text-primary-foreground">Receipt Saved!</p>
+                    <p className="text-purple-200/70 text-sm font-outfit mt-1">
+                      {result.lineItems.length} items added • ${result.finalTotal.toFixed(2)}
+                    </p>
+                    <p className="text-sm font-outfit font-semibold mt-2" style={{ color: "hsl(142 71% 55%)" }}>
+                      +{result.pointsEarned} points earned 🌱
+                    </p>
+                  </div>
+
+                  {/* Quick insights preview */}
+                  <div className="w-full max-w-xs space-y-2">
+                    {result.lineItems
+                      .filter((i) => i.estimatedExpiryDays !== undefined && i.estimatedExpiryDays <= 7)
+                      .slice(0, 3)
+                      .map((item) => (
+                        <div key={item.id} className="flex items-center justify-between px-4 py-2 rounded-xl bg-white/10">
+                          <span className="text-sm font-outfit text-purple-200">{item.nameNormalized}</span>
+                          <span className="text-xs font-outfit font-medium" style={{ color: "hsl(0 70% 60%)" }}>
+                            Use in {item.estimatedExpiryDays}d
+                          </span>
+                        </div>
+                      ))}
+                    {result.lineItems.some((i) => i.estimatedExpiryDays !== undefined && i.estimatedExpiryDays <= 7) && (
+                      <p className="text-[11px] text-purple-300/60 font-outfit text-center">
+                        ⏱ Items expiring soon — check your Fridge tab
+                      </p>
+                    )}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
 
-          {/* Bottom button — Shutter */}
+          {/* Bottom buttons */}
           {stage === "viewfinder" && (
-            <div className="p-6 pb-10 flex flex-col items-center">
+            <div className="p-6 pb-10 flex items-center justify-center gap-6">
+              {/* File upload button */}
               <motion.button
                 whileTap={{ scale: 0.85 }}
                 onClick={() => fileInputRef.current?.click()}
+                className="w-14 h-14 rounded-full flex items-center justify-center bg-white/10 border border-white/20"
+              >
+                <ImagePlus className="w-6 h-6 text-purple-200" />
+              </motion.button>
+
+              {/* Shutter button */}
+              <motion.button
+                whileTap={{ scale: 0.85 }}
+                onClick={capturePhoto}
                 className="w-20 h-20 rounded-full flex items-center justify-center ring-4 ring-white/30"
                 style={{
                   background: "radial-gradient(circle at 35% 35%, hsl(0 0% 100%), hsl(0 0% 85%), hsl(0 0% 70%))",
@@ -306,7 +348,10 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
               >
                 <Camera className="w-7 h-7 text-foreground/70" style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} />
               </motion.button>
-              <p className="text-purple-200/60 text-[10px] font-outfit mt-2">Tap to capture</p>
+
+              {/* Spacer for symmetry */}
+              <div className="w-14 h-14" />
+
               <input
                 ref={fileInputRef}
                 type="file"
@@ -317,14 +362,18 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
             </div>
           )}
 
-          {stage === "result" && (
+          {stage === "done" && (
             <div className="p-6 pb-10">
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleClose}
-                className="w-full py-4 bg-success text-success-foreground rounded-full font-outfit font-semibold text-lg shadow-deep"
+                className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep"
+                style={{
+                  background: "linear-gradient(180deg, hsl(142 71% 50%) 0%, hsl(142 71% 40%) 100%)",
+                  color: "white",
+                }}
               >
-                Done — +{result?.pointsEarned} pts earned!
+                Done
               </motion.button>
             </div>
           )}
