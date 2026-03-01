@@ -9,7 +9,7 @@ export default function RootImpactCard() {
     <motion.div
       layout
       className="aero-card rounded-3xl p-5 relative overflow-hidden"
-      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(190,60,90,0.18)" }}
+      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(190,60,90,0.09)" }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       onHoverStart={() => setShowTooltip(true)}
       onHoverEnd={() => setShowTooltip(false)}
