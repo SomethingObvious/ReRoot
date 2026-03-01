@@ -56,7 +56,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
   id: "demo-receipt-001",
   createdAt: new Date().toISOString(),
   storeName: "Metro",
-  purchaseDate: new Date().toISOString().split("T")[0],
+  purchaseDate: "2025-02-18",
   currency: "CAD",
   finalTotal: 80.91,
   extractedItemsTotal: 88.11,
