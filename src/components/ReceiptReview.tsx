@@ -145,7 +145,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
         <p className="text-2xl font-bold font-outfit text-white mt-0.5">${receipt.finalTotal.toFixed(2)}</p>
         <p className="text-xs text-white/50 font-outfit mt-0.5">
-          Tuesday, February 18, 2025
+          Wednesday, February 18, 2025
         </p>
       </div>
 
@@ -164,9 +164,12 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       )}
 
       {/* Category Groups — scrollable area with fade edges */}
-      <div className="relative flex-1 min-h-0">
-        {/* Bottom fade — uses mask to fade content opacity */}
-        <div className="absolute bottom-0 left-0 right-0 h-10 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5), transparent)" }} />
+      <div className="relative flex-1 min-h-0"
+        style={{
+          maskImage: "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, transparent, black 12px, black calc(100% - 12px), transparent)",
+        }}
+      >
 
         <div
           className="flex flex-col gap-3 h-full overflow-y-auto py-2"
