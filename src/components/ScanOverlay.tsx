@@ -24,12 +24,11 @@ function fireConfetti() {
   confetti({ ...defaults, particleCount: 40, spread: 120, shapes: ["circle"], colors: ["#4ADE80", "#8B5CF6"], scalar: 0.8 });
 }
 
-const bubbleConfigs = Array.from({ length: 12 }, (_, i) => ({
-  width: 6 + (((i * 7 + 3) % 10)),
-  height: 6 + (((i * 5 + 2) % 10)),
-  left: `${10 + ((i * 13 + 5) % 80)}%`,
-  duration: `${2 + ((i * 3) % 4)}s`,
-  delay: `${(i * 0.4) % 2}s`,
+const bubbleConfigs = Array.from({ length: 8 }, (_, i) => ({
+  size: 5 + (((i * 7 + 3) % 8)),
+  left: `${12 + ((i * 11 + 7) % 76)}%`,
+  duration: `${3 + ((i * 2) % 3)}s`,
+  delay: `${(i * 0.5) % 3}s`,
 }));
 
 function PurpleBubbles() {
@@ -40,12 +39,13 @@ function PurpleBubbles() {
           key={i}
           className="absolute rounded-full"
           style={{
-            width: cfg.width,
-            height: cfg.height,
+            width: cfg.size,
+            height: cfg.size,
             left: cfg.left,
-            bottom: "-10px",
-            background: `radial-gradient(circle, hsl(152 50% 55% / 0.7), hsl(152 45% 40% / 0.3))`,
-            animation: `bubble-rise ${cfg.duration} ease-out ${cfg.delay} infinite`,
+            bottom: "0px",
+            background: `radial-gradient(circle, hsl(152 50% 55% / 0.6), hsl(152 45% 40% / 0.2))`,
+            animation: `bubble-rise ${cfg.duration} ease-in-out ${cfg.delay} infinite`,
+            willChange: "transform, opacity",
           }}
         />
       ))}
