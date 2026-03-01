@@ -106,27 +106,35 @@ export default function Fridge() {
         </motion.p>
 
         {/* Sort Pills */}
-        <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
-          <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => {
+              const idx = SORT_OPTIONS.findIndex((o) => o.value === sortMode);
+              setSortMode(SORT_OPTIONS[(idx + 1) % SORT_OPTIONS.length].value);
+            }}
+            className="flex-shrink-0 w-7 h-7 rounded-full glass flex items-center justify-center"
+          >
+            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
           {SORT_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setSortMode(opt.value)}
-              className={`px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-all ${
+              className={`px-3 py-1.5 rounded-full text-[11px] font-outfit font-semibold transition-colors ${
                 sortMode === opt.value
-                  ? "glass-strong text-foreground shadow-sm"
+                  ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               }`}
               style={sortMode === opt.value ? {
                 background: "rgba(245, 240, 255, 0.6)",
                 backdropFilter: "blur(12px)",
                 border: "1px solid rgba(167, 139, 250, 0.3)",
-              } : undefined}
+              } : { border: "1px solid transparent" }}
             >
               {opt.label}
             </button>
           ))}
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 gap-3">
           {sortedItems.map((item) => (
