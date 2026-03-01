@@ -181,10 +181,10 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
           const isOpen = expandedCategory === cat;
 
           return (
-            <div key={cat} className="rounded-2xl overflow-hidden">
+            <div key={cat} className="rounded-2xl overflow-hidden shrink-0" style={{ flexShrink: 0 }}>
               <button
                 onClick={() => setExpandedCategory(isOpen ? null : cat)}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl"
+                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl shrink-0"
                 style={{
                   background: "rgba(255,255,255,0.06)",
                   border: "1px solid rgba(255,255,255,0.10)",
