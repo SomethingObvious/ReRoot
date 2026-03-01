@@ -33,6 +33,7 @@ export interface LineItem {
   weightKg: number | null;
   lineTotal: number;
   packageCosts?: number[];
+  packageWeights?: (number | null)[];
   confidence: Confidence;
   needsReview: boolean;
   estimatedExpiryDays?: number;
@@ -67,7 +68,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
       id: "item-001",
       category: "Grocery",
       brand: "Selection",
-      nameNormalized: "Spices",
+      nameNormalized: "Italian Spices",
       quantity: 2,
       unit: "each",
       unitPrice: 1.79,
@@ -99,8 +100,8 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
       brand: "Selection",
       nameNormalized: "Pickles",
       quantity: 1,
-      unit: "each",
-      unitPrice: null,
+      unit: "unit",
+      unitPrice: 3.99,
       weightKg: null,
       lineTotal: 3.99,
       confidence: "Medium",
@@ -114,8 +115,8 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
       brand: "Unico",
       nameNormalized: "Pickled Peppers",
       quantity: 1,
-      unit: "each",
-      unitPrice: null,
+      unit: "unit",
+      unitPrice: 3.49,
       weightKg: null,
       lineTotal: 3.49,
       confidence: "Medium",
@@ -149,6 +150,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
       weightKg: null,
       lineTotal: 44.0,
       packageCosts: [9.10, 11.42, 11.0, 12.48],
+      packageWeights: [null, null, null, null],
       confidence: "Medium",
       needsReview: true,
       estimatedExpiryDays: 3,
