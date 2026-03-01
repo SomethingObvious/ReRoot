@@ -98,7 +98,7 @@ export default function RewardsToggle() {
         </div>
 
         <p
-          className="relative z-10 text-xs font-outfit leading-relaxed"
+          className="relative z-10 text-[11px] font-outfit leading-relaxed whitespace-nowrap"
           style={{ color: "hsl(260 20% 45%)", textShadow: "0 0 6px rgba(255,255,255,0.4)" }}
         >
           {isPublic ? "Anonymized insights active. Earn 2x points on every scan." : "Data processed locally. No sharing."}
