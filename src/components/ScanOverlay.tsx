@@ -246,7 +246,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     >
                       {processingTexts[processingText]}
                     </motion.p>
-                    <div className="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                    <div className="w-48 h-2 bg-white/10 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full rounded-full"
                         style={{ background: "linear-gradient(90deg, hsl(152 50% 45%), hsl(152 55% 55%))" }}
