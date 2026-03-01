@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, User, Bell, Download, ChevronRight } from "lucide-react";
+import { ArrowLeft, Bell, Download, ChevronRight } from "lucide-react";
+import profilePhoto from "@/assets/profile-photo.jpg";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { PRICE_WATCH_ITEMS } from "@/lib/mockData";
@@ -58,9 +59,7 @@ export default function Settings() {
       </motion.div>
 
       <motion.div variants={fadeUp} className="glass-strong rounded-3xl p-5 mb-4 flex items-center gap-4">
-        <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center">
-          <User className="w-7 h-7 text-primary" />
-        </div>
+        <img src={profilePhoto} alt="Paul" className="w-14 h-14 rounded-full object-cover shadow-md" />
         <div className="flex-1">
           <p className="text-base font-outfit font-semibold text-foreground">Paul</p>
           <p className="text-xs font-outfit text-muted-foreground">Member since Jun 2024</p>
