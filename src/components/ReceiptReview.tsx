@@ -32,12 +32,11 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
   const [editing, setEditing] = useState(false);
 
   return (
-    <motion.div
-      layout
-      className={`relative rounded-2xl p-3 transition-colors ${
+    <div
+      className={`relative rounded-2xl p-3 ${
         item.needsReview
           ? "bg-amber-500/10 border border-amber-400/25"
-          : "bg-white/8 border border-white/10"
+          : "bg-white/[0.06] border border-white/10"
       }`}
     >
       {item.needsReview && (
@@ -115,7 +114,7 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
           ${item.lineTotal.toFixed(2)}
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

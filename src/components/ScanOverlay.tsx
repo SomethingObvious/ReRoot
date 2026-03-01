@@ -140,7 +140,7 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col"
           style={{
-            background: "linear-gradient(160deg, hsl(258 60% 20%) 0%, hsl(270 50% 12%) 50%, hsl(240 50% 15%) 100%)",
+            background: "linear-gradient(160deg, hsl(258 40% 28%) 0%, hsl(270 35% 22%) 50%, hsl(250 30% 20%) 100%)",
           }}
         >
           {/* Hidden canvas for photo capture */}
