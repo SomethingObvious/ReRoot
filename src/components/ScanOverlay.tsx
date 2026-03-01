@@ -156,27 +156,13 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
               {stage === "review" && "Review Receipt"}
               {stage === "done" && "Receipt Saved!"}
             </h2>
-            <div className="flex items-center gap-3">
-              {stage === "viewfinder" && (
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setFlash(!flash)}
-                  className="w-10 h-10 rounded-full flex items-center justify-center"
-                  style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
-                >
-                  {flash
-                    ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
-                    : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
-                </motion.button>
-              )}
-              <motion.button
-                whileTap={{ scale: 0.85 }}
-                onClick={handleClose}
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
-              >
-                <X className="w-5 h-5 text-primary-foreground" />
-              </motion.button>
-            </div>
+            <motion.button
+              whileTap={{ scale: 0.85 }}
+              onClick={handleClose}
+              className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+            >
+              <X className="w-5 h-5 text-primary-foreground" />
+            </motion.button>
           </div>
 
           {/* Content */}
@@ -189,7 +175,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="w-full max-w-sm aspect-[3/4] relative rounded-3xl overflow-hidden border-2 border-purple-400/30"
+                  className="w-full max-w-sm aspect-[3/5] relative rounded-3xl overflow-hidden border-2 border-purple-400/20"
                 >
                   {/* Live camera feed */}
                   <video
@@ -199,8 +185,8 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     muted
                     className="absolute inset-0 w-full h-full object-cover"
                   />
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-purple-950/30 to-black/40 pointer-events-none" />
+                  {/* Translucent overlay */}
+                  <div className="absolute inset-0 bg-purple-950/15 pointer-events-none" />
 
                   {/* Corner brackets */}
                   {[
@@ -209,18 +195,34 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     "bottom-4 left-4 border-b-2 border-l-2",
                     "bottom-4 right-4 border-b-2 border-r-2",
                   ].map((pos, i) => (
-                    <div key={i} className={`absolute w-12 h-12 ${pos} border-primary rounded-md`} />
+                    <div key={i} className={`absolute w-12 h-12 ${pos} border-primary/60 rounded-md`} />
                   ))}
 
                   {/* Scan line */}
-                  <div className="absolute left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan-line" />
+                  <div className="absolute left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary/70 to-transparent animate-scan-line" />
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
-                    <p className="text-purple-200/70 text-sm font-outfit">
+                    <p className="text-purple-200/60 text-sm font-outfit">
                       Position receipt within frame
                     </p>
                   </div>
                 </motion.div>
+              )}
+
+              {/* Flash toggle below frame */}
+              {stage === "viewfinder" && (
+                <div className="flex items-center justify-center mt-4">
+                  <motion.button
+                    whileTap={{ scale: 0.9 }}
+                    onClick={() => setFlash(!flash)}
+                    className="w-10 h-10 rounded-full flex items-center justify-center"
+                    style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
+                  >
+                    {flash
+                      ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
+                      : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
+                  </motion.button>
+                </div>
               )}
 
               {stage === "processing" && (
