@@ -74,7 +74,7 @@ export default function NutroMeter() {
               </div>
               {v.low && (
                 <p className="text-[9px] font-outfit mt-0.5" style={{ color: "hsl(0 84% 60%)" }}>
-                  Below recommended intake — consider iron-rich foods
+                  Below recommended intake. Consider <strong>iron-rich foods</strong>.
                 </p>
               )}
             </div>
