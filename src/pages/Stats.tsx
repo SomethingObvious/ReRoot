@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { TrendingDown, TrendingUp, AlertTriangle, ChevronRight, Dna } from "lucide-react";
+import { TrendingDown, AlertTriangle, ChevronRight, Dna } from "lucide-react";
 import {
-  AreaChart,
-  Area,
   XAxis,
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
   Radar,
   RadarChart,
   PolarGrid,
@@ -17,7 +13,6 @@ import {
   PolarRadiusAxis,
   LineChart,
   Line,
-  Legend,
 } from "recharts";
 import WeeklySpendChart from "@/components/WeeklySpendChart";
 import NutroMeter from "@/components/NutroMeter";
@@ -30,12 +25,6 @@ const fadeUp = {
 };
 
 // Macro stacked bar data (4 weeks)
-const macroWeeks = [
-  { week: "W1", protein: 82, carbs: 220, fats: 65 },
-  { week: "W2", protein: 88, carbs: 210, fats: 60 },
-  { week: "W3", protein: 90, carbs: 200, fats: 62 },
-  { week: "W4", protein: 95, carbs: 195, fats: 58 },
-];
 
 // Radar data
 const radarData = [
@@ -48,12 +37,12 @@ const radarData = [
 
 // Inflation tracker
 const inflationData = [
-  { month: "Sep", you: 210, avg: 215 },
-  { month: "Oct", you: 205, avg: 220 },
-  { month: "Nov", you: 198, avg: 228 },
-  { month: "Dec", you: 202, avg: 235 },
-  { month: "Jan", you: 194, avg: 240 },
-  { month: "Feb", you: 188, avg: 242 },
+  { month: "Sep", you: 212, avg: 215 },
+  { month: "Oct", you: 217, avg: 220 },
+  { month: "Nov", you: 224, avg: 228 },
+  { month: "Dec", you: 231, avg: 235 },
+  { month: "Jan", you: 236, avg: 240 },
+  { month: "Feb", you: 239, avg: 242 },
 ];
 
 // Top products
@@ -128,38 +117,7 @@ export default function Stats() {
         </motion.div>
       </div>
 
-      {/* A. Macro-Nutrient Breakdown */}
-      <motion.div variants={fadeUp} className="aero-card rounded-2xl p-3 mb-4 overflow-hidden">
-        <div className="relative z-10">
-          <h3 className="text-xs font-outfit font-semibold text-foreground mb-1">Macro-Nutrient Breakdown</h3>
-          <p className="text-[9px] font-outfit text-muted-foreground mb-3">Last 4 weeks · Protein vs Carbs vs Fats</p>
-          <div className="h-[130px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={macroWeeks} barGap={1}>
-                <XAxis
-                  dataKey="week"
-                  axisLine={false}
-                  tickLine={false}
-                  tick={{ fontSize: 9, fontFamily: "Outfit", fill: "hsl(260 20% 50%)" }}
-                />
-                <YAxis hide />
-                <Tooltip content={<GlassTooltip />} cursor={false} />
-                <Bar dataKey="protein" stackId="a" fill="hsl(258 80% 60%)" radius={[0, 0, 0, 0]} name="Protein" />
-                <Bar dataKey="carbs" stackId="a" fill="hsl(45 93% 55%)" radius={[0, 0, 0, 0]} name="Carbs" />
-                <Bar dataKey="fats" stackId="a" fill="hsl(0 84% 55%)" radius={[4, 4, 0, 0]} name="Fats" />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          <div className="flex items-center gap-1 mt-2">
-            <TrendingUp className="w-3 h-3" style={{ color: "hsl(142 71% 45%)" }} />
-            <span className="text-[9px] font-outfit font-semibold" style={{ color: "hsl(142 71% 45%)" }}>
-              Protein intake up 15% over 4 weeks
-            </span>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* B. Micro-Nutrient Radar */}
+      {/* Micro-Nutrient Radar */}
       <motion.div variants={fadeUp} className="aero-card rounded-2xl p-3 mb-4 overflow-hidden">
         <div className="relative z-10">
           <h3 className="text-xs font-outfit font-semibold text-foreground mb-1">Micro-Nutrient Radar</h3>
