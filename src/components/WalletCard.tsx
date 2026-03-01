@@ -39,7 +39,7 @@ export default function WalletCard() {
       <div
         className="absolute inset-0 rounded-3xl"
         style={{
-          background: "linear-gradient(135deg, hsl(345 70% 45%) 0%, hsl(338 65% 48%) 50%, hsl(345 50% 30%) 100%)",
+          background: "linear-gradient(135deg, hsl(345 70% 45%) 0%, hsl(338 65% 48%) 50%, hsl(345 60% 55%) 100%)",
         }}
       />
 
@@ -63,7 +63,7 @@ export default function WalletCard() {
 
         <p className="text-4xl font-outfit font-bold text-primary-foreground mb-1">{WALLET_DATA.balance}</p>
         <p className="text-sm font-outfit text-white/70">
-          {WALLET_DATA.nextTierAt - WALLET_DATA.balance} pts to {WALLET_DATA.nextTier}
+          {WALLET_DATA.nextTierAt - WALLET_DATA.balance} points to {WALLET_DATA.nextTier}
         </p>
 
         <div className="mt-4 h-1.5 rounded-full bg-white/15 overflow-hidden">
