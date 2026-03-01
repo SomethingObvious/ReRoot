@@ -388,12 +388,18 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleClose}
-                className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep"
+                className="w-full py-4 rounded-full font-outfit font-semibold text-lg relative overflow-hidden"
                 style={{
-                  background: "linear-gradient(180deg, hsl(152 50% 50%) 0%, hsl(152 50% 40%) 100%)",
+                  background: "rgba(74, 186, 120, 0.45)",
+                  backdropFilter: "blur(24px)",
+                  WebkitBackdropFilter: "blur(24px)",
+                  border: "1px solid rgba(255,255,255,0.5)",
+                  boxShadow: "0 8px 32px rgba(74,186,120,0.25), inset 0 1px 0 rgba(255,255,255,0.4)",
                   color: "white",
+                  textShadow: "0 1px 3px rgba(0,0,0,0.2)",
                 }}
               >
+                <div className="absolute top-0 left-0 right-0 h-1/2 pointer-events-none" style={{ background: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%)", borderRadius: "0 0 40% 40%" }} />
                 Done
               </motion.button>
             </div>
