@@ -30,6 +30,7 @@ function ConfidenceBadge({ confidence }: { confidence: string }) {
 
 function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item: LineItem) => void }) {
   const [editing, setEditing] = useState(false);
+  const [useKg, setUseKg] = useState(true);
 
   return (
     <div
@@ -89,41 +90,69 @@ function EditableLineItem({ item, onChange }: { item: LineItem; onChange: (item:
 
           {item.packageCosts && (
             <div className="mt-2 flex flex-col gap-1.5">
-              {item.packageCosts.map((cost, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/50 font-outfit shrink-0">
-                    Pkg {i + 1}: ${cost.toFixed(2)}
-                  </span>
-                  <input
-                    type="number"
-                    step="0.01"
-                    placeholder="kg"
-                    className="w-16 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30"
-                    value={item.packageWeights?.[i] ?? ""}
-                    onChange={(e) => {
-                      const newWeights = [...(item.packageWeights || item.packageCosts!.map(() => null))];
-                      newWeights[i] = e.target.value ? parseFloat(e.target.value) : null;
-                      onChange({ ...item, packageWeights: newWeights });
-                    }}
-                  />
-                  <span className="text-[10px] text-white/30 font-outfit">kg</span>
-                </div>
-              ))}
-              {/* Unit price input for the whole item */}
-              <div className="flex items-center gap-2 mt-1 pt-1.5 border-t border-white/10">
-                <span className="text-[10px] text-white/50 font-outfit shrink-0">Price/kg</span>
-                <input
-                  type="number"
-                  step="0.01"
-                  placeholder="$/kg"
-                  className="w-20 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30"
-                  value={item.unitPrice ?? ""}
-                  onChange={(e) => {
-                    onChange({ ...item, unitPrice: e.target.value ? parseFloat(e.target.value) : null });
-                  }}
-                />
-                <span className="text-[10px] text-white/30 font-outfit">$/kg</span>
+              {/* kg/lbs toggle */}
+              <div className="flex items-center gap-2 mb-1">
+                <button
+                  onClick={() => setUseKg(true)}
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-outfit font-medium transition-colors ${useKg ? "bg-purple-400/30 text-purple-200" : "bg-white/8 text-white/40"}`}
+                >
+                  kg
+                </button>
+                <button
+                  onClick={() => setUseKg(false)}
+                  className={`text-[10px] px-2 py-0.5 rounded-full font-outfit font-medium transition-colors ${!useKg ? "bg-purple-400/30 text-purple-200" : "bg-white/8 text-white/40"}`}
+                >
+                  lbs
+                </button>
               </div>
+
+              {item.packageCosts.map((cost, i) => {
+                const weightKg = item.packageWeights?.[i] ?? null;
+                const displayWeight = weightKg !== null ? (useKg ? weightKg : +(weightKg * 2.20462).toFixed(2)) : "";
+                const unit = useKg ? "kg" : "lbs";
+
+                return (
+                  <div key={i} className="flex items-center gap-2">
+                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-white/8 text-white/50 font-outfit shrink-0">
+                      Pkg {i + 1}: ${cost.toFixed(2)}
+                    </span>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder={unit}
+                      className="w-16 bg-white/10 rounded-lg px-2 py-0.5 text-[11px] font-outfit text-white border border-white/15 outline-none focus:border-purple-400/50 placeholder:text-white/30 [appearance:textfield]"
+                      value={displayWeight}
+                      onChange={(e) => {
+                        const val = e.target.value ? parseFloat(e.target.value) : null;
+                        const kg = val !== null ? (useKg ? val : val / 2.20462) : null;
+                        const newWeights = [...(item.packageWeights || item.packageCosts!.map(() => null))];
+                        newWeights[i] = kg !== null ? +kg.toFixed(3) : null;
+                        // Auto-calculate unitPrice from this package
+                        let unitPrice = item.unitPrice;
+                        if (kg && kg > 0) {
+                          unitPrice = +(cost / kg).toFixed(2);
+                        }
+                        onChange({ ...item, packageWeights: newWeights, unitPrice });
+                      }}
+                    />
+                    <span className="text-[10px] text-white/30 font-outfit">{unit}</span>
+                    {weightKg !== null && weightKg > 0 && (
+                      <span className="text-[10px] text-white/40 font-outfit">
+                        ${(cost / weightKg).toFixed(2)}/{useKg ? "kg" : "lb"}
+                      </span>
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Computed unit price */}
+              {item.unitPrice !== null && (
+                <div className="flex items-center gap-2 mt-1 pt-1.5 border-t border-white/10">
+                  <span className="text-[10px] text-white/50 font-outfit">
+                    Avg: ${useKg ? item.unitPrice.toFixed(2) : (item.unitPrice / 2.20462).toFixed(2)}/{useKg ? "kg" : "lb"}
+                  </span>
+                </div>
+              )}
             </div>
           )}
 
