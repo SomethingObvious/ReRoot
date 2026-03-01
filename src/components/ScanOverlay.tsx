@@ -24,11 +24,11 @@ function fireConfetti() {
   confetti({ ...defaults, particleCount: 40, spread: 120, shapes: ["circle"], colors: ["#4ADE80", "#8B5CF6"], scalar: 0.8 });
 }
 
-const bubbleConfigs = Array.from({ length: 6 }, (_, i) => ({
-  size: 4 + (i % 4) * 2,
-  xOffset: -40 + ((i * 17 + 5) % 80),
-  duration: 2.5 + (i % 3) * 0.8,
-  delay: i * 0.4,
+const bubbleConfigs = Array.from({ length: 14 }, (_, i) => ({
+  size: 5 + (i % 5) * 2,
+  xOffset: -60 + ((i * 11 + 3) % 120),
+  duration: 2 + (i % 4) * 0.6,
+  delay: i * 0.3,
 }));
 
 function RisingBubbles() {
@@ -43,12 +43,12 @@ function RisingBubbles() {
             height: cfg.size,
             left: `calc(50% + ${cfg.xOffset}px)`,
             bottom: 0,
-            background: `radial-gradient(circle, hsl(152 50% 55% / 0.5), hsl(152 45% 40% / 0.15))`,
+            background: `radial-gradient(circle, hsl(152 50% 60% / 0.8), hsl(152 45% 45% / 0.4))`,
           }}
           animate={{
-            y: [0, -60, -120],
-            opacity: [0, 0.6, 0],
-            scale: [0.8, 1, 0.3],
+            y: [0, -50, -130],
+            opacity: [0, 0.8, 0],
+            scale: [0.6, 1.1, 0.2],
           }}
           transition={{
             duration: cfg.duration,
