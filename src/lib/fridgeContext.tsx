@@ -28,6 +28,7 @@ interface FridgeContextValue {
   fridgeItems: FridgeItem[];
   setFridgeItems: React.Dispatch<React.SetStateAction<FridgeItem[]>>;
   addItemsFromReceipt: (receipt: ScannedReceipt) => void;
+  markSeen: (id: string) => void;
 }
 
 const FridgeContext = createContext<FridgeContextValue | null>(null);
@@ -42,16 +43,16 @@ export function FridgeProvider({ children }: { children: ReactNode }) {
       (li) => li.storageLocation === "Fridge" || li.storageLocation === "Freezer"
     );
 
-    const today = new Date();
-    const todayStr = format(today, "MMM d");
+    const purchaseDay = new Date(receipt.purchaseDate + "T12:00:00");
+    const purchaseDayStr = format(purchaseDay, "MMM d");
 
     const newFridgeItems: FridgeItem[] = perishableItems.map((li) => {
       const totalDays = li.estimatedExpiryDays ?? 7;
       const daysLeft = totalDays;
-      const bestEnd = format(addDays(today, Math.floor(totalDays * 0.6)), "MMM d");
-      const useSoonStart = format(addDays(today, Math.floor(totalDays * 0.6) + 1), "MMM d");
-      const useSoonEnd = format(addDays(today, Math.floor(totalDays * 0.85)), "MMM d");
-      const riskStart = format(addDays(today, Math.floor(totalDays * 0.85) + 1), "MMM d");
+      const bestEnd = format(addDays(purchaseDay, Math.floor(totalDays * 0.6)), "MMM d");
+      const useSoonStart = format(addDays(purchaseDay, Math.floor(totalDays * 0.6) + 1), "MMM d");
+      const useSoonEnd = format(addDays(purchaseDay, Math.floor(totalDays * 0.85)), "MMM d");
+      const riskStart = format(addDays(purchaseDay, Math.floor(totalDays * 0.85) + 1), "MMM d");
 
       const weight = li.weightKg
         ? `${li.weightKg}kg`
@@ -68,9 +69,9 @@ export function FridgeProvider({ children }: { children: ReactNode }) {
         icon: categoryIcons[li.category] || "🍽️",
         weight,
         store: receipt.storeName,
-        purchaseDate: todayStr,
+        purchaseDate: purchaseDayStr,
         price: li.lineTotal,
-        bestStart: todayStr,
+        bestStart: purchaseDayStr,
         bestEnd,
         useSoonStart,
         useSoonEnd,
@@ -88,8 +89,12 @@ export function FridgeProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const markSeen = useCallback((id: string) => {
+    setFridgeItems((prev) => prev.map((item) => item.id === id ? { ...item, isNew: false } : item));
+  }, []);
+
   return (
-    <FridgeContext.Provider value={{ fridgeItems, setFridgeItems, addItemsFromReceipt }}>
+    <FridgeContext.Provider value={{ fridgeItems, setFridgeItems, addItemsFromReceipt, markSeen }}>
       {children}
     </FridgeContext.Provider>
   );
