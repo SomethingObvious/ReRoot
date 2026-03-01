@@ -26,9 +26,9 @@ function fireConfetti() {
 
 const bubbleConfigs = Array.from({ length: 14 }, (_, i) => ({
   size: 5 + (i % 5) * 2,
-  xOffset: -60 + ((i * 11 + 3) % 120),
-  duration: 2 + (i % 4) * 0.6,
-  delay: i * 0.3,
+  xOffset: -60 + ((i * 19 + 7) % 120),
+  duration: 2 + ((i * 3 + 1) % 4) * 0.5,
+  delay: ((i * 7 + 3) % 14) * 0.2,
 }));
 
 function RisingBubbles() {
