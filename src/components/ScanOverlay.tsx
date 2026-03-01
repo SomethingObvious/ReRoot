@@ -390,7 +390,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 onClick={handleClose}
                 className="w-full py-4 rounded-full font-outfit font-semibold text-lg relative overflow-hidden"
                 style={{
-                  background: "rgba(74, 186, 120, 0.45)",
+                  background: "rgba(74, 222, 128, 0.55)",
                   backdropFilter: "blur(24px)",
                   WebkitBackdropFilter: "blur(24px)",
                   border: "1px solid rgba(255,255,255,0.5)",
