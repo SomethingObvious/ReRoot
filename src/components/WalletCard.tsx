@@ -39,7 +39,7 @@ export default function WalletCard() {
       <div
         className="absolute inset-0 rounded-3xl"
         style={{
-          background: "linear-gradient(135deg, hsl(258 90% 66%) 0%, hsl(292 84% 50%) 50%, hsl(258 70% 35%) 100%)",
+          background: "linear-gradient(135deg, hsl(345 70% 45%) 0%, hsl(338 65% 48%) 50%, hsl(345 50% 30%) 100%)",
         }}
       />
 
@@ -53,16 +53,16 @@ export default function WalletCard() {
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-purple-200" />
-            <span className="text-sm font-outfit font-medium text-purple-200">ReRoot Points</span>
+            <Sparkles className="w-5 h-5 text-white/80" />
+            <span className="text-sm font-outfit font-medium text-white/80">ReRoot Points</span>
           </div>
-          <span className="text-xs font-outfit text-purple-200/60 bg-white/10 px-3 py-1 rounded-full">
+          <span className="text-xs font-outfit text-white/90 bg-white/20 px-3 py-1 rounded-full">
             {WALLET_DATA.tier}
           </span>
         </div>
 
         <p className="text-4xl font-outfit font-bold text-primary-foreground mb-1">{WALLET_DATA.balance}</p>
-        <p className="text-sm font-outfit text-purple-200/60">
+        <p className="text-sm font-outfit text-white/70">
           {WALLET_DATA.nextTierAt - WALLET_DATA.balance} pts to {WALLET_DATA.nextTier}
         </p>
 
