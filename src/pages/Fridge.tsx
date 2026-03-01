@@ -115,7 +115,7 @@ export default function Fridge() {
 
         {/* Search */}
         <div className="relative mb-3" style={{ marginTop: "-2px" }}>
-          <Search className="absolute left-3.5 top-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" style={{ marginTop: "-10px" }} />
+          <Search className="absolute left-3.5 top-1/2 w-4 h-4 text-muted-foreground pointer-events-none z-10" style={{ marginTop: "-9px" }} />
           <input
             type="text"
             value={search}
