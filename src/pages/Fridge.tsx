@@ -109,6 +109,20 @@ export default function Fridge() {
 
         {/* Sort Pills */}
         <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => setSortAsc((prev) => !prev)}
+            className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-transform"
+            style={{
+              background: "rgba(245, 240, 255, 0.5)",
+              backdropFilter: "blur(12px)",
+              WebkitBackdropFilter: "blur(12px)",
+              border: "1px solid rgba(167, 139, 250, 0.25)",
+              boxShadow: "0 2px 8px rgba(139,92,246,0.08), inset 0 1px 2px rgba(255,255,255,0.5)",
+              transform: sortAsc ? "rotate(0deg)" : "rotate(180deg)",
+            }}
+          >
+            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
+          </button>
           {SORT_OPTIONS.map((opt) => (
             <button
               key={opt.value}
@@ -130,20 +144,6 @@ export default function Fridge() {
               {opt.label}
             </button>
           ))}
-          <button
-            onClick={() => setSortAsc((prev) => !prev)}
-            className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-transform"
-            style={{
-              background: "rgba(245, 240, 255, 0.5)",
-              backdropFilter: "blur(12px)",
-              WebkitBackdropFilter: "blur(12px)",
-              border: "1px solid rgba(167, 139, 250, 0.25)",
-              boxShadow: "0 2px 8px rgba(139,92,246,0.08), inset 0 1px 2px rgba(255,255,255,0.5)",
-              transform: sortAsc ? "rotate(0deg)" : "rotate(180deg)",
-            }}
-          >
-            <ArrowUpDown className="w-3.5 h-3.5 text-muted-foreground" />
-          </button>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
