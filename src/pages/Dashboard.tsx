@@ -30,7 +30,7 @@ export default function Dashboard() {
         <motion.div variants={fadeUp} className="flex items-center justify-between mb-6">
           <div>
             <p className="text-sm font-outfit font-semibold text-muted-foreground">Good Evening,</p>
-            <h1 className="text-2xl font-outfit font-bold text-foreground">Paul 🌱</h1>
+            <h1 className="text-2xl font-outfit font-bold text-foreground flex items-center gap-1">Paul <span className="text-xl">🌱</span></h1>
           </div>
           <motion.button
             whileTap={{ scale: 0.9 }}
