@@ -80,8 +80,8 @@ export default function Stats() {
     >
       {/* Header */}
       <motion.div variants={fadeUp} className="flex items-center gap-2 mb-5">
-        <Dna className="w-5 h-5 text-primary" style={{ filter: "drop-shadow(0 1px 3px rgba(139,92,246,0.4))" }} />
-        <h1 className="text-xl font-outfit font-bold text-foreground">Your Data Fingerprint 🧬</h1>
+        <Dna className="w-5 h-5 text-primary relative" style={{ top: "-2px", filter: "drop-shadow(0 1px 3px rgba(139,92,246,0.4))" }} />
+        <h1 className="text-xl font-outfit font-bold text-foreground">Your Data Fingerprint</h1>
       </motion.div>
 
       {/* Summary row */}
