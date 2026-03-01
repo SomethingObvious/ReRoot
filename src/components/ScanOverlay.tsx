@@ -150,7 +150,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
-            background: "#DFB5C0",
+            background: "#8B5A6B",
           }}
         >
           {/* Hidden canvas for photo capture */}
@@ -226,7 +226,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="flex flex-col items-center justify-center gap-8 flex-1 -mt-[20%]"
+                  className="flex flex-col items-center justify-center gap-8 flex-1 -mt-[40%]"
                 >
                   <div className="relative flex flex-col items-center gap-8">
                     <PurpleBubbles />
