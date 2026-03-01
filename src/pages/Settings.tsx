@@ -46,12 +46,12 @@ export default function Settings() {
         item.id === id ? { ...item, enabled: !item.enabled } : item
       )
     );
-    toast.success("Saved ✓", { duration: 1500 });
+    toast.success("Saved", { duration: 1500 });
   };
 
   const setExpiryWindow = (category: string, value: AlertWindow) => {
     setExpiryWindows((prev) => ({ ...prev, [category]: value }));
-    toast.success("Saved ✓", { duration: 1500 });
+    toast.success("Saved", { duration: 1500 });
   };
 
   const handleExport = () => {
@@ -116,31 +116,40 @@ export default function Settings() {
                     </p>
                   </div>
                 </div>
-                <div className="flex gap-1">
-                  {ALERT_OPTIONS.map((opt) => (
-                    <motion.button
-                      key={opt.value}
-                      whileTap={{ scale: 0.92 }}
-                      onClick={() => setExpiryWindow(cat.key, opt.value)}
-                      className="px-2.5 py-1 rounded-full text-xs font-outfit font-medium transition-colors"
-                      style={{
-                        background:
-                          expiryWindows[cat.key] === opt.value
-                            ? opt.value === "off"
-                              ? "hsl(270 25% 93%)"
-                              : "linear-gradient(180deg, hsl(35 90% 55%), hsl(25 85% 45%))"
-                            : "transparent",
-                        color:
-                          expiryWindows[cat.key] === opt.value
+                <div className="flex gap-1 relative">
+                  {ALERT_OPTIONS.map((opt) => {
+                    const isActive = expiryWindows[cat.key] === opt.value;
+                    return (
+                      <button
+                        key={opt.value}
+                        onClick={() => setExpiryWindow(cat.key, opt.value)}
+                        className="relative px-2.5 py-1 rounded-full text-xs font-outfit font-medium z-[1]"
+                        style={{
+                          color: isActive
                             ? opt.value === "off"
                               ? "hsl(var(--muted-foreground))"
                               : "white"
                             : "hsl(var(--muted-foreground))",
-                      }}
-                    >
-                      {opt.label}
-                    </motion.button>
-                  ))}
+                          transition: "color 0.25s ease",
+                        }}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId={`expiry-pill-${cat.key}`}
+                            className="absolute inset-0 rounded-full -z-[1]"
+                            style={{
+                              background:
+                                opt.value === "off"
+                                  ? "hsl(270 25% 93%)"
+                                  : "linear-gradient(180deg, hsl(35 90% 55%), hsl(25 85% 45%))",
+                            }}
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             );
