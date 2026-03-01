@@ -54,7 +54,7 @@ export default function WalletCard() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-white/80" />
-            <span className="text-sm font-outfit font-medium text-white/80">ReRoot Points</span>
+            <span className="text-sm font-outfit font-bold text-white/80">ReRoot Points</span>
           </div>
           <span className="text-xs font-outfit font-bold text-white/90 bg-white/20 px-3 py-1 rounded-full">
             {WALLET_DATA.tier}
