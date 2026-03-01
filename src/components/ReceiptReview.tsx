@@ -280,7 +280,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
                   <div className="flex items-center gap-2">
                     <span className="text-base">{config.emoji}</span>
                     <span className="text-sm font-outfit font-semibold text-white">{cat}</span>
-                    <span className="text-xs text-white/40 font-outfit">({catItems.length})</span>
+                    <span className="text-xs text-white/40" style={{ fontFamily: "'Inter', sans-serif", fontVariantNumeric: "tabular-nums" }}>({catItems.length})</span>
                     <AnimatePresence>
                       {catReviewCount > 0 && (
                         <motion.span
