@@ -203,7 +203,7 @@
   }
 
   @keyframes scan-line {
-    0% { top: 10%; }
+    0% { top: 20%; }
     50% { top: 85%; }
     100% { top: 10%; }
   }
