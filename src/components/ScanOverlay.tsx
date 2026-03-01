@@ -149,7 +149,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           <canvas ref={canvasRef} className="hidden" />
 
           {/* Header */}
-          <div className="flex items-center justify-between p-4 pt-8">
+          <div className="flex items-center justify-between p-3 pt-8">
             <h2 className="text-primary-foreground text-lg font-semibold font-outfit">
               {stage === "viewfinder" && "Scan Receipt"}
               {stage === "processing" && "Processing"}
@@ -175,7 +175,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9 }}
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  className="w-full max-w-sm aspect-[3/5] relative rounded-3xl overflow-hidden border-2 border-rose-200/20"
+                  className="w-full max-w-sm aspect-[2/4] relative rounded-3xl overflow-hidden border-2 border-rose-200/20"
                 >
                   {/* Live camera feed */}
                   <video
