@@ -52,7 +52,7 @@ function CircularProgress({ daysLeft, totalDays, size = 44 }: { daysLeft: number
 }
 
 export default function Fridge() {
-  const { fridgeItems, setFridgeItems } = useFridge();
+  const { fridgeItems, setFridgeItems, markSeen } = useFridge();
   const [selectedItem, setSelectedItem] = useState<FridgeItem | null>(null);
   const [sortMode, setSortMode] = useState<SortMode>("expiry");
   const [sortAsc, setSortAsc] = useState(true);
@@ -160,7 +160,7 @@ export default function Fridge() {
               variants={fadeUp}
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.03, boxShadow: "0 14px 40px rgba(190,60,90,0.18)" }}
-              onClick={() => setSelectedItem(item)}
+              onClick={() => { if (item.isNew) markSeen(item.id); setSelectedItem(item); }}
               className="glass-strong rounded-3xl p-4 flex flex-col items-center gap-2 cursor-pointer relative"
             >
               {item.isNew && (
