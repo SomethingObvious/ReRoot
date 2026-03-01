@@ -20,7 +20,8 @@ export default function StoreLoyalty() {
               <PieChart>
                 <Pie
                   data={data}
-                  cx="50%" cy="50%"
+                  cx="50%"
+                  cy="50%"
                   innerRadius={22}
                   outerRadius={40}
                   paddingAngle={3}
@@ -40,15 +41,23 @@ export default function StoreLoyalty() {
           {data.map((d) => (
             <div key={d.name} className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: d.color }} />
-              <span className="text-[10px] font-outfit font-semibold text-foreground flex-1 break-words" style={{ textWrap: "balance" as any }}>{d.name}</span>
+              <span
+                className="text-[10px] font-outfit font-semibold text-foreground flex-1 break-words"
+                style={{ textWrap: "balance" as any }}
+              >
+                {d.name}
+              </span>
               <span className="text-[10px] font-outfit text-muted-foreground flex-shrink-0">{d.value}%</span>
             </div>
           ))}
         </div>
 
         <div className="mt-2 rounded-xl p-2" style={{ background: "hsl(0 84% 55% / 0.06)" }}>
-          <p className="text-[9px] font-outfit font-semibold text-center break-words" style={{ color: "hsl(0 84% 50%)", textWrap: "balance" as any }}>
-            🏆 {topStore.name} VIP — check your points!
+          <p
+            className="text-[9px] font-outfit font-semibold text-center break-words"
+            style={{ color: "hsl(0 84% 50%)", textWrap: "balance" as any }}
+          >
+            🏆 {topStore.name} VIP — Check your Points!
           </p>
         </div>
       </div>
