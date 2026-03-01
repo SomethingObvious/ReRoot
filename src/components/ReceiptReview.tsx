@@ -141,7 +141,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
   return (
     <div className="w-full max-w-sm mx-auto flex flex-col h-full">
       {/* Store & Date Header — sticky */}
-      <div className="text-center pb-3 shrink-0">
+      <div className="text-center pb-1 shrink-0">
         <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
         <p className="text-2xl font-bold font-outfit text-white mt-0.5">${receipt.finalTotal.toFixed(2)}</p>
         <p className="text-xs text-white/50 font-outfit mt-0.5">
@@ -165,10 +165,8 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
 
       {/* Category Groups — scrollable area with fade edges */}
       <div className="relative flex-1 min-h-0">
-        {/* Top fade */}
-        <div className="absolute top-0 left-0 right-0 h-6 z-10 pointer-events-none" style={{ background: "linear-gradient(to bottom, hsl(258 40% 25%), transparent)" }} />
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-10 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(258 40% 25%), hsl(258 40% 25% / 0.6) 40%, transparent)" }} />
+        {/* Bottom fade only — subtle */}
+        <div className="absolute bottom-0 left-0 right-0 h-8 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(265 38% 24%), transparent)" }} />
 
         <div
           className="flex flex-col gap-3 h-full overflow-y-auto py-2"
@@ -225,7 +223,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       </div>
 
       {/* Totals Breakdown — always visible */}
-      <div className="shrink-0 pt-3 flex flex-col gap-4">
+      <div className="shrink-0 pt-2 pb-2 flex flex-col gap-3">
         <div className="rounded-2xl px-4 py-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
           <div className="flex justify-between text-xs font-outfit text-white/50">
             <span>Extracted Items Total</span>

@@ -267,8 +267,7 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
                   initial={{ y: 300, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 30, delay: 0.2 }}
-                  className="w-full max-w-sm max-h-[75vh] overflow-y-auto pb-4"
-                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                  className="w-full max-w-sm flex-1 min-h-0"
                 >
                   <ReceiptReview receipt={result} onConfirm={handleConfirm} />
                 </motion.div>
