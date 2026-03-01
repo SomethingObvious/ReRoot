@@ -71,7 +71,7 @@ export default function Dashboard() {
                 <div>
                   <p className="text-sm font-outfit font-semibold text-foreground">{receipt.store}</p>
                   <p className="text-xs font-outfit text-muted-foreground">
-                    {new Date(receipt.date).toLocaleDateString("en-CA", { month: "short", day: "numeric" })}
+                    {new Date(receipt.date + "T12:00:00").toLocaleDateString("en-CA", { month: "short", day: "numeric" })}
                     {" · "}
                     {receipt.items.length} items
                   </p>
