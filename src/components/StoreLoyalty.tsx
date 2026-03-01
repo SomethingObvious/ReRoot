@@ -7,7 +7,11 @@ export default function StoreLoyalty() {
   const { storeLoyalty: data } = useReceipts();
   const topStore = data.reduce((a, b) => (a.value > b.value ? a : b));
   return (
-    <div className="aero-card rounded-3xl p-4 overflow-hidden">
+    <motion.div
+      className="aero-card rounded-3xl p-4 overflow-hidden"
+      whileHover={{ scale: 1.02, boxShadow: "0 16px 50px rgba(190,60,90,0.18)" }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+    >
       <div className="relative z-10">
         <div className="flex items-center gap-2 mb-2">
           <Store className="w-4 h-4 text-primary" style={{ filter: "drop-shadow(0 1px 2px rgba(190,60,90,0.3))" }} />
@@ -61,6 +65,6 @@ export default function StoreLoyalty() {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
