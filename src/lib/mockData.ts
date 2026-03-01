@@ -57,7 +57,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
   id: "demo-receipt-001",
   createdAt: new Date().toISOString(),
   storeName: "Metro",
-  purchaseDate: "2025-02-18",
+  purchaseDate: "2026-02-18",
   currency: "CAD",
   finalTotal: 80.91,
   extractedItemsTotal: 88.11,
@@ -209,7 +209,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
 export const DEMO_RECEIPT: Receipt = {
   id: "rcpt-001",
   store: "Metro",
-  date: "2024-12-15",
+  date: "2026-02-15",
   total: 47.83,
   savings: 6.2,
   pointsEarned: 48,
@@ -231,7 +231,7 @@ export const RECEIPT_HISTORY: Receipt[] = [
   {
     id: "rcpt-002",
     store: "Loblaws",
-    date: "2024-12-12",
+    date: "2026-02-12",
     total: 32.15,
     savings: 3.8,
     pointsEarned: 32,
@@ -246,7 +246,7 @@ export const RECEIPT_HISTORY: Receipt[] = [
   {
     id: "rcpt-003",
     store: "No Frills",
-    date: "2024-12-08",
+    date: "2026-02-08",
     total: 28.94,
     savings: 5.1,
     pointsEarned: 29,
