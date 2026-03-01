@@ -138,7 +138,7 @@ export default function ScanOverlay({ isOpen, onClose }: ScanOverlayProps) {
           animate={{ y: 0 }}
           exit={{ y: "100%" }}
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
-          className="fixed inset-0 z-50 flex flex-col overflow-x-hidden overflow-y-auto"
+          className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
             background: "linear-gradient(160deg, hsl(258 40% 28%) 0%, hsl(270 35% 22%) 50%, hsl(250 30% 20%) 100%)",
           }}
