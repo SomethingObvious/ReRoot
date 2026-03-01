@@ -29,7 +29,7 @@ export default function Dashboard() {
       <motion.div variants={stagger} initial="hidden" animate="show" className="px-5 pt-8 pb-32 max-w-lg mx-auto">
         <motion.div variants={fadeUp} className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-sm font-outfit text-muted-foreground">Good Evening,</p>
+            <p className="text-sm font-outfit font-semibold text-muted-foreground">Good Evening,</p>
             <h1 className="text-2xl font-outfit font-bold text-foreground">Paul 🌱</h1>
           </div>
           <motion.button
