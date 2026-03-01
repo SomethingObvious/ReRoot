@@ -548,7 +548,7 @@ function Slide4() {
       >
         <Trophy className="w-5 h-5 text-yellow-300" />
         <p className="text-sm font-outfit text-white/90">
-          You are the <span className="font-extrabold text-yellow-300">#2 Buyer of Cheese</span> on Reroot
+          You are the <span className="font-extrabold text-yellow-300">#2 Buyer of Cheese</span> on ReRoot
         </p>
       </motion.div>
     </motion.div>
