@@ -48,7 +48,7 @@ export default function RootImpactCard() {
         <div className="flex-1 bg-success/10 rounded-2xl px-3 py-2.5 flex items-center gap-2">
           <Wind className="w-4 h-4 text-success" />
           <div>
-            <p className="text-xs font-outfit font-semibold text-foreground">12 kg</p>
+            <p className="text-xs font-outfit font-semibold text-foreground">8.5 kg</p>
             <p className="text-[10px] font-outfit text-muted-foreground">CO₂e Reduced</p>
           </div>
         </div>
