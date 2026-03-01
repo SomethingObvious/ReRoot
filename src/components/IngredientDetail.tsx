@@ -74,6 +74,7 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining, onU
         exit={{ y: "100%" }}
         transition={{ type: "spring", stiffness: 300, damping: 32 }}
         className="fixed inset-x-0 bottom-0 top-0 z-50 overflow-y-auto"
+        style={{ scrollbarWidth: "none", WebkitOverflowScrolling: "touch" }}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="min-h-full pt-12">
