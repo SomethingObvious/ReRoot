@@ -199,7 +199,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   ))}
 
                   {/* Scan line */}
-                  <div className="absolute left-6 right-6 h-0.5 bg-gradient-to-r from-transparent via-primary/70 to-transparent animate-scan-line" />
+                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(330 30% 85% / 0.7), transparent)" }} />
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
                     <p className="text-purple-200/60 text-sm font-outfit">
