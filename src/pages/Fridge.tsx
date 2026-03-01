@@ -12,8 +12,8 @@ const fadeUp = {
 
 function urgencyRing(daysLeft: number, totalDays: number) {
   const pct = daysLeft / totalDays;
-  if (pct > 0.5) return "hsl(142 71% 45%)";
-  if (pct > 0.25) return "hsl(45 93% 47%)";
+  if (pct > 0.4) return "hsl(142 71% 45%)";
+  if (pct > 0.15) return "hsl(45 93% 47%)";
   return "hsl(0 84% 60%)";
 }
 

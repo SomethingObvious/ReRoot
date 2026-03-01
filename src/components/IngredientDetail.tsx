@@ -27,8 +27,8 @@ interface Props {
 
 function freshnessStatus(daysLeft: number, totalDays: number) {
   const pct = daysLeft / totalDays;
-  if (pct > 0.5) return { label: "Peak Freshness 🌟", color: "hsl(142 71% 45%)" };
-  if (pct > 0.25) return { label: `${daysLeft} Days Left ⚠️`, color: "hsl(45 93% 47%)" };
+  if (pct > 0.4) return { label: "Peak Freshness 🌟", color: "hsl(142 71% 45%)" };
+  if (pct > 0.15) return { label: `${daysLeft} Days Left ⚠️`, color: "hsl(45 93% 47%)" };
   return { label: `${daysLeft} Days Left 🚨`, color: "hsl(0 84% 60%)" };
 }
 
@@ -39,6 +39,8 @@ export default function IngredientDetail({ item, onClose, onUpdateRemaining, onU
   const [nameValue, setNameValue] = useState(item.name);
   const [notesValue, setNotesValue] = useState(item.notes || "");
 
+  // Bar zones: green = 0-60%, yellow = 60-85%, red = 85-100% (left to right)
+  // Dot position: 100 - freshPct (so high freshness = left/green, low = right/red)
   const greenEnd = 60;
   const yellowEnd = 85;
 
