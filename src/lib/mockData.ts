@@ -61,7 +61,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
   currency: "CAD",
   finalTotal: 80.91,
   extractedItemsTotal: 88.11,
-  adjustmentsTotal: -7.20,
+  adjustmentsTotal: -7.2,
   pointsEarned: 52,
   lineItems: [
     {
@@ -149,7 +149,7 @@ export const DEMO_SCANNED_RECEIPT: ScannedReceipt = {
       unitPrice: null,
       weightKg: null,
       lineTotal: 44.0,
-      packageCosts: [9.10, 11.42, 11.0, 12.48],
+      packageCosts: [9.1, 11.42, 11.0, 12.48],
       packageWeights: [null, null, null, null],
       confidence: "Medium",
       needsReview: true,
@@ -264,7 +264,7 @@ export const WALLET_DATA = {
   balance: 284,
   lifetimeEarned: 1_420,
   tier: "Root Saver",
-  nextTier: "Super Root",
+  nextTier: "Super Root!",
   nextTierAt: 500,
 };
 
