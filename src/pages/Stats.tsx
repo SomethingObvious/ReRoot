@@ -37,12 +37,12 @@ const radarData = [
 
 // Inflation tracker
 const inflationData = [
-  { month: "Sep", you: 200, avg: 215 },
-  { month: "Oct", you: 206, avg: 220 },
-  { month: "Nov", you: 214, avg: 228 },
-  { month: "Dec", you: 220, avg: 235 },
-  { month: "Jan", you: 226, avg: 240 },
-  { month: "Feb", you: 228, avg: 242 },
+  { month: "Sep", you: 198, avg: 215 },
+  { month: "Oct", you: 210, avg: 220 },
+  { month: "Nov", you: 205, avg: 228 },
+  { month: "Dec", you: 225, avg: 235 },
+  { month: "Jan", you: 218, avg: 240 },
+  { month: "Feb", you: 230, avg: 242 },
 ];
 
 // Top products
