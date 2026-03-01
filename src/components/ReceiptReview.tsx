@@ -257,7 +257,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       >
 
         <div
-          className="flex flex-col gap-3 h-full overflow-y-auto pt-6 pb-2"
+          className="flex flex-col gap-3 h-full overflow-y-auto pt-4 pb-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           {categories.map((cat) => {
@@ -345,10 +345,10 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={handleConfirm}
-          className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2"
+          className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2 backdrop-blur-md border border-white/15"
           style={{
-            background: "linear-gradient(180deg, hsl(142 71% 50%) 0%, hsl(142 71% 40%) 100%)",
-            color: "white",
+            background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%)",
+            color: "rgba(255,255,255,0.9)",
           }}
         >
           <Check className="w-5 h-5" />
