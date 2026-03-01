@@ -218,7 +218,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  className="flex flex-col items-center gap-8 relative"
+                  className="flex flex-col items-center justify-center gap-8 relative flex-1"
                 >
                   <PurpleBubbles />
                   <motion.div
