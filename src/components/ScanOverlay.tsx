@@ -142,7 +142,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
           className="fixed inset-0 z-50 flex flex-col overflow-hidden"
           style={{
-            background: "linear-gradient(160deg, hsl(340 20% 18%) 0%, hsl(350 15% 14%) 50%, hsl(330 12% 12%) 100%)",
+            background: "linear-gradient(160deg, hsl(330 35% 30%) 0%, hsl(340 30% 25%) 50%, hsl(335 25% 22%) 100%)",
           }}
         >
           {/* Hidden canvas for photo capture */}
@@ -199,7 +199,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   ))}
 
                   {/* Scan line */}
-                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(152 45% 55% / 0.7), transparent)" }} />
+                  <div className="absolute left-6 right-6 h-0.5 animate-scan-line" style={{ background: "linear-gradient(90deg, transparent, hsl(335 30% 28% / 0.8), transparent)" }} />
 
                   <div className="absolute bottom-8 inset-x-0 text-center">
                     <p className="text-rose-100/50 text-sm font-outfit">
@@ -320,7 +320,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 onClick={() => fileInputRef.current?.click()}
                 className="w-14 h-14 rounded-full flex items-center justify-center bg-white/10 border border-white/20"
               >
-                <ImagePlus className="w-6 h-6 text-rose-100/70" />
+                <ImagePlus className="w-6 h-6" style={{ color: "hsl(152 40% 40%)" }} />
               </motion.button>
 
               {/* Shutter button */}
@@ -334,7 +334,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                     "inset 0 4px 8px rgba(255,255,255,0.9), inset 0 -6px 12px rgba(0,0,0,0.25), 0 8px 30px rgba(255,255,255,0.15)",
                 }}
               >
-                <Camera className="w-7 h-7 text-foreground/70" style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} />
+                <Camera className="w-7 h-7" style={{ color: "hsl(152 40% 40%)", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} />
               </motion.button>
 
               {/* Flash toggle */}
