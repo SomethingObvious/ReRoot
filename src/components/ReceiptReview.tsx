@@ -345,9 +345,9 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <motion.button
           whileTap={{ scale: 0.95 }}
           onClick={handleConfirm}
-          className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2 backdrop-blur-md border border-white/15"
+          className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2 backdrop-blur-md border border-emerald-400/20"
           style={{
-            background: "linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%)",
+            background: "linear-gradient(180deg, hsla(152, 50%, 45%, 0.35) 0%, hsla(152, 55%, 35%, 0.2) 100%)",
             color: "rgba(255,255,255,0.9)",
           }}
         >
