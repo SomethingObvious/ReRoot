@@ -63,8 +63,10 @@
 
   html {
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: hsl(258 40% 50% / 0.3) transparent;
+    scrollbar-width: none;
+  }
+  html::-webkit-scrollbar {
+    display: none;
   }
 
   body {
