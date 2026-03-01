@@ -145,9 +145,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
         <p className="text-2xl font-bold font-outfit text-white mt-0.5">${receipt.finalTotal.toFixed(2)}</p>
         <p className="text-xs text-white/50 font-outfit mt-0.5">
-          {new Date(receipt.purchaseDate).toLocaleDateString("en-CA", {
-            weekday: "long", year: "numeric", month: "long", day: "numeric",
-          })}
+          Tuesday, February 18, 2025
         </p>
       </div>
 
@@ -168,9 +166,9 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
       {/* Category Groups — scrollable area with fade edges */}
       <div className="relative flex-1 min-h-0">
         {/* Top fade */}
-        <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-[hsl(258_40%_25%)] to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-6 z-10 pointer-events-none" style={{ background: "linear-gradient(to bottom, hsl(258 40% 25%), transparent)" }} />
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-[hsl(258_40%_25%)] to-transparent z-10 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-10 z-10 pointer-events-none" style={{ background: "linear-gradient(to top, hsl(258 40% 25%), hsl(258 40% 25% / 0.6) 40%, transparent)" }} />
 
         <div
           className="flex flex-col gap-3 h-full overflow-y-auto py-2"
