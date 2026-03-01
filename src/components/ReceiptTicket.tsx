@@ -17,7 +17,7 @@ export default function ReceiptTicket({ receipt, full }: ReceiptTicketProps) {
           ${receipt.total.toFixed(2)}
         </p>
         <p className="text-center text-xs text-muted-foreground font-outfit mt-1">
-          {new Date(receipt.date).toLocaleDateString("en-CA", {
+          {new Date(receipt.date + "T12:00:00").toLocaleDateString("en-CA", {
             weekday: "long",
             year: "numeric",
             month: "long",
