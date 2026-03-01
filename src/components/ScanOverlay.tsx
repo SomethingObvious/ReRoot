@@ -33,7 +33,7 @@ const bubbleConfigs = Array.from({ length: 8 }, (_, i) => ({
 
 function PurpleBubbles() {
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none z-0" style={{ overflow: "visible" }}>
       {bubbleConfigs.map((cfg, i) => (
         <div
           key={i}
@@ -42,8 +42,8 @@ function PurpleBubbles() {
             width: cfg.size,
             height: cfg.size,
             left: cfg.left,
-            bottom: "0px",
-            background: `radial-gradient(circle, hsl(152 50% 55% / 0.6), hsl(152 45% 40% / 0.2))`,
+            bottom: "0",
+            background: `radial-gradient(circle, hsl(152 50% 55% / 0.5), hsl(152 45% 40% / 0.15))`,
             animation: `bubble-rise ${cfg.duration} ease-in-out ${cfg.delay} infinite`,
             willChange: "transform, opacity",
           }}
@@ -229,24 +229,26 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                   className="flex flex-col items-center justify-center gap-8 flex-1 -mt-[40%]"
                 >
                   <div className="relative flex flex-col items-center gap-8">
-                    <PurpleBubbles />
-                    <motion.div
-                      animate={{ rotateY: 360 }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      className="text-7xl"
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
-                      🌱
-                    </motion.div>
+                    <div className="relative">
+                      <PurpleBubbles />
+                      <motion.div
+                        animate={{ rotateY: 360 }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                        className="text-7xl relative z-10"
+                        style={{ transformStyle: "preserve-3d" }}
+                      >
+                        🌱
+                      </motion.div>
+                    </div>
                     <motion.p
                       key={processingText}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="text-rose-100/80 text-lg font-outfit font-medium"
+                      className="text-rose-100/80 text-lg font-outfit font-medium relative z-10"
                     >
                       {processingTexts[processingText]}
                     </motion.p>
-                    <div className="w-48 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="w-48 h-2 bg-white/10 rounded-full overflow-hidden relative z-10">
                       <motion.div
                         className="h-full rounded-full"
                         style={{ background: "linear-gradient(90deg, hsl(152 50% 45%), hsl(152 55% 55%))" }}
