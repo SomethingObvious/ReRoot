@@ -139,11 +139,11 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto flex flex-col gap-4">
-      {/* Store & Date Header */}
-      <div className="text-center">
+    <div className="w-full max-w-sm mx-auto flex flex-col h-full">
+      {/* Store & Date Header — sticky */}
+      <div className="text-center pb-3 shrink-0">
         <p className="text-xs tracking-widest uppercase text-white/50 font-outfit">{receipt.storeName}</p>
-        <p className="text-2xl font-bold font-outfit text-white mt-1">${receipt.finalTotal.toFixed(2)}</p>
+        <p className="text-2xl font-bold font-outfit text-white mt-0.5">${receipt.finalTotal.toFixed(2)}</p>
         <p className="text-xs text-white/50 font-outfit mt-0.5">
           {new Date(receipt.purchaseDate).toLocaleDateString("en-CA", {
             weekday: "long", year: "numeric", month: "long", day: "numeric",
@@ -156,7 +156,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-400/25"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-amber-500/15 border border-amber-400/25 mb-3 shrink-0"
         >
           <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
           <span className="text-xs font-outfit font-medium text-amber-300">
@@ -165,93 +165,98 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
         </motion.div>
       )}
 
-      {/* Category Groups — scrollable with hidden scrollbar */}
-      <div
-        className="flex flex-col gap-3 max-h-[45vh] overflow-y-auto"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        <style>{`.receipt-scroll::-webkit-scrollbar { display: none; }`}</style>
-        {categories.map((cat) => {
-          const config = categoryConfig[cat];
-          const catItems = grouped[cat];
-          const catTotal = catItems.reduce((s, i) => s + i.lineTotal, 0);
-          const isOpen = expandedCategory === cat;
+      {/* Category Groups — scrollable area with fade edges */}
+      <div className="relative flex-1 min-h-0">
+        {/* Top fade */}
+        <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-[hsl(258_40%_25%)] to-transparent z-10 pointer-events-none" />
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-[hsl(258_40%_25%)] to-transparent z-10 pointer-events-none" />
 
-          return (
-            <div key={cat} className="rounded-2xl overflow-hidden shrink-0" style={{ flexShrink: 0 }}>
-              <button
-                onClick={() => setExpandedCategory(isOpen ? null : cat)}
-                className="w-full flex items-center justify-between px-4 py-3 rounded-2xl shrink-0"
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-base">{config.emoji}</span>
-                  <span className="text-sm font-outfit font-semibold text-white">{cat}</span>
-                  <span className="text-xs text-white/40 font-outfit">({catItems.length})</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-outfit font-bold text-white">${catTotal.toFixed(2)}</span>
-                  {isOpen ? <ChevronUp className="w-4 h-4 text-white/40" /> : <ChevronDown className="w-4 h-4 text-white/40" />}
-                </div>
-              </button>
+        <div
+          className="flex flex-col gap-3 h-full overflow-y-auto py-2"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {categories.map((cat) => {
+            const config = categoryConfig[cat];
+            const catItems = grouped[cat];
+            const catTotal = catItems.reduce((s, i) => s + i.lineTotal, 0);
+            const isOpen = expandedCategory === cat;
 
-              <AnimatePresence>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="overflow-hidden"
-                  >
-                    <div className="flex flex-col gap-2 p-2 pt-2">
-                      {catItems.map((item) => (
-                        <EditableLineItem key={item.id} item={item} onChange={handleItemChange} />
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
-      </div>
+            return (
+              <div key={cat} className="rounded-2xl overflow-hidden shrink-0">
+                <button
+                  onClick={() => setExpandedCategory(isOpen ? null : cat)}
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-2xl shrink-0"
+                  style={{
+                    background: "rgba(255,255,255,0.06)",
+                    border: "1px solid rgba(255,255,255,0.10)",
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">{config.emoji}</span>
+                    <span className="text-sm font-outfit font-semibold text-white">{cat}</span>
+                    <span className="text-xs text-white/40 font-outfit">({catItems.length})</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-outfit font-bold text-white">${catTotal.toFixed(2)}</span>
+                    {isOpen ? <ChevronUp className="w-4 h-4 text-white/40" /> : <ChevronDown className="w-4 h-4 text-white/40" />}
+                  </div>
+                </button>
 
-      {/* Totals Breakdown */}
-      <div className="rounded-2xl px-4 py-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
-        <div className="flex justify-between text-xs font-outfit text-white/50">
-          <span>Extracted Items Total</span>
-          <span>${receipt.extractedItemsTotal.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between text-xs font-outfit text-white/50">
-          <span>Discounts / Adjustments</span>
-          <span className="text-emerald-400">{receipt.adjustmentsTotal >= 0 ? "+" : ""}${receipt.adjustmentsTotal.toFixed(2)}</span>
-        </div>
-        <div className="border-t border-dashed border-white/15 pt-1.5 flex justify-between">
-          <span className="text-sm font-outfit font-semibold text-white">Receipt Total</span>
-          <span className="text-sm font-outfit font-bold text-white">${receipt.finalTotal.toFixed(2)}</span>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="flex flex-col gap-2 p-2 pt-2">
+                        {catItems.map((item) => (
+                          <EditableLineItem key={item.id} item={item} onChange={handleItemChange} />
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Confirm Button */}
-      <motion.button
-        whileTap={{ scale: 0.95 }}
-        onClick={handleConfirm}
-        className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2"
-        style={{
-          background: "linear-gradient(180deg, hsl(142 71% 50%) 0%, hsl(142 71% 40%) 100%)",
-          color: "white",
-        }}
-      >
-        <Check className="w-5 h-5" />
-        Confirm & Save — +{receipt.pointsEarned} pts
-      </motion.button>
+      {/* Totals Breakdown — always visible */}
+      <div className="shrink-0 pt-3 flex flex-col gap-4">
+        <div className="rounded-2xl px-4 py-3 space-y-1.5" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.10)" }}>
+          <div className="flex justify-between text-xs font-outfit text-white/50">
+            <span>Extracted Items Total</span>
+            <span>${receipt.extractedItemsTotal.toFixed(2)}</span>
+          </div>
+          <div className="flex justify-between text-xs font-outfit text-white/50">
+            <span>Discounts / Adjustments</span>
+            <span className="text-emerald-400">{receipt.adjustmentsTotal >= 0 ? "+" : ""}${receipt.adjustmentsTotal.toFixed(2)}</span>
+          </div>
+          <div className="border-t border-dashed border-white/15 pt-1.5 flex justify-between">
+            <span className="text-sm font-outfit font-semibold text-white">Receipt Total</span>
+            <span className="text-sm font-outfit font-bold text-white">${receipt.finalTotal.toFixed(2)}</span>
+          </div>
+        </div>
+
+        {/* Confirm Button */}
+        <motion.button
+          whileTap={{ scale: 0.95 }}
+          onClick={handleConfirm}
+          className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2"
+          style={{
+            background: "linear-gradient(180deg, hsl(142 71% 50%) 0%, hsl(142 71% 40%) 100%)",
+            color: "white",
+          }}
+        >
+          <Check className="w-5 h-5" />
+          Confirm & Save — +{receipt.pointsEarned} pts
+        </motion.button>
+      </div>
     </div>
   );
 }
