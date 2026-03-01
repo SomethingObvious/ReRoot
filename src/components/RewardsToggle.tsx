@@ -9,7 +9,6 @@ export default function RewardsToggle() {
     <div className="space-y-0">
       {/* Aero Glass Card */}
       <motion.div
-        layout
         className="relative rounded-3xl p-5 overflow-hidden"
         style={{
           background: isPublic
