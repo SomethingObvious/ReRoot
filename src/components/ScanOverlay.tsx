@@ -91,6 +91,7 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
       streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        await videoRef.current.play();
       }
     } catch {
       // Camera not available — user can still use file upload
