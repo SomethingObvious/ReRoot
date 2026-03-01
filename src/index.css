@@ -72,9 +72,9 @@
   body {
     @apply bg-background text-foreground font-outfit antialiased;
     background: linear-gradient(160deg,
-      hsl(330 30% 40%) 0%,
-      hsl(335 25% 37%) 50%,
-      hsl(330 20% 34%) 100%
+      hsl(330 30% 55%) 0%,
+      hsl(335 25% 52%) 50%,
+      hsl(330 20% 49%) 100%
     );
     min-height: 100vh;
   }
