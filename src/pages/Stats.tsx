@@ -76,7 +76,7 @@ export default function Stats() {
       initial="hidden"
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.06 } } }}
-      className="px-4 pt-14 pb-32 max-w-lg mx-auto"
+      className="px-4 pt-8 pb-32 max-w-lg mx-auto"
     >
       {/* Header */}
       <motion.div variants={fadeUp} className="flex items-center gap-2 mb-5">

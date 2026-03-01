@@ -41,7 +41,7 @@ export default function Wallet() {
       initial="hidden"
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.1 } } }}
-      className="px-5 pt-14 pb-32 max-w-lg mx-auto"
+      className="px-5 pt-8 pb-32 max-w-lg mx-auto"
     >
       <motion.h1 variants={fadeUp} className="text-2xl font-outfit font-bold text-foreground mb-5">
         Wallet
