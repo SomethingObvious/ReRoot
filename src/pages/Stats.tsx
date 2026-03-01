@@ -285,7 +285,7 @@ export default function Stats() {
                 <div className="h-1.5 rounded-full bg-muted overflow-hidden">
                   <motion.div
                     className="h-full rounded-full"
-                    style={{ background: "linear-gradient(90deg, hsl(258 80% 72%), hsl(292 84% 61%))" }}
+                    style={{ background: "linear-gradient(90deg, hsl(345 70% 45%), hsl(338 65% 55%))" }}
                     initial={{ width: 0 }}
                     animate={{ width: `${cat.pct}%` }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
