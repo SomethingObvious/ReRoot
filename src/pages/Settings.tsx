@@ -12,13 +12,33 @@ const fadeUp = {
   show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 30 } },
 };
 
+const CATEGORIES = [
+  { key: "Produce", icon: "🥬", label: "Produce" },
+  { key: "Meat", icon: "🥩", label: "Meat" },
+  { key: "Dairy", icon: "🥛", label: "Dairy" },
+  { key: "Frozen", icon: "🧊", label: "Frozen" },
+  { key: "Grocery", icon: "🛒", label: "Grocery" },
+] as const;
+
+type AlertWindow = "1d" | "3d" | "1w" | "off";
+const ALERT_OPTIONS: { value: AlertWindow; label: string }[] = [
+  { value: "off", label: "Off" },
+  { value: "1d", label: "1 day" },
+  { value: "3d", label: "3 days" },
+  { value: "1w", label: "1 week" },
+];
+
 export default function Settings() {
   const navigate = useNavigate();
   const [watchItems, setWatchItems] = useState(PRICE_WATCH_ITEMS);
   const { fridgeItems } = useFridge();
-  const [expiryAlerts, setExpiryAlerts] = useState<Record<string, boolean>>(() =>
-    Object.fromEntries(fridgeItems.map((item) => [item.id, item.daysLeft <= 3]))
-  );
+  const [expiryWindows, setExpiryWindows] = useState<Record<string, AlertWindow>>({
+    Produce: "1d",
+    Meat: "3d",
+    Dairy: "3d",
+    Frozen: "1w",
+    Grocery: "off",
+  });
 
   const toggleWatch = (id: string) => {
     setWatchItems((prev) =>
@@ -29,8 +49,8 @@ export default function Settings() {
     toast.success("Saved ✓", { duration: 1500 });
   };
 
-  const toggleExpiryAlert = (id: string) => {
-    setExpiryAlerts((prev) => ({ ...prev, [id]: !prev[id] }));
+  const setExpiryWindow = (category: string, value: AlertWindow) => {
+    setExpiryWindows((prev) => ({ ...prev, [category]: value }));
     toast.success("Saved ✓", { duration: 1500 });
   };
 
@@ -83,39 +103,48 @@ export default function Settings() {
           <h2 className="text-sm font-outfit font-semibold text-foreground">Expiry Alerts</h2>
         </div>
         <div className="glass-strong rounded-3xl overflow-hidden divide-y divide-border">
-          {fridgeItems.map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-4">
-              <div className="flex items-center gap-3">
-                <span className="text-lg">{item.icon}</span>
-                <div>
-                  <p className="text-sm font-outfit font-medium text-foreground">{item.name}</p>
-                  <p className="text-xs font-outfit text-muted-foreground">
-                    {item.daysLeft <= 0
-                      ? "Expired"
-                      : item.daysLeft === 1
-                      ? "1 day left"
-                      : `${item.daysLeft} days left`}
-                  </p>
+          {CATEGORIES.map((cat) => {
+            const count = fridgeItems.filter((i) => i.category === cat.key).length;
+            return (
+              <div key={cat.key} className="flex items-center justify-between p-4">
+                <div className="flex items-center gap-3">
+                  <span className="text-lg">{cat.icon}</span>
+                  <div>
+                    <p className="text-sm font-outfit font-medium text-foreground">{cat.label}</p>
+                    <p className="text-xs font-outfit text-muted-foreground">
+                      {count} item{count !== 1 ? "s" : ""} in fridge
+                    </p>
+                  </div>
+                </div>
+                <div className="flex gap-1">
+                  {ALERT_OPTIONS.map((opt) => (
+                    <motion.button
+                      key={opt.value}
+                      whileTap={{ scale: 0.92 }}
+                      onClick={() => setExpiryWindow(cat.key, opt.value)}
+                      className="px-2.5 py-1 rounded-full text-xs font-outfit font-medium transition-colors"
+                      style={{
+                        background:
+                          expiryWindows[cat.key] === opt.value
+                            ? opt.value === "off"
+                              ? "hsl(270 25% 93%)"
+                              : "linear-gradient(180deg, hsl(35 90% 55%), hsl(25 85% 45%))"
+                            : "transparent",
+                        color:
+                          expiryWindows[cat.key] === opt.value
+                            ? opt.value === "off"
+                              ? "hsl(var(--muted-foreground))"
+                              : "white"
+                            : "hsl(var(--muted-foreground))",
+                      }}
+                    >
+                      {opt.label}
+                    </motion.button>
+                  ))}
                 </div>
               </div>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={() => toggleExpiryAlert(item.id)}
-                className="w-12 h-7 rounded-full flex items-center px-1 transition-colors"
-                style={{
-                  background: expiryAlerts[item.id]
-                    ? "linear-gradient(180deg, hsl(35 90% 55%), hsl(25 85% 45%))"
-                    : "hsl(270 25% 93%)",
-                }}
-              >
-                <motion.div
-                  className="w-5 h-5 rounded-full bg-card shadow-sm"
-                  animate={{ x: expiryAlerts[item.id] ? 20 : 0 }}
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
-              </motion.button>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </motion.div>
 
