@@ -347,7 +347,7 @@ export default function ReceiptReview({ receipt, onConfirm }: ReceiptReviewProps
           onClick={handleConfirm}
           className="w-full py-4 rounded-full font-outfit font-semibold text-lg shadow-deep flex items-center justify-center gap-2 backdrop-blur-md border border-emerald-400/20"
           style={{
-            background: "#6DA87E",
+            background: "linear-gradient(180deg, rgba(109, 168, 126, 0.6) 0%, rgba(109, 168, 126, 0.35) 100%)",
             color: "rgba(255,255,255,0.95)",
           }}
         >
