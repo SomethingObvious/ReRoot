@@ -45,7 +45,7 @@ export default function Settings() {
       initial="hidden"
       animate="show"
       variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-      className="px-5 pt-14 pb-32 max-w-lg mx-auto"
+      className="px-5 pt-8 pb-32 max-w-lg mx-auto"
     >
       <motion.div variants={fadeUp} className="flex items-center gap-3 mb-6">
         <motion.button
