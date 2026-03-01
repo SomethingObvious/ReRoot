@@ -210,20 +210,6 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
               )}
 
               {/* Flash toggle below frame */}
-              {stage === "viewfinder" && (
-                <div className="flex items-center justify-center mt-4">
-                  <motion.button
-                    whileTap={{ scale: 0.9 }}
-                    onClick={() => setFlash(!flash)}
-                    className="w-10 h-10 rounded-full flex items-center justify-center"
-                    style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
-                  >
-                    {flash
-                      ? <Zap className="w-4 h-4" style={{ color: "hsl(45 93% 55%)" }} />
-                      : <ZapOff className="w-4 h-4" style={{ color: "hsl(0 0% 60%)" }} />}
-                  </motion.button>
-                </div>
-              )}
 
               {stage === "processing" && (
                 <motion.div
@@ -351,8 +337,17 @@ export default function ScanOverlay({ isOpen, onClose, onReceiptSaved }: ScanOve
                 <Camera className="w-7 h-7 text-foreground/70" style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.3))" }} />
               </motion.button>
 
-              {/* Spacer for symmetry */}
-              <div className="w-14 h-14" />
+              {/* Flash toggle */}
+              <motion.button
+                whileTap={{ scale: 0.85 }}
+                onClick={() => setFlash(!flash)}
+                className="w-14 h-14 rounded-full flex items-center justify-center border border-white/20"
+                style={{ background: flash ? "hsl(45 93% 50% / 0.2)" : "hsl(0 0% 100% / 0.1)" }}
+              >
+                {flash
+                  ? <Zap className="w-5 h-5" style={{ color: "hsl(45 93% 55%)" }} />
+                  : <ZapOff className="w-5 h-5" style={{ color: "hsl(0 0% 60%)" }} />}
+              </motion.button>
 
               <input
                 ref={fileInputRef}
