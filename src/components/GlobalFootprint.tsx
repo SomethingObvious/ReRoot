@@ -44,8 +44,8 @@ export default function GlobalFootprint() {
         </div>
 
         <div className="rounded-xl p-2.5" style={{ background: "hsl(142 71% 45% / 0.08)" }}>
-          <p className="text-[10px] font-outfit text-success font-semibold text-center">
-            🌿 Your food traveled 40% less distance than the average user
+          <p className="text-[10px] font-outfit text-success font-medium text-center">
+            🌿 Your food traveled <strong>40% less distance</strong> than the <strong>average user</strong>
           </p>
         </div>
       </div>
